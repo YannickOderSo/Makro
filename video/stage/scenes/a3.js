@@ -31,7 +31,7 @@ V.scene('a3', ctx => {
     #sc-a3 .gvx{position:relative;display:inline-block}
     #sc-a3 .gvx .strk{position:absolute;left:-8px;right:-8px;top:52%;height:7px;background:var(--c2);transform:rotate(-14deg)}
     #sc-a3 .hint{font-family:var(--sans);font-size:28px;font-weight:700;margin-left:28px}
-    #sc-a3 .eq .res b{text-decoration:underline double;text-decoration-thickness:3px;text-underline-offset:8px}
+    #sc-a3 .eq .rr b{text-decoration:underline double;text-decoration-thickness:3px;text-underline-offset:8px}
     #sc-a3 .bw{position:absolute;left:0}
     #sc-a3 .bl{display:flex;justify-content:space-between;font-family:var(--mono);font-weight:700;font-size:26px;letter-spacing:.04em;margin-bottom:6px;white-space:nowrap}
     #sc-a3 .bar{position:relative;height:66px;border:4px solid var(--ink);background:var(--panel);box-shadow:6px 6px 0 var(--line)}
@@ -44,7 +44,7 @@ V.scene('a3', ctx => {
     ${giv('gM', 'Geldmenge wächst', `${g('M')} = 14 %`, 'c4')}
     ${giv('gY', 'reales BIP wächst', `${g('Y')} = 5 %`, 'c1')}
     ${giv('gi', 'Nominalzins', 'i = 11 %', '')}
-    ${giv('gV', 'Umlaufgeschwindigkeit', '<span id="gVv">V konstant</span>', '')}
+    ${giv('gV', 'Umlaufgeschw.', '<span id="gVv">V konstant</span>', '')}
     ${giv('gr', 'Gesucht: Realzins', '<span id="grv">r = ?</span>', 'c3')}
   </div>
 
@@ -61,8 +61,8 @@ V.scene('a3', ctx => {
       <span class="op">=</span><span id="sP">${sym('P', 'Preisniveau', 't-c2')}</span><span class="op dot" id="d2">·</span><span id="sY">${sym('Y', 'reales BIP', 't-c1')}</span>
     </div>
     <div class="row" id="q2" style="top:208px"><span class="eq"><span class="t-c4">${g('M')}</span> <span class="pl" id="pl1">·</span> <span class="gvx" id="gvx"><span id="gvt">${g('V')}</span><span class="strk" id="strk"></span></span> = <span class="t-c2">π</span> <span class="pl" id="pl2">·</span> <span class="t-c1">${g('Y')}</span></span><span class="chip c4 hint" id="hint">Wachstumsraten: aus · wird +</span></div>
-    <div class="row" id="q3" style="top:306px"><span class="eq" style="font-size:46px"><span class="t-c2">π</span> = <span class="t-c4">${g('M')}</span> − <span class="t-c1">${g('Y')}</span><span id="q3n"> = <span class="t-c4">14 %</span> − <span class="t-c1">5 %</span></span><span class="res" id="q3r"> = <b class="t-c2" id="piv">9 %</b></span></span></div>
-    <div class="bw" id="bA" style="top:396px;width:${14 * PX}px">
+    <div class="row" id="q3" style="top:306px"><span class="eq" style="font-size:46px"><span class="t-c2">π</span> = <span class="t-c4">${g('M')}</span> − <span class="t-c1">${g('Y')}</span><span id="q3n"> = <span class="t-c4">14 %</span> − <span class="t-c1">5 %</span></span><span class="rr" id="q3r"> = <b class="t-c2" id="piv">9 %</b></span></span></div>
+    <div class="bw" id="bA" style="top:388px;width:${14 * PX}px">
       <div class="bl"><span class="t-c4">GELDMENGENWACHSTUM 14 %</span></div>
       <div class="bar"><div class="seg" id="aY" style="left:0;width:${5 * PX}px;background:${C.c1}">5 % real</div><div class="seg" id="aP" style="left:${5 * PX}px;width:${9 * PX - 8}px;background:${C.c2}">9 % Inflation</div></div>
     </div>
@@ -75,8 +75,8 @@ V.scene('a3', ctx => {
       <span id="fi">${sym('i', 'Nominalzins')}</span><span class="op">=</span><span id="fr">${sym('r', 'Realzins', 't-c3')}</span><span class="op">+</span><span id="fp">${sym('π', 'Inflation', 't-c2')}</span>
     </div>
     <div class="row" id="f2" style="top:208px"><span class="eq"><span class="t-c3">r</span> = i − <span class="t-c2">π</span></span><span class="chip hint" id="hint2">umgestellt</span></div>
-    <div class="row" id="f3" style="top:306px"><span class="eq" style="font-size:46px"><span class="t-c3">r</span> = 11 % − <span class="t-c2">9 %</span><span class="res" id="f3r"> = <b class="t-c3" id="rv">2 %</b></span></span></div>
-    <div class="bw" id="bB" style="top:396px;width:${11 * PX}px">
+    <div class="row" id="f3" style="top:306px"><span class="eq" style="font-size:46px"><span class="t-c3">r</span> = 11 % − <span class="t-c2">9 %</span><span class="rr" id="f3r"> = <b class="t-c3" id="rv">2 %</b></span></span></div>
+    <div class="bw" id="bB" style="top:388px;width:${11 * PX}px">
       <div class="bl"><span>NOMINALZINS 11 %</span><span class="t-c3" id="bBr">REAL</span></div>
       <div class="bar"><div class="seg" id="bP" style="left:0;width:${9 * PX}px;background:${C.c2}"><span id="bPt">9 % Inflation</span></div><div class="seg" id="bR" style="left:${9 * PX}px;width:${2 * PX - 8}px;background:${C.c3}">2 %</div></div>
     </div>
@@ -147,10 +147,12 @@ V.scene('a3', ctx => {
   ctx.undim('#p2h', tf).pulse($('#p2 .step'), tf, { scale: 1.25 });
   ctx.dim(['#q1', '#q2', '#p1 .ph'].map(s => $(s)), tf, { to: 0.45 });
   const tn2 = T('Der Nominalzins ist');
-  tl.set($('#f1'), { autoAlpha: 1 }, tn2 - 0.1);
+  // Vorschau: die zweite Gleichung steht schon blass da, während Schritt 1 läuft
+  tl.set($('#f1'), { autoAlpha: 1 }, t0 + 0.8);
   gsap.set($$('#f1 > *'), { autoAlpha: 0 });
-  [['#fi', tn2], ['#f1 .op', T('ist der Realzins')], ['#fr', T('der Realzins plus')], ['#f1 .op + span + .op', T('plus die Inflation')], ['#fp', T('plus die Inflation') + 0.3]]
-    .forEach(([s, t]) => { const e = $(s); gsap.set(e, { y: 18 }); tl.to(e, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power3.out' }, t); });
+  tl.to($$('#f1 > *'), { autoAlpha: 0.2, duration: 0.5 }, t0 + 0.9);
+  [['#fi', tn2], ['#f1 .op', T('ist der Realzins', { n: 2 })], ['#fr', T('der Realzins plus')], ['#f1 .op + span + .op', T('plus die Inflation')], ['#fp', T('plus die Inflation') + 0.3]]
+    .forEach(([s, t]) => { const e = $(s); tl.to(e, { autoAlpha: 1, duration: 0.3, ease: 'power2.out' }, t); ctx.pulse(e, t, { scale: 1.18 }); });
   ctx.pulse('#gi', tn2, { scale: 1.08 }).pulse('#piv', T('plus die Inflation') + 0.3, { scale: 1.25 });
   // Balken B: 11 % = 9 % Inflation + 2 % Realzins
   gsap.set($('#bBr'), { autoAlpha: 0 });

@@ -7,7 +7,7 @@ V.scene('a9b', ctx => {
   const QS = ['LRAS / SRAS', 'Output, Preise', 'Neutralität', 'real / nominal', 'Geldfunktionen'];
   const chk = `<svg class="chk" width="40" height="40" viewBox="0 0 40 40"><path d="M10 21l7 7 13-16" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const note = V.icon('note', 92, { tone: 4 });
-  const tag = (price, tone) => `<span class="ptag">${V.icon('tag', 118, { tone })}<b>${price}</b></span>`;
+  const tag = (price, tone) => `<span class="ptag">${V.icon('tag', 150, { tone })}<b>${price}</b></span>`;
 
   ctx.html(`
   <style>
@@ -33,21 +33,22 @@ V.scene('a9b', ctx => {
     #sc-a9b .mc{top:84px;width:840px;height:602px;padding:28px 34px}
     #sc-a9b .mc .hd4{display:flex;align-items:center;gap:26px}
     #sc-a9b .mc .ttl{font-size:46px;font-weight:800;letter-spacing:-.015em;line-height:1.1}
-    #sc-a9b .mc .ms{font-size:38px;font-weight:600;line-height:1.5;margin-top:18px;white-space:nowrap}
+    #sc-a9b .mc .ms{font-size:36px;font-weight:600;line-height:1.3;margin-top:16px;white-space:nowrap}
+    #sc-a9b .mc .ms .gp{font-size:44px;margin:4px 0 0}
     #sc-a9b .ex{margin-top:22px;background:var(--soft);padding:16px 22px 18px}
     #sc-a9b .ex .lab{margin-bottom:2px}
     #sc-a9b .ex .exl{font-size:36px;font-weight:700}
-    #sc-a9b .ex .icons{display:flex;gap:12px;align-items:center;margin-top:10px;height:70px}
+    #sc-a9b .ex .icons{display:flex;gap:14px;align-items:center;margin-top:10px;height:76px}
     #sc-a9b .ex .unit{font-family:var(--mono);font-weight:800;font-size:44px;margin-left:10px}
     #sc-a9b .more{margin-top:20px;display:flex;gap:14px;align-items:center;font-size:28px;color:var(--mute);font-weight:600}
     /* Frage 5 */
     #sc-a9b .fc{top:84px;width:552px;height:602px;padding:26px 28px;text-align:center}
     #sc-a9b .fc .step{position:absolute;left:22px;top:22px}
-    #sc-a9b .fc .gfx{height:230px;display:flex;align-items:center;justify-content:center;gap:16px;margin-top:38px}
-    #sc-a9b .fc .ttl{font-size:38px;font-weight:800;letter-spacing:-.02em;margin-top:18px;white-space:nowrap}
-    #sc-a9b .fc .ds{font-size:30px;line-height:1.3;color:var(--ink);font-weight:500;margin-top:14px}
+    #sc-a9b .fc .gfx{height:270px;display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px}
+    #sc-a9b .fc .ttl{font-size:37px;font-weight:800;letter-spacing:-.02em;margin-top:16px;white-space:nowrap}
+    #sc-a9b .fc .ds{font-size:32px;line-height:1.3;color:var(--ink);font-weight:500;margin-top:12px}
     #sc-a9b .ptag{position:relative;display:inline-block}
-    #sc-a9b .ptag b{position:absolute;left:14px;top:54px;width:104px;text-align:center;font-family:var(--mono);font-weight:800;font-size:30px;color:#fff;transform:rotate(-44deg)}
+    #sc-a9b .ptag b{position:absolute;left:20px;top:66px;width:120px;text-align:center;font-family:var(--mono);font-weight:800;font-size:36px;color:#fff;transform:rotate(-44deg)}
     #sc-a9b .cmp{font-family:var(--mono);font-weight:800;font-size:60px}
     #sc-a9b .cap{font-family:var(--mono);font-weight:700;font-size:26px;color:var(--mute);letter-spacing:.06em}
     #sc-a9b .tcol{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -69,7 +70,7 @@ V.scene('a9b', ctx => {
       <span class="chip c4" id="cP">P × 2</span>
     </div>
     <div class="abs card c3 pn" id="pY" style="left:1228px">
-      <span class="lab">Reale Größen · z. B. Output Y</span>
+      <span class="lab">Reale Größen · Output Y</span>
       <div class="vis"><div class="col"><span class="v t-c3">Y</span><div class="bar" id="bY" style="height:230px;background:var(--c3bg);border-color:var(--c3)"></div></div></div>
       <span class="chip c3" id="cY">bleibt gleich</span>
     </div>
@@ -80,16 +81,16 @@ V.scene('a9b', ctx => {
     <div class="abs" style="left:0;top:0"><span class="q">Wie wird gemessen?</span></div>
     <div class="abs card c4 mc" id="mN" style="left:0">
       <div class="hd4">${V.icon('coin', 104, { tone: 4 })}<div><span class="lab">nominal</span><div class="ttl t-c4">Nominale Variablen</div></div></div>
-      <div class="ms">gemessen in ${gap('Geldeinheiten', 'g2')}</div>
+      <div class="ms" id="msN">gemessen in<br>${gap('Geldeinheiten', 'g2')}</div>
       <div class="ex" id="exN"><span class="lab">Beispiel</span><div class="exl">Nominallohn in Euro</div>
-        <div class="icons" id="icN">${V.icon('coin', 62, { tone: 4 }).repeat(5)}<span class="unit t-c4">€</span></div></div>
+        <div class="icons" id="icN">${V.icon('coin', 72, { tone: 4 }).repeat(5)}<span class="unit t-c4">€</span></div></div>
       <div class="more" id="moN">auch: <span class="chip c4">Nominalzins</span><span class="chip c4">Preisniveau</span></div>
     </div>
     <div class="abs card c3 mc" id="mR" style="left:888px">
       <div class="hd4">${V.icon('basket', 104, { tone: 3 })}<div><span class="lab">real</span><div class="ttl t-c3">Reale Variablen</div></div></div>
-      <div class="ms">gemessen in ${gap('Mengen- bzw. Gütereinheiten', 'g3')}</div>
+      <div class="ms" id="msR">gemessen in<br>${gap('Mengen- bzw. Gütereinheiten', 'g3')}</div>
       <div class="ex" id="exR"><span class="lab">Beispiel</span><div class="exl">Reallohn in Gütern</div>
-        <div class="icons" id="icR">${V.icon('apple', 62, { tone: 2 })}${V.icon('pear', 62, { tone: 3 })}${V.icon('boxes', 62, { tone: 4 })}${V.icon('computer', 62, { tone: 1 })}${V.icon('car', 62, { tone: 2 })}</div></div>
+        <div class="icons" id="icR">${V.icon('apple', 72, { tone: 2 })}${V.icon('pear', 72, { tone: 3 })}${V.icon('boxes', 72, { tone: 4 })}${V.icon('computer', 72, { tone: 1 })}${V.icon('car', 72, { tone: 2 })}</div></div>
       <div class="more" id="moR">auch: <span class="chip c3">Realzins</span><span class="chip c3">realer Output</span></div>
     </div>
   </div>
@@ -99,9 +100,9 @@ V.scene('a9b', ctx => {
     <div class="abs" style="left:0;top:0"><span class="q">Die <span class="t-c4">drei Funktionen</span> des Geldes</span></div>
     <div class="abs card c4 fc" id="f1" style="left:0">
       <span class="step">1</span>
-      <div class="gfx"><div class="tcol">${V.icon('cart', 120, { tone: 1 })}<span class="cap">WARE</span></div>
+      <div class="gfx"><div class="tcol">${V.icon('cart', 132, { tone: 1 })}<span class="cap">WARE</span></div>
         <svg id="xsvg" width="130" height="120"></svg>
-        <div class="tcol">${V.icon('coin', 120, { tone: 4 })}<span class="cap">GELD</span></div></div>
+        <div class="tcol">${V.icon('coin', 132, { tone: 4 })}<span class="cap">GELD</span></div></div>
       <div class="ttl">Tauschmittel</div>
       <div class="ds">Kaufen und verkaufen, ohne erst einen passenden Tauschpartner zu suchen</div>
     </div>
@@ -113,9 +114,9 @@ V.scene('a9b', ctx => {
     </div>
     <div class="abs card c4 fc" id="f3" style="left:1176px">
       <span class="step">3</span>
-      <div class="gfx" style="gap:10px"><div class="tcol">${V.icon('coin', 96, { tone: 4 })}<span class="cap">HEUTE</span></div>
-        <svg id="wsvg" width="230" height="130"></svg>
-        <div class="tcol">${V.icon('coin', 96, { tone: 4 })}<span class="cap">MORGEN</span></div></div>
+      <div class="gfx" style="gap:10px"><div class="tcol">${V.icon('coin', 110, { tone: 4 })}<span class="cap">HEUTE</span></div>
+        <svg id="wsvg" width="230" height="150"></svg>
+        <div class="tcol">${V.icon('coin', 110, { tone: 4 })}<span class="cap">MORGEN</span></div></div>
       <div class="ttl">Wertaufbewahrungsmittel</div>
       <div class="ds">Kaufkraft lässt sich in die Zukunft übertragen</div>
     </div>
@@ -176,14 +177,17 @@ V.scene('a9b', ctx => {
   gsap.set($('#s4'), { autoAlpha: 0 }); ctx.to('#s4', { autoAlpha: 1, duration: 0.01 }, t4 - 0.05);
   qDone(2, t4); qActive(3, t4 + 0.15);
   ctx.show('#s4 .q', T('Wie wird gemessen'), { x: -30, y: 0 });
-  gsap.set([$('#exN'), $('#exR'), $('#moN'), $('#moR')], { autoAlpha: 0, y: 20 });
+  gsap.set([$('#msN'), $('#msR'), $('#exN'), $('#exR'), $('#moN'), $('#moR')], { autoAlpha: 0, y: 20 });
   const up = (sel, t) => ctx.to($(sel), { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out' }, t);
-  ctx.show('#mN', T('Nominale Variablen'), { x: -40, y: 0 });
+  ctx.show('#mN', T('Wie wird gemessen') + 0.25, { x: -40, y: 0 }).show('#mR', T('Wie wird gemessen') + 0.4, { x: 40, y: 0 });
+  ctx.pulse('#mN .ttl', T('Nominale Variablen'), { scale: 1.08, origin: '0% 50%' });
+  up('#msN', T('Nominale Variablen') + 0.5);
   fillGap('#g2', T('Geldeinheiten'), C.c4, C.c4bg);
   up('#exN', T('zum Beispiel der Nominallohn'));
   ctx.pop($$('#icN > *'), T('Nominallohn in Euro') + 0.5, { stagger: 0.08 });
   up('#moN', T('Nominallohn in Euro') + 1.3);
-  ctx.show('#mR', T('Reale Variablen'), { x: 40, y: 0 });
+  ctx.pulse('#mR .ttl', T('Reale Variablen'), { scale: 1.08, origin: '0% 50%' });
+  up('#msR', T('Reale Variablen') + 0.5);
   fillGap('#g3', T('Mengen- oder'), C.c3, C.c3bg);
   up('#exR', T('zum Beispiel der Reallohn'));
   ctx.pop($$('#icR > *'), T('Reallohn in Gütern') + 0.5, { stagger: 0.08 });
@@ -197,25 +201,30 @@ V.scene('a9b', ctx => {
   ctx.show('#s5 .q', t5 + 0.1, { x: -30, y: 0 });
   ctx.pulse('#s5 .q .t-c4', T('drei Funktionen'), { scale: 1.08 });
   const ds = $$('.fc .ds'); gsap.set(ds, { autoAlpha: 0, y: 16 });
+  // Karten stehen zuerst als leere Rahmen (nur Nummer), der Inhalt kommt zum Stichwort
+  const fcs = $$('.fc'), body5 = fcs.map(f => [f.querySelector('.gfx'), f.querySelector('.ttl')]);
+  ctx.show(fcs, T('die drei Funktionen'), { y: 30, stagger: 0.16 });
+  gsap.set(body5.flat(), { autoAlpha: 0, scale: 0.8 });
+  const fill5 = (i, t) => { ctx.to(body5[i], { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'back.out(1.6)', stagger: 0.1 }, t).pulse(fcs[i], t, { scale: 1.03 }); };
   // 1 Tauschmittel
   const xs = $('#xsvg');
   const x1 = V.arrow(xs, 'M112 38L22 38', { cls: 'c4', w: 7, head: 24 }), x2 = V.arrow(xs, 'M18 80L108 80', { cls: 'c1', w: 7, head: 24 });
   gsap.set([x1, x2], { autoAlpha: 0 });
-  ctx.pop('#f1', T('Tauschmittel') - 0.35, { scale: 0.85 });
+  fill5(0, T('Tauschmittel') - 0.3);
   ctx.to(ds[0], { autoAlpha: 1, y: 0, duration: 0.45 }, T('Man kann kaufen'));
   ctx.drawArrow(x1, T('kaufen und'), 0.45).drawArrow(x2, T('verkaufen,'), 0.45);
   // 2 Recheneinheit
-  ctx.pop('#f2', T('Recheneinheit') - 0.35, { scale: 0.85 });
+  fill5(1, T('Recheneinheit') - 0.3);
   ctx.to(ds[1], { autoAlpha: 1, y: 0, duration: 0.45 }, T('Preise und Schulden'));
   const tags = $$('#f2 .ptag'); gsap.set($('#f2 .cmp'), { autoAlpha: 0, scale: 0.4 });
   ctx.pulse(tags, T('Preise und Schulden'), { scale: 1.12 });
   ctx.to($('#f2 .cmp'), { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, T('vergleichbar'));
   // 3 Wertaufbewahrungsmittel
   const ws = $('#wsvg');
-  ws.innerHTML = `<g class="ico" transform="translate(74 12) scale(0.82)">${V.icon('clock', 100, { tone: 1 }).replace(/<\/?svg[^>]*>/g, '')}</g>`;
-  const w1 = V.arrow(ws, 'M6 112C70 136 160 136 222 112', { cls: 'c4', w: 7, head: 24 });
+  ws.innerHTML = `<g class="ico" transform="translate(65 4)">${V.icon('clock', 100, { tone: 1 }).replace(/<\/?svg[^>]*>/g, '')}</g>`;
+  const w1 = V.arrow(ws, 'M6 128C70 154 160 154 222 128', { cls: 'c4', w: 7, head: 24 });
   gsap.set(w1, { autoAlpha: 0 });
-  ctx.pop('#f3', T('Wertaufbewahrungsmittel') - 0.35, { scale: 0.85 });
+  fill5(2, T('Wertaufbewahrungsmittel') - 0.3);
   ctx.to(ds[2], { autoAlpha: 1, y: 0, duration: 0.45 }, T('Kaufkraft lässt'));
   ctx.drawArrow(w1, T('in die Zukunft'), 0.9);
   const coin2 = $$('#f3 .tcol')[1]; gsap.set(coin2, { autoAlpha: 0.25 });
