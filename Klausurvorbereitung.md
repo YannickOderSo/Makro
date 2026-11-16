@@ -7,10 +7,13 @@ Fast jede Aufgabe der letzten Klausur ist eine Übungsaufgabe aus den Übungsbl�
 ## Aufgabe 1 – BIP und Grundbegriffe
 
 ### a) Definition BIP (Lückenwörter: „Wert“, „Endprodukte“)
-> Das BIP ist der **Marktwert** aller **Endprodukte** (Waren und Dienstleistungen), die innerhalb einer Periode in einer Volkswirtschaft (im Inland) produziert werden.
+Wortlaut aus dem Skript (Teil I, Folie 23):
+> Das BIP ist der **Wert** aller **Endprodukte** einer Volkswirtschaft, die in einem bestimmten, abgeschlossenen Zeitraum erzeugt werden.
 
-- **Marktwert:** Die Güter werden mit Marktpreisen bewertet, damit man sie addieren kann.
-- **Endprodukte:** Vorleistungen werden nicht mitgezählt, damit nichts doppelt gezählt wird.
+- **Wert:** Die Güter werden mit Marktpreisen bewertet, damit man sie addieren kann.
+- **Endprodukte:** Zwischenprodukte werden nicht mitgezählt, damit nichts doppelt gezählt wird.
+
+Laut Skript misst das BIP gleichzeitig die **Gesamtheit der Einkommen** und die **Summe der Ausgaben** für neu produzierte Waren und Dienstleistungen. Deshalb sind Einkommen und Ausgaben gleich hoch.
 
 ### b) Übung 1-5: Ausgabenkategorien (Y = C + I + G + NX)
 | Transaktion | Kategorie |
@@ -23,13 +26,24 @@ Fast jede Aufgabe der letzten Klausur ist eine Übungsaufgabe aus den Übungsbl�
 
 In der Klausur kommen andere Sätze, aber die Logik bleibt gleich: Wer kauft? Ein Haushalt ist C, ein Unternehmen I, der Staat G und das Ausland NX. Was auf Lager produziert wird, ist I.
 
-### c) Keynesianisches Kreuz, Fall 1: Y > E
-- Die geplanten Ausgaben sind kleiner als die Produktion. Die Unternehmen verkaufen also weniger, als sie wollten.
-- Die unverkauften Güter landen im Lager. Das ist eine **ungeplante Lagerzunahme**.
-- Die Unternehmen **entlassen Arbeitskräfte und drosseln die Produktion**.
-- Das BIP sinkt, bis Y = E gilt.
+### c) Folie 31 (Teil I): reales vs. nominales BIP
+Auf Folie 31 geht es um nominales und reales BIP. Unter „Fall 1“ ist vermutlich der erste Punkt der Folie gemeint: **Das nominale BIP kann steigen, weil die Preise und/oder die Mengen steigen.**
+- Das nominale BIP ist deshalb **kein gutes Maß**, um die Güterversorgung in verschiedenen Zeiträumen zu vergleichen.
+- Darum gibt es das **reale BIP**: Man nimmt die Mengen des aktuellen Jahres und bewertet sie mit den Preisen des Basisjahres.
+- Formel: BIP_real(2017) = Preis_Äpfel(2015) · Menge_Äpfel(2017) + Preis_Computer(2015) · Menge_Computer(2017)
+- **Das reale BIP steigt nur, wenn die Mengen steigen.**
 
-Der Gegenfall Fall 2 ist Y < E: Die Lager werden abgebaut, die Unternehmen stellen ein, die Produktion steigt und das BIP wächst, bis Y = E gilt.
+Falls „Fall 1“ doch das keynesianische Kreuz meinte (Teil II, Folie 39), hier der Fall Y > E:
+- Die geplanten Ausgaben sind kleiner als die Produktion. Es kommt zu einer ungeplanten Lagerzunahme.
+- Die Unternehmen entlassen Arbeitskräfte und drosseln die Produktion.
+- Das BIP sinkt, bis Y = E gilt.
+- Fall 2 (Y < E) läuft umgekehrt: Die Lager werden abgebaut, die Unternehmen stellen ein und das BIP steigt.
+
+### d) Zwei Definitionen (wahrscheinlich nominales und reales BIP bzw. BIP-Deflator)
+- **Nominales BIP:** Der Euro-Wert der Produktion, also Mengen mal aktuelle Preise.
+- **Reales BIP:** Die produzierte Menge, bewertet mit konstanten Preisen eines Basisjahres.
+- **BIP-Deflator:** Nominales BIP / reales BIP. Er gibt den Preis einer typischen produzierten Einheit im Verhältnis zum Basisjahr an. Man nennt ihn auch impliziten Preisindex.
+- **Investition (makroökonomisch):** Nur die Schaffung von neuem Kapital zählt. Wenn bestehendes Vermögen nur den Besitzer wechselt, z. B. beim Kauf einer alten Villa oder von Aktien an der Börse, ist das keine Investition.
 
 ---
 
@@ -66,9 +80,15 @@ VPI = Kosten des Warenkorbs 2010 zu heutigen Preisen / Kosten zu Preisen von 201
 - 2011: (166,7 − 100)/100 = **+66,7 %**
 - 2012: (100 − 166,7)/166,7 = **−40 %** (Deflation)
 
-Den Unterschied zwischen Deflator und VPI solltest du erklären können:
-- **Deflator:** Der Warenkorb ändert sich jedes Jahr, man nimmt die aktuellen Mengen (Paasche). Er enthält alle im Inland produzierten Güter.
-- **VPI:** Der Warenkorb des Basisjahres bleibt fest (Laspeyres). Er enthält nur Konsumgüter, dafür auch Importe.
+Den Unterschied zwischen VPI und Deflator solltest du erklären können (Teil I, Folie 36):
+- **Importgüter**, z. B. Rohstoffe, sind im VPI enthalten, im Deflator nicht.
+- **Kapitalgüter** sind im Deflator enthalten, im VPI nicht.
+- Der **Warenkorb** ist beim VPI fest, beim Deflator ändert er sich.
+
+Außerdem überzeichnet der VPI die Inflation, und zwar aus drei Gründen:
+- **Substitutionsverzerrung:** Die Konsumenten weichen auf billigere Güter aus, der feste Warenkorb bildet das nicht ab.
+- **Neue Güter:** Eine größere Auswahl erhöht faktisch die Kaufkraft. Das zeigt der VPI nicht.
+- **Qualitätsänderungen:** Sie werden nicht angemessen erfasst.
 
 Dass Deflator und VPI hier gleich hoch sind, ist Zufall der Zahlen. Mit anderen Zahlen kommen meistens verschiedene Werte heraus.
 
@@ -215,11 +235,19 @@ Zur Grafik: Die r-Achse ist vertikal, S und I liegen auf der horizontalen Achse.
 - **LRAS** verläuft **vertikal** beim natürlichen Output Ȳ. **SRAS** verläuft **horizontal** beim gegebenen Preisniveau P̄.
 - **Kurze Frist:** Eine Änderung der Nachfrage ändert den **Output**. Das Preisniveau bleibt konstant.
 - **Lange Frist:** Eine Änderung der Nachfrage ändert nur das **Preisniveau**. Der Output bleibt bei Ȳ.
-- Geld ist in der **langen Frist neutral**. Das ist die klassische Sicht.
-- **Nominale Größen** werden in **Geldeinheiten** zu laufenden Preisen gemessen, z. B. in Euro.
-- **Reale Größen** werden in **Gütereinheiten** gemessen, also zu konstanten Preisen eines Basisjahres.
-- **Drei Funktionen des Geldes:** Wertaufbewahrungsmittel, Recheneinheit, Tauschmittel.
+- Geld ist in der **langen Frist neutral**. Das ist die klassisch-neoklassische Sicht.
+- **Nominale Variablen** werden in **Geldeinheiten** gemessen, z. B. Nominallohn, Nominalzins und Preisniveau.
+- **Reale Variablen** werden in **Mengen- bzw. Gütereinheiten** gemessen, z. B. Realzins, realer Output und Reallohn.
+- Die drei Funktionen des Geldes:
+  1. **Tauschmittel:** Man kann kaufen und verkaufen, ohne dass beide Seiten genau das wollen, was die andere hat (keine „doppelte Koinzidenz der Bedürfnisse“). Geld ist gesetzliches Zahlungsmittel.
+  2. **Recheneinheit:** Preise und Schulden lassen sich vergleichbar angeben.
+  3. **Wertaufbewahrungsmittel:** Man kann Kaufkraft in die Zukunft übertragen. Der Nominalwert ist sicher, der Realwert nicht.
 
-Zwei weitere Definitionen aus Übung 2-9:
-- **Klassische Dichotomie:** Reale und nominale Variablen werden theoretisch getrennt betrachtet. Die realen Variablen werden ohne die nominalen bestimmt.
-- **Neutralität des Geldes:** Eine Änderung der Geldmenge wirkt nicht auf reale Variablen, sondern nur auf nominale Variablen wie das Preisniveau.
+Zwei weitere Definitionen im Wortlaut des Skripts (Übung 2-9):
+- **Klassische Dichotomie:** Reale und nominale Variablen werden theoretisch unterschieden. Nominale Größen haben keinen Einfluss auf reale Größen. Reale Größen werden nur durch reale Größen bestimmt.
+- **Neutralität des Geldes:** Veränderungen der nominalen Geldmenge haben keinen Einfluss auf reale Größen. Langfristig ist Geld für die Realwirtschaft neutral.
+
+Weitere Begriffe aus Übung 2-6:
+- **Preis:** die Geldmenge, die man braucht, um eine Ware oder Dienstleistung zu kaufen
+- **Preisniveau:** die Geldmenge, die man braucht, um einen Warenkorb zu kaufen
+- **Inflation:** die prozentuale Veränderung des durchschnittlichen Preisniveaus
