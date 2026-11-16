@@ -26,22 +26,23 @@ Laut Skript misst das BIP gleichzeitig die **Gesamtheit der Einkommen** und die 
 
 In der Klausur kommen andere Sätze, aber die Logik bleibt gleich: Wer kauft? Ein Haushalt ist C, ein Unternehmen I, der Staat G und das Ausland NX. Was auf Lager produziert wird, ist I.
 
-### c) Folie 31 (Teil I): reales vs. nominales BIP
-Auf Folie 31 geht es um nominales und reales BIP. Unter „Fall 1“ ist vermutlich der erste Punkt der Folie gemeint: **Das nominale BIP kann steigen, weil die Preise und/oder die Mengen steigen.**
-- Das nominale BIP ist deshalb **kein gutes Maß**, um die Güterversorgung in verschiedenen Zeiträumen zu vergleichen.
-- Darum gibt es das **reale BIP**: Man nimmt die Mengen des aktuellen Jahres und bewertet sie mit den Preisen des Basisjahres.
-- Formel: BIP_real(2017) = Preis_Äpfel(2015) · Menge_Äpfel(2017) + Preis_Computer(2015) · Menge_Computer(2017)
-- **Das reale BIP steigt nur, wenn die Mengen steigen.**
+### c) „Fall 1, Folie 91“ (Teil I): Leistungsbilanzüberschuss
+Auf Folie 91 stehen drei Fälle der Leistungsbilanz. Gefragt war Fall 1:
+- **Fall 1: Leistungsbilanzüberschuss, NX > 0.** Es gilt EX > IM, Y > C + I + G und S > I. Das Land exportiert netto Kapital, seine Netto-Auslandsposition **verbessert** sich.
+- Fall 2: ausgeglichene Leistungsbilanz, NX = 0. Es gilt EX = IM, Y = C + I + G und S = I. Die Netto-Kapitalexporte sind null, die Netto-Auslandsposition bleibt unverändert.
+- Fall 3: Leistungsbilanzdefizit, NX < 0. Es gilt EX < IM, Y < C + I + G und S < I. Das Land importiert netto Kapital, seine Netto-Auslandsposition **verschlechtert** sich.
 
-Falls „Fall 1“ doch das keynesianische Kreuz meinte (Teil II, Folie 39), hier der Fall Y > E:
+Dahinter stehen zwei Identitäten (Folien 89 und 90): NX = Y − (C + I + G) und S − I = NX.
+
+Auch im keynesianischen Kreuz gibt es einen „Fall 1“ (Teil II, Folie 39), nämlich Y > E. Die Klausurnotiz nennt aber Folie 91. Zur Sicherheit:
 - Die geplanten Ausgaben sind kleiner als die Produktion. Es kommt zu einer ungeplanten Lagerzunahme.
 - Die Unternehmen entlassen Arbeitskräfte und drosseln die Produktion.
 - Das BIP sinkt, bis Y = E gilt.
 - Fall 2 (Y < E) läuft umgekehrt: Die Lager werden abgebaut, die Unternehmen stellen ein und das BIP steigt.
 
 ### d) Zwei Definitionen (wahrscheinlich nominales und reales BIP bzw. BIP-Deflator)
-- **Nominales BIP:** Der Euro-Wert der Produktion, also Mengen mal aktuelle Preise.
-- **Reales BIP:** Die produzierte Menge, bewertet mit konstanten Preisen eines Basisjahres.
+- **Nominales BIP:** Der Euro-Wert der Produktion, also Mengen mal aktuelle Preise. Es kann steigen, weil die Preise und/oder die Mengen steigen (Teil I, Folie 31), und ist deshalb kein gutes Maß, um die Güterversorgung in verschiedenen Zeiträumen zu vergleichen.
+- **Reales BIP:** Die produzierte Menge, bewertet mit konstanten Preisen eines Basisjahres. Es steigt nur, wenn die Mengen steigen.
 - **BIP-Deflator:** Nominales BIP / reales BIP. Er gibt den Preis einer typischen produzierten Einheit im Verhältnis zum Basisjahr an. Man nennt ihn auch impliziten Preisindex.
 - **Investition (makroökonomisch):** Nur die Schaffung von neuem Kapital zählt. Wenn bestehendes Vermögen nur den Besitzer wechselt, z. B. beim Kauf einer alten Villa oder von Aktien an der Börse, ist das keine Investition.
 
