@@ -2,127 +2,187 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
 <style>
+/* Layout: links das Inhaltsverzeichnis, rechts immer genau ein Kapitel. Jede Aufgabe ist ein eigenes Blatt mit festen Zonen: Aufgabe, Skript, Lösungsweg, Ergebnis. */
 :root{
-  --bg:#f1f5f4; --panel:#fafcfb; --figbg:#fbfdfc; --hdr:#f1f5f4;
-  --grid:#d9e6e2; --grid2:#bfd2cd;
-  --fg:#15223a; --mute:#566779; --line:#c3d0d0; --soft:#e6eeec;
-  --c1:#1c4bcf; --c2:#c5263f; --c3:#0a765d; --old:#8d9aa8;
-  --res-bg:#e2f1ea; --res-line:#0a765d; --stamp:#c5263f; --link:#1c4bcf;
+  --bg:#e9eeed; --panel:#fdfefe; --soft:#f0f4f3; --figbg:#fbfdfc;
+  --grid:#dde8e5; --grid2:#bfd2cd;
+  --fg:#15223a; --mute:#566779; --line:#cdd8d6;
+  --c1:#1c4bcf; --c1-soft:#e4ebfb; --on-c1:#ffffff;
+  --c2:#c5263f; --c3:#0a765d; --old:#8d9aa8;
+  --res-bg:#e5f3ed; --res-line:#0a765d;
+  --exam:#b81f38; --exam-bg:#fbe8eb;
+  --link:#1c4bcf; --scrim:rgb(12 20 34/.5);
   --sans:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --r:8px; --r-s:5px; --barh:54px;
+  --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0e1521; --panel:#131c2b; --figbg:#111a28; --hdr:#0e1521;
+    --bg:#0c121c; --panel:#141c2b; --soft:#1a2436; --figbg:#111a28;
     --grid:#1b2739; --grid2:#2a3a52;
-    --fg:#e3e9f2; --mute:#94a3b6; --line:#2b394e; --soft:#182233;
-    --c1:#84aaff; --c2:#ff8195; --c3:#5bd0a8; --old:#617187;
-    --res-bg:#11302b; --res-line:#5bd0a8; --stamp:#ff8195; --link:#9dbbff;
+    --fg:#e3e9f2; --mute:#94a3b6; --line:#2a384d;
+    --c1:#84aaff; --c1-soft:#1b294a; --on-c1:#0c121c;
+    --c2:#ff8195; --c3:#5bd0a8; --old:#617187;
+    --res-bg:#11302b; --res-line:#5bd0a8;
+    --exam:#ff8fa0; --exam-bg:#3a1a24;
+    --link:#9dbbff; --scrim:rgb(0 0 0/.6);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0e1521; --panel:#131c2b; --figbg:#111a28; --hdr:#0e1521;
+  --bg:#0c121c; --panel:#141c2b; --soft:#1a2436; --figbg:#111a28;
   --grid:#1b2739; --grid2:#2a3a52;
-  --fg:#e3e9f2; --mute:#94a3b6; --line:#2b394e; --soft:#182233;
-  --c1:#84aaff; --c2:#ff8195; --c3:#5bd0a8; --old:#617187;
-  --res-bg:#11302b; --res-line:#5bd0a8; --stamp:#ff8195; --link:#9dbbff;
+  --fg:#e3e9f2; --mute:#94a3b6; --line:#2a384d;
+  --c1:#84aaff; --c1-soft:#1b294a; --on-c1:#0c121c;
+  --c2:#ff8195; --c3:#5bd0a8; --old:#617187;
+  --res-bg:#11302b; --res-line:#5bd0a8;
+  --exam:#ff8fa0; --exam-bg:#3a1a24;
+  --link:#9dbbff; --scrim:rgb(0 0 0/.6);
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 104px);-webkit-text-size-adjust:100%}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.55}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hdr)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + var(--barh) + 14px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:1.0625rem;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 a{color:var(--link);text-underline-offset:2px}
-:focus-visible{outline:2px solid var(--c1);outline-offset:2px;border-radius:2px}
-.wrap{max-width:47rem;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:2px solid var(--c1);outline-offset:2px;border-radius:3px}
+[tabindex="-1"]:focus{outline:none}
+p{margin:0 0 .8em;max-width:65ch;text-wrap:pretty}
+ul,ol{margin:0 0 .9em;padding-left:1.25em;max-width:65ch}
+li{margin-bottom:.35em}
+sub,sup{font-size:.72em;line-height:0}
+h4,.kicker,h2 small,.toc-g,.pager small,.chaps small,thead th,.fs dt{font-family:var(--sans);font-weight:700;font-size:.75rem;line-height:1.2;letter-spacing:.09em;text-transform:uppercase;color:var(--mute)}
+h4{margin:0 0 10px}
 
-/* Kopf */
-.top{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:14px 14px;border-bottom:1.5px solid var(--fg)}
-.top .wrap{padding-block:28px 22px}
-.kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:0 0 8px}
-h1{font-size:clamp(2rem,8vw,3.1rem);line-height:1.02;letter-spacing:-.025em;font-weight:800;margin:0 0 14px;text-wrap:balance}
-h1 span{color:var(--c1)}
-.lead{max-width:60ch;margin:0 0 14px}
-.facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:0;list-style:none;font-family:var(--mono);font-size:13px}
-.facts li{min-width:0}
-.facts b{color:var(--c2)}
-
-/* Sticky-Navigation */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hdr);border-bottom:1px solid var(--line)}
-.bar .wrap{padding-block:7px 0}
-.bar-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
-.brand{font-weight:800;letter-spacing:-.01em;font-size:14px;white-space:nowrap;display:none}
-@media (min-width:640px){.brand{display:block}}
-.sw{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:500;cursor:pointer;min-width:0;padding-block:3px}
-.sw input{appearance:none;-webkit-appearance:none;flex:none;width:38px;height:22px;border-radius:11px;border:1.5px solid var(--fg);background:var(--panel);position:relative;margin:0;cursor:pointer}
-.sw input::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:var(--fg)}
-.sw input:checked{background:var(--c2);border-color:var(--c2)}
-.sw input:checked::after{left:18px;background:var(--panel)}
+/* Kopfleiste und Inhaltsverzeichnis (schmal: Leiste mit ausklappbarem Inhalt) */
+.side{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;height:var(--barh);padding-left:var(--gl);padding-right:var(--gr)}
+.menu{flex:none;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px 0 10px;font:700 .9rem var(--sans);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:var(--r-s);cursor:pointer}
+.menu svg{flex:none;width:16px;height:16px}
+.menu svg path{stroke:currentColor;stroke-width:1.8;stroke-linecap:round;fill:none}
+.brand{display:none;font-weight:800;font-size:1.25rem;line-height:1.1;letter-spacing:-.02em;color:var(--fg);text-decoration:none}
+.brand span{color:var(--c1)}
+.loc{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;min-width:0;max-width:none;margin:0;line-height:1.25}
+.loc span,.loc b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.loc span{font-size:.9rem;font-weight:500;color:var(--mute)}
+.loc b{font-size:.86rem}
+.loc b:empty{display:none}
+.loc.has-ex span{font-size:.74rem}
+.sw{flex:none;display:flex;align-items:center;gap:9px;font-size:.9rem;line-height:1.25;cursor:pointer}
+.sw input{appearance:none;-webkit-appearance:none;flex:none;width:40px;height:24px;border-radius:12px;border:1.5px solid var(--mute);background:var(--panel);position:relative;margin:0;cursor:pointer}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:15px;height:15px;border-radius:50%;background:var(--mute)}
+.sw input:checked{background:var(--c1);border-color:var(--c1)}
+.sw input:checked::after{left:19px;background:var(--on-c1)}
 @media (prefers-reduced-motion:no-preference){.sw input::after{transition:left .15s}}
-.chips{display:flex;gap:6px;overflow-x:auto;padding-block:7px 8px;scrollbar-width:none;margin-inline:-4px;padding-inline:4px}
-.chips::-webkit-scrollbar{display:none}
-.chips a{flex:none;font-family:var(--mono);font-size:12.5px;text-decoration:none;color:var(--fg);border:1px solid var(--line);background:var(--panel);padding:5px 9px;border-radius:3px;white-space:nowrap}
-.chips a:hover{border-color:var(--fg)}
+.sw b{display:block}
+.sw small{display:none;font-size:.82rem;color:var(--mute)}
+.scrim{position:fixed;inset:0;background:var(--scrim)}
+.toc{--sel:var(--soft);position:fixed;inset:0 auto 0 0;width:min(88vw,21rem);overflow-y:auto;overscroll-behavior:contain;background:var(--panel);border-right:1px solid var(--line);padding:calc(env(safe-area-inset-top,0px) + 10px) 12px calc(env(safe-area-inset-bottom,0px) + 28px) max(12px,env(safe-area-inset-left,0px));transform:translateX(-105%);visibility:hidden}
+.menu-open .toc{transform:none;visibility:visible}
+@media (prefers-reduced-motion:no-preference){
+  .toc{transition:transform .18s ease-out,visibility 0s .18s}
+  .menu-open .toc{transition:transform .18s ease-out}
+}
+.toc-h{display:flex;align-items:center;justify-content:space-between;padding:0 0 6px 10px;font-weight:800;font-size:1.05rem}
+.x{width:40px;height:40px;border:0;background:none;color:var(--fg);font-size:1.6rem;line-height:1;cursor:pointer;border-radius:var(--r-s)}
+.toc-g{margin:22px 0 6px;padding-left:10px;max-width:none}
+.toc-g:first-of-type{margin-top:8px}
+.toc-l,.sub{list-style:none;margin:0;padding:0;max-width:none}
+.toc-l li,.sub li{margin:0}
+.toc-l>li>a{display:flex;align-items:center;gap:10px;min-height:42px;padding:7px 10px;border:1px solid transparent;border-radius:6px;color:var(--fg);text-decoration:none;font-weight:500;font-size:.97rem;line-height:1.25}
+.toc-l>li>a:hover{background:var(--sel)}
+.toc-l>li>a.on{background:var(--sel);border-color:var(--line);font-weight:700}
+.tn{flex:none;display:grid;place-items:center;width:1.55rem;height:1.55rem;border-radius:4px;background:var(--soft);color:var(--mute);font:700 .78rem/1 var(--mono)}
+.tn:empty::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+.toc-l>li>a.on .tn{background:var(--c1);color:var(--on-c1)}
+.tc{margin-left:auto;font:500 .78rem/1 var(--mono);color:var(--mute)}
+.sub{margin:4px 0 10px 22px;padding-left:10px;border-left:1px solid var(--line)}
+.sub a{display:flex;align-items:baseline;gap:8px;padding:6px 8px;border-radius:4px;font-size:.88rem;line-height:1.3;color:var(--mute);text-decoration:none}
+.sub a:hover{color:var(--fg);background:var(--sel)}
+.sub a.on{color:var(--fg);font-weight:700}
+.sn{font-family:var(--mono);font-size:.86em;font-weight:500;white-space:nowrap;margin-right:.45em}
+.st{flex:1 1 auto;min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.dot{flex:none;display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--exam)}
+.sub .dot{align-self:center}
+.toc-key{display:flex;align-items:center;gap:8px;margin:26px 0 0;padding-left:10px;font-size:.82rem;color:var(--mute);max-width:none}
 
-/* Abschnitte */
-main.wrap{padding-block:26px 60px}
-.part{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg);background:var(--fg);display:inline-block;padding:4px 10px;margin:46px 0 0}
-.chap{margin-top:30px}
-.chap>h2,.sec>h2{font-size:1.55rem;line-height:1.15;letter-spacing:-.015em;margin:0 0 6px;padding-top:12px;border-top:3px double var(--fg);text-wrap:balance}
-.chap>h2 small,.sec>h2 small{display:block;font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
-.exnav{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 0}
-.exnav a{font-family:var(--mono);font-size:12px;text-decoration:none;color:var(--mute);border-bottom:1px solid var(--line);padding:2px 3px}
-.exnav a.k{color:var(--c2);border-color:var(--c2)}
-p{margin:0 0 .7em;max-width:65ch}
-ul,ol{margin:0 0 .8em;padding-left:1.2em;max-width:65ch}
-li{margin-bottom:.25em}
-h4{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:18px 0 6px}
+/* Seiten: es ist immer genau ein Kapitel sichtbar */
+main{display:block;max-width:48rem;margin-inline:auto;padding-block:26px 72px;padding-left:var(--gl);padding-right:var(--gr)}
+.page{margin-bottom:64px}
+.js .page{display:none;margin-bottom:0}
+.js .page.on{display:block}
+h1{font-size:clamp(2rem,1.3rem + 3.4vw,3rem);line-height:1.04;letter-spacing:-.028em;font-weight:800;margin:0 0 16px;text-wrap:balance}
+h1 span{color:var(--c1)}
+h2{font-size:clamp(1.6rem,1.25rem + 1.8vw,2.15rem);line-height:1.1;letter-spacing:-.022em;font-weight:800;margin:0 0 8px;text-wrap:balance}
+h2 small{display:block;color:var(--c1);margin-bottom:9px}
+.kicker{margin:0 0 10px}
+.hero{padding-bottom:28px;margin-bottom:34px;border-bottom:1px solid var(--line)}
+.lead{font-size:1.12rem;line-height:1.55;max-width:58ch;margin:0 0 18px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none;max-width:none}
+.facts li{min-width:0;margin:0;font-size:.9rem;font-weight:500;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:5px 13px}
+.facts b{color:var(--exam)}
+.tip{font-size:.95rem;color:var(--mute);margin:0}
+.block+.block{margin-top:52px}
+.block>h2{font-size:1.55rem}
+.chap-meta{color:var(--mute);font-size:.95rem;margin:0}
+.note{font-size:.92rem;color:var(--mute)}
 
-/* Übung */
-.ex,.base{margin-top:34px;padding-top:14px;border-top:1px solid var(--fg)}
-.ex-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
-.ex-no{font-family:var(--mono);font-weight:700;font-size:13px;color:var(--c1);border:1.5px solid var(--c1);padding:1px 7px;white-space:nowrap}
-.base .ex-no{color:var(--mute);border-color:var(--mute)}
-.ex-h h3{font-size:1.2rem;line-height:1.2;margin:0;min-width:0;flex:1 1 12rem;letter-spacing:-.01em}
-.stamp{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--stamp);border:1.5px solid var(--stamp);padding:2px 8px;transform:rotate(-1.2deg);display:inline-block;white-space:nowrap;outline:1px solid var(--stamp);outline-offset:2px;margin:3px}
-.task{border-left:3px solid var(--fg);padding-left:12px;margin-top:4px}
-.task h4{margin-top:14px}
-.task ul{margin:.4em 0 .6em;padding-left:1.2em;display:grid;gap:.3em}.task li{max-width:65ch}
-.theory{color:var(--fg)}
-.theory p,.theory li{color:var(--fg)}
-.given{font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums;background:var(--soft);padding:8px 10px;margin:0 0 .7em;overflow-wrap:anywhere}
+/* Aufgabenblatt */
+.ex,.base{--pl:28px;--pr:28px;--block:var(--soft);background:var(--panel);border:1px solid var(--line);border-radius:var(--r);margin-top:36px}
+.ex-h{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:22px var(--pr) 20px var(--pl)}
+.ex-no{flex:none;font:700 .8rem/1 var(--mono);color:var(--on-c1);background:var(--c1);padding:7px 9px;border-radius:var(--r-s);white-space:nowrap}
+.ex-h h3{flex:1 1 13rem;min-width:0;margin:0;font-size:1.32rem;line-height:1.22;letter-spacing:-.012em;font-weight:700;text-wrap:balance}
+.stamp{display:inline-block;font:700 .76rem/1 var(--sans);letter-spacing:.02em;color:var(--exam);background:var(--exam-bg);padding:7px 11px;border-radius:99px;white-space:nowrap}
+.task{--block:var(--panel);background:var(--soft);border-block:1px solid var(--line);padding:18px var(--pr) 20px var(--pl)}
+.theory{padding:20px var(--pr) 22px var(--pl)}
+.task>:last-child,.theory>:last-child,.base>:last-child{margin-bottom:0}
+.task ul:not(.parts){display:grid;gap:.4em;margin:.5em 0 .8em}
+.task ul:not(.parts) li{margin:0}
+.parts{list-style:none;display:grid;gap:9px;margin:12px 0 14px;padding:0}
+.parts li{display:grid;grid-template-columns:1.65rem minmax(0,1fr);gap:11px;margin:0}
+.q,.step .l{display:grid;place-items:center;width:1.65rem;height:1.65rem;border-radius:50%;font:700 .8rem/1 var(--mono)}
+.q{color:var(--fg);background:var(--panel);border:1.5px solid var(--mute)}
+.given{font-family:var(--mono);font-size:.86rem;line-height:1.7;font-variant-numeric:tabular-nums;background:var(--block);border:1px solid var(--line);border-radius:var(--r-s);padding:10px 14px;margin:10px 0 14px;max-width:none;overflow-wrap:anywhere}
+.sol{border-top:1px solid var(--line);padding:22px var(--pr) 28px var(--pl)}
+.sol h4:not(:first-child){margin-top:30px}
+.base{--block:var(--panel);background:var(--soft);padding:0 var(--pr) 26px var(--pl)}
+.base .ex-h{padding-left:0;padding-right:0}
+.base .ex-no{background:var(--mute)}
+.base h4{margin-top:26px}
+.base .ex-h+h4{margin-top:0}
 
-/* Rechnungen */
-.eq{font-family:var(--mono);font-size:14.5px;line-height:1.6;font-variant-numeric:tabular-nums;margin:6px 0 12px;padding:8px 0 8px 12px;border-left:1px dashed var(--grid2);max-width:100%}
+/* Lösungsschritte und Rechnungen */
+.step{display:flex;align-items:flex-start;gap:11px;max-width:none;font-weight:700;font-size:1.06rem;line-height:1.5;margin:28px 0 10px;padding-top:22px;border-top:1px solid var(--line)}
+h4+.step{margin-top:4px;padding-top:0;border-top:0}
+.step .l{flex:none;color:var(--on-c1);background:var(--c1)}
+.eq{font-family:var(--mono);font-size:.88rem;line-height:1.75;font-variant-numeric:tabular-nums;background:var(--block);border-radius:var(--r-s);padding:12px 16px;margin:8px 0 16px;max-width:100%}
 .eq>div{padding-left:1.4em;text-indent:-1.4em;overflow-wrap:anywhere}
 .eq .n{color:var(--mute)}
-.eq b,.res b,.dd{font-weight:700;text-decoration:underline double;text-decoration-thickness:1px;text-underline-offset:3px}
-.m{font-family:var(--mono);font-size:.92em;font-variant-numeric:tabular-nums;white-space:nowrap}
-.step{font-weight:700;margin:12px 0 2px}
-.step .l{font-family:var(--mono);color:var(--c1);margin-right:4px}
-sub,sup{font-size:.72em;line-height:0}
+.eq b,.dd{font-weight:700;text-decoration:underline double;text-decoration-thickness:1px;text-underline-offset:3px}
+.m{font-family:var(--mono);font-size:.9em;font-variant-numeric:tabular-nums;white-space:nowrap}
 
 /* Ergebnis */
-.res{background:var(--res-bg);border:1.5px solid var(--res-line);padding:10px 14px 10px;margin:16px 0 4px;position:relative}
-.res h4{margin:0 0 4px;color:var(--res-line)}
-.res p,.res ul{margin-bottom:.3em}
+.res{background:var(--res-bg);border:1px solid var(--res-line);border-radius:var(--r-s);padding:16px 20px 18px;margin:30px 0 0}
+.res h4{color:var(--res-line);margin:0 0 8px}
+.res>:last-child{margin-bottom:0}
 .res .m{white-space:normal}
+.res .tw{margin:4px 0 0}
 
 /* Selbsttest */
-.reveal{display:none;font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--fg);background:var(--panel);border:1.5px solid var(--fg);padding:9px 14px;margin:14px 0 0;cursor:pointer;box-shadow:3px 3px 0 var(--line)}
+.reveal{display:none;margin:0 var(--pr) 24px var(--pl);font:700 .95rem var(--sans);color:var(--c1);background:var(--c1-soft);border:1px solid transparent;border-radius:var(--r-s);padding:11px 18px;cursor:pointer}
+.reveal:hover{border-color:var(--c1)}
 .selftest .reveal{display:inline-block}
 .selftest .sol:not(.open){display:none}
 
 /* Diagramme */
-figure{margin:16px 0 14px;max-width:470px}
-.fig{background-color:var(--figbg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line)}
+figure{margin:20px 0 18px;max-width:480px}
+.fig{background-color:var(--figbg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px;border:1px solid var(--line);border-radius:var(--r-s);overflow:hidden}
 .fig svg{display:block;width:100%;height:auto;max-width:100%}
-figcaption{font-size:13.5px;color:var(--mute);margin-top:6px;line-height:1.4}
-.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+figcaption{font-size:.875rem;color:var(--mute);margin-top:8px;line-height:1.45}
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:20px 0 18px}
 .trio figure{margin:0;min-width:0;max-width:420px}
-.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin:14px 0}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin:20px 0 18px}
 .duo figure{margin:0;min-width:0}
 svg text{font-family:var(--mono);font-size:12px;paint-order:stroke;stroke:var(--figbg);stroke-width:3.5px;stroke-linejoin:round}
 .k0{--k:var(--fg)}.k1{--k:var(--c1)}.k2{--k:var(--c2)}.k3{--k:var(--c3)}.ko{--k:var(--old)}.kg{--k:var(--mute)}
@@ -142,52 +202,161 @@ svg text{font-family:var(--mono);font-size:12px;paint-order:stroke;stroke:var(--
 .tx.bd{font-weight:700}
 
 /* Schema Übung 1-1 */
-.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;font-family:var(--mono);font-size:13px;margin:12px 0}
-.flow div{flex:1 1 8rem;min-width:0;border:1.5px solid var(--fg);padding:8px 10px;background:var(--panel)}
-.flow div.mid{background:var(--fg);color:var(--bg)}
-.flow div small{display:block;color:var(--mute);font-size:11.5px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;font-family:var(--mono);font-size:.82rem;margin:14px 0}
+.flow div{flex:1 1 8rem;min-width:0;border:1px solid var(--mute);border-radius:var(--r-s);padding:9px 11px;background:var(--panel)}
+.flow div.mid{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.flow div small{display:block;color:var(--mute);font-size:.72rem}
 .flow div.mid small{color:var(--bg);opacity:.8}
 .flow span{align-self:center;font-weight:700;color:var(--c1)}
 
 /* Tabellen */
-.tw{overflow-x:auto;margin:10px 0 14px;border:1px solid var(--line);background:var(--panel)}
-table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
-th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-tr:last-child td{border-bottom:0}
-thead th{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);border-bottom:1.5px solid var(--fg);white-space:nowrap}
+.tw{overflow-x:auto;margin:12px 0 18px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.94rem;line-height:1.45}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child>*{border-bottom:0}
+thead th{background:var(--soft);vertical-align:bottom}
 tbody th{font-weight:700}
-td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+td.n,th.n{text-align:right;font-family:var(--mono)}
+td.n{white-space:nowrap}
+tbody td.n{font-size:.92em}
 td.c{font-family:var(--mono);font-weight:700;color:var(--c1);white-space:nowrap}
 .up{color:var(--c3);font-weight:700}.dn{color:var(--c2);font-weight:700}
 
-/* Landkarte */
-.map{list-style:none;margin:14px 0 0;padding:0;max-width:none;border-top:1.5px solid var(--fg)}
-.map li{display:grid;grid-template-columns:3.6rem minmax(0,1fr);gap:4px 10px;padding:9px 0;border-bottom:1px solid var(--line);margin:0}
-.map .a{font-family:var(--mono);font-weight:700;color:var(--c2)}
-.map .t{min-width:0}
+/* Landkarte und Kapitelliste auf der Startseite */
+.map,.chaps,.gaps{list-style:none;margin:20px 0 0;padding:0;max-width:none;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+.map li,.chaps li,.gaps li{margin:0}
+.map li+li,.chaps li+li,.gaps li+li{border-top:1px solid var(--line)}
+.map li{display:grid;grid-template-columns:3.3rem minmax(0,1fr);gap:8px 14px;padding:14px 18px}
+.map .a{font:700 .9rem/1.7 var(--mono);color:var(--exam)}
+.map .t{min-width:0;line-height:1.45}
 .map .go{grid-column:2;display:flex;flex-wrap:wrap;gap:6px}
-.map .go a{font-family:var(--mono);font-size:12.5px;text-decoration:none;border:1px solid var(--link);padding:2px 8px;white-space:nowrap}
-.map .go a:hover{background:var(--link);color:var(--bg)}
-.note{font-size:14.5px;color:var(--mute)}
+.map .go a{font:500 .8rem/1 var(--mono);text-decoration:none;color:var(--c1);background:var(--c1-soft);border-radius:99px;padding:7px 11px;white-space:nowrap}
+.map .go a:hover{background:var(--c1);color:var(--on-c1)}
+@media (min-width:720px){
+  .map li{grid-template-columns:3.3rem minmax(0,1fr) auto;align-items:center}
+  .map .go{grid-column:3;justify-content:flex-end;max-width:16rem}
+}
+.chaps a{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:14px;padding:13px 18px;text-decoration:none;color:var(--fg)}
+.chaps a>*{grid-column:1}
+.chaps b{line-height:1.3;margin:3px 0 1px}
+.chaps span{color:var(--mute);font-size:.9rem}
+.chaps a::after{content:"→";grid-column:2;grid-row:1/span 3;align-self:center;color:var(--c1);font-weight:700}
 
 /* Umschalter IS/LM */
-.seg{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.seg button{font-family:var(--mono);font-size:13px;color:var(--fg);background:var(--panel);border:1.5px solid var(--line);padding:7px 10px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.scn{font-family:var(--mono);font-size:13.5px;font-variant-numeric:tabular-nums;border-left:3px solid var(--c2);padding:4px 0 4px 10px;margin:8px 0 0;max-width:470px}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.seg button{font:500 .88rem var(--sans);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:8px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:700}
+.scn{font-family:var(--mono);font-size:.84rem;line-height:1.55;font-variant-numeric:tabular-nums;background:var(--block);border-radius:var(--r-s);padding:10px 12px;margin:10px 0 0;max-width:480px}
 
 /* Lückentext, Formeln */
-.gaps li{margin-bottom:.5em}
-.gap{font-family:var(--mono);font-weight:700;color:var(--c3);border-bottom:1.5px solid var(--c3);padding:0 3px}
-.fs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 22px;margin-top:12px}
-.fs div{min-width:0;border-bottom:1px solid var(--line);padding:9px 0}
-.fs dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.fs dd{margin:3px 0 0;font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-size:13.5px;color:var(--mute)}
-</style>
+.gaps li{padding:14px 18px;line-height:1.75}
+.gap{font-weight:700;color:var(--c3);background:var(--res-bg);border-radius:3px;padding:1px 6px}
+.fs{margin:20px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+.fs div{display:grid;grid-template-columns:minmax(0,12.5rem) minmax(0,1fr);gap:4px 20px;min-width:0;padding:14px 18px}
+.fs div+div{border-top:1px solid var(--line)}
+.fs dt{padding-top:.4em}
+.fs dd{margin:0;font-family:var(--mono);font-size:.88rem;line-height:1.7;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.fs dd .n{color:var(--mute)}
 
-<header class="top">
-  <div class="wrap">
+/* Blättern */
+.pager{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:48px}
+.pager a{display:flex;flex-direction:column;gap:5px;min-width:0;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);text-decoration:none}
+.pager a:hover{border-color:var(--c1)}
+.pager .next{grid-column:2;text-align:right}
+.pager a:only-child{grid-column:1/-1}
+.pager b{line-height:1.3;color:var(--link)}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:.875rem;color:var(--mute)}
+
+/* Handy: Blätter laufen von Rand zu Rand, damit Rechnungen und Tabellen Platz haben */
+@media (max-width:639.98px){
+  .ex,.base{--pl:var(--gl);--pr:var(--gr);margin-top:28px;margin-left:calc(-1*var(--gl));margin-right:calc(-1*var(--gr));border-left:0;border-right:0;border-radius:0}
+  .ex-h h3{font-size:1.2rem}
+  .eq{font-size:.82rem;padding:11px 12px}
+  .res{padding:14px 14px 16px}
+  .sw b{font-size:.86rem}
+  .fs div{grid-template-columns:minmax(0,1fr)}
+  .fs dt{padding-top:0}
+  table{font-size:.88rem}
+  th,td{padding:8px 7px}
+  th:first-child,td:first-child{padding-left:10px}
+  th:last-child,td:last-child{padding-right:10px}
+  .res .tw{margin-left:-14px;margin-right:-14px;border-left:0;border-right:0;border-radius:0}
+  thead th{font-size:.68rem;letter-spacing:.03em}
+  /* Vergleichstabellen: Kriterium als Zwischenzeile, darunter die beiden Seiten nebeneinander */
+  .cmp{overflow:visible}
+  .cmp table,.cmp thead,.cmp tbody{display:block}
+  .cmp tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cmp thead{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--barh));z-index:1;border-bottom:1px solid var(--line);border-radius:var(--r-s) var(--r-s) 0 0;overflow:hidden}
+  .cmp thead th{border-bottom:0}
+  .cmp thead th:first-child{display:none}
+  .cmp tbody tr+tr{border-top:1px solid var(--line)}
+  .cmp tbody th{grid-column:1/-1;padding-bottom:0;border-bottom:0;font-size:.68rem;line-height:1.3;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+  .cmp td{padding-top:3px;border-bottom:0}
+  .cmp td+td,.cmp thead th+th+th{border-left:1px solid var(--line)}
+}
+
+/* Breit: Inhaltsverzeichnis steht dauerhaft links */
+@media (min-width:1000px){
+  :root{--barh:0px;--gl:max(28px,env(safe-area-inset-left,0px));--gr:max(28px,env(safe-area-inset-right,0px))}
+  .shell{display:grid;grid-template-columns:19rem minmax(0,1fr);max-width:76rem;margin-inline:auto}
+  .side{z-index:1;align-self:start;height:calc(100vh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;border-bottom:0;border-right:1px solid var(--line);padding:30px 18px 30px var(--gl)}
+  .bar{display:block;height:auto;padding:0 0 0 10px}
+  .menu,.loc,.toc-h,.scrim,.only-narrow{display:none}
+  .brand{display:block}
+  .sw{align-items:flex-start;margin:20px 0 4px -10px;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+  .sw small{display:block}
+  .toc{--sel:var(--panel);position:static;width:auto;overflow:visible;background:none;border:0;padding:0;transform:none;visibility:visible;transition:none}
+  .toc-g:first-of-type{margin-top:22px}
+  main{max-width:52rem;margin-inline:0;padding-block:40px 90px;padding-left:44px}
+}
+@media print{
+  .side,.pager,.reveal{display:none!important}
+  .js .page{display:block!important;margin-bottom:48px}
+}
+</style>
+<script>document.documentElement.classList.add("js")</script>
+
+<div class="shell" lang="de">
+<aside class="side">
+  <div class="bar">
+    <button type="button" class="menu" id="menu-btn" aria-expanded="false" aria-controls="toc"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>Inhalt</button>
+    <a class="brand" href="#karte">Makro <span>Klausur</span>training</a>
+    <p class="loc" id="loc"><span>Übersicht</span><b></b></p>
+    <label class="sw" for="selftest-toggle"><input type="checkbox" id="selftest-toggle" role="switch"><span><b>Selbsttest</b><small>Lösungen erst auf Klick zeigen</small></span></label>
+  </div>
+  <div class="scrim" id="scrim" hidden></div>
+  <nav class="toc" id="toc" aria-label="Inhalt">
+    <div class="toc-h"><span>Inhalt</span><button type="button" class="x" id="menu-close" aria-label="Inhalt schließen">×</button></div>
+    <p class="toc-g">Start</p>
+    <ul class="toc-l">
+      <li><a href="#karte"><span class="tn"></span>Übersicht</a></li>
+    </ul>
+    <p class="toc-g">Teil I</p>
+    <ul class="toc-l">
+      <li><a href="#kap1"><span class="tn">1</span>Grundlagen</a></li>
+      <li><a href="#kap2"><span class="tn">2</span>Klassische Theorie</a></li>
+      <li><a href="#kap3"><span class="tn">3</span>Solow-Modell</a></li>
+    </ul>
+    <p class="toc-g">Teil II</p>
+    <ul class="toc-l">
+      <li><a href="#adas"><span class="tn">1</span>AD und AS</a></li>
+      <li><a href="#kap5"><span class="tn">2</span>IS/LM: Grundlagen</a></li>
+      <li><a href="#kap6"><span class="tn">3</span>IS/LM: Anwendung</a></li>
+    </ul>
+    <p class="toc-g">Wiederholen</p>
+    <ul class="toc-l">
+      <li><a href="#tabelle"><span class="tn"></span>Klassik vs. Keynes</a></li>
+      <li><a href="#luecken"><span class="tn"></span>Lückentext</a></li>
+      <li><a href="#formeln"><span class="tn"></span>Formelsammlung</a></li>
+    </ul>
+    <p class="toc-key"><span class="dot"></span>kam in der letzten Klausur dran</p>
+  </nav>
+</aside>
+
+<main id="main">
+
+<section class="page on" id="karte" data-s="Übersicht" data-k="Start" data-t="Übersicht und Klausur-Landkarte">
+  <header class="hero">
     <p class="kicker">Makroökonomie · Hochschule Kaiserslautern</p>
     <h1>Makro <span>Klausur</span>training</h1>
     <p class="lead">Alle Übungsaufgaben aus Teil I und Teil II, erklärt nach dem Skript, mit Musterlösung und Diagramm. Die letzte Klausur bestand fast nur aus Übungsaufgaben: Wer alle Übungen sicher kann, hat den Großteil der Punkte.</p>
@@ -196,33 +365,9 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
       <li>9 Aufgaben in der letzten Klausur</li>
       <li>26 Übungen auf dieser Seite</li>
     </ul>
-  </div>
-</header>
-
-<div class="bar">
-  <div class="wrap">
-    <div class="bar-row">
-      <span class="brand">Makro Klausurtraining</span>
-      <label class="sw" for="selftest-toggle"><input type="checkbox" id="selftest-toggle" role="switch"><span>Selbsttest: Lösungen verbergen</span></label>
-    </div>
-    <nav class="chips" aria-label="Kapitel">
-      <a href="#karte">Landkarte</a>
-      <a href="#kap1">I·1 Grundlagen</a>
-      <a href="#kap2">I·2 Klassik</a>
-      <a href="#kap3">I·3 Solow</a>
-      <a href="#adas">II·1 AD/AS</a>
-      <a href="#kap5">II·2 IS/LM</a>
-      <a href="#kap6">II·3 Anwendung</a>
-      <a href="#tabelle">Klassik vs. Keynes</a>
-      <a href="#luecken">Lückentext</a>
-      <a href="#formeln">Formeln</a>
-    </nav>
-  </div>
-</div>
-
-<main class="wrap">
-
-<section class="sec" id="karte">
+    <p class="tip">Jede Aufgabe ist gleich aufgebaut: Aufgabe, Skript, Lösungsweg, Ergebnis. Mit dem Schalter „Selbsttest“ bleiben die Lösungen verdeckt, bis du sie aufdeckst.</p>
+  </header>
+  <div class="block">
   <h2><small>Wo kommen die Punkte her?</small>Klausur-Landkarte</h2>
   <p>Die 9 Aufgaben der letzten Klausur und die Übung, aus der sie stammen. Tippe auf einen Verweis, um direkt zur Lösung zu springen.</p>
   <ul class="map">
@@ -239,14 +384,16 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
     <li><span class="a">A8</span><span class="t">Tabelle Klassik/Neoklassik vs. Keynes: eine Spalte gegeben, die andere ergänzen</span><span class="go"><a href="#tabelle">Tabelle</a></span></li>
     <li><span class="a">A9</span><span class="t">Lückentext: LRAS/SRAS, Output und Preisniveau kurz/lang, Neutralität, real/nominal, drei Geldfunktionen</span><span class="go"><a href="#luecken">Lückentext</a><a href="#adas">AD/AS</a><a href="#u2-7">Ü 2-7</a><a href="#u2-9">Ü 2-9</a></span></li>
   </ul>
+</div>
+  <div class="block only-narrow">
+    <h2><small>Alle Aufgaben nach Skript</small>Kapitel</h2>
+    <ol class="chaps" id="chaps"></ol>
+  </div>
 </section>
 
-<div class="part">Teil I</div>
-
 <!-- ===================== KAPITEL 1 ===================== -->
-<section class="chap" id="kap1">
+<section class="page" id="kap1" data-s="I·1 Grundlagen" data-k="Teil I · Kapitel 1" data-t="Grundlagen der Makroökonomie">
   <h2><small>Teil I · Kapitel 1</small>Grundlagen der Makroökonomie</h2>
-  <nav class="exnav" aria-label="Übungen in Kapitel 1"></nav>
 
   <article class="ex" id="u1-1">
     <header class="ex-h"><span class="ex-no">Ü 1-1</span><h3>Ökonomische Modelle und Variablen</h3></header>
@@ -293,7 +440,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u1-3">
-    <header class="ex-h"><span class="ex-no">Ü 1-3</span><h3>Das Bruttoinlandsprodukt</h3><span class="stamp">Kam in der Klausur dran (A 1 a)</span></header>
+    <header class="ex-h"><span class="ex-no">Ü 1-3</span><h3>Das Bruttoinlandsprodukt</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 1 a</span></header>
     <section class="task"><h4>Aufgabe</h4><p>Was ist das (nominale) Bruttoinlandsprodukt (BIP)?</p><p class="note">In der Klausur war die Definition ein Lückentext: Es fehlten die Wörter „Wert“ und „Endprodukte“.</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Skript I, Folie 23, wörtlich: „Das BIP ist der <span class="gap">Wert</span> aller <span class="gap">Endprodukte</span> einer Volkswirtschaft, die in einem bestimmten, abgeschlossenen Zeitraum erzeugt werden.“</p></section>
     <div class="sol">
@@ -338,7 +485,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u1-5">
-    <header class="ex-h"><span class="ex-no">Ü 1-5</span><h3>Ausgabenkategorien zuordnen</h3><span class="stamp">Kam in der Klausur dran (A 1 b)</span></header>
+    <header class="ex-h"><span class="ex-no">Ü 1-5</span><h3>Ausgabenkategorien zuordnen</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 1 b</span></header>
     <section class="task"><h4>Aufgabe</h4><p>Ordnen Sie jeder der folgenden Transaktionen die entsprechende Ausgabenkategorie zu:</p><ul><li>VW verkauft einen Lieferwagen an die Bundeswehr</li><li>VW verkauft einen Lieferwagen an die BASF</li><li>VW verkauft einen Lieferwagen an Air France</li><li>VW verkauft einen Lieferwagen an Herrn Merz</li><li>VW produziert einen Lieferwagen, um ihn nächstes Jahr zu verkaufen</li></ul><p class="note">In der Klausur kamen andere Sätze, das Prinzip ist dasselbe.</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Entscheidend ist, <em>wer kauft</em>. Produziert ein Unternehmen auf Lager, zählt das als Investition (Lagerinvestition).</p></section>
     <div class="sol">
@@ -358,7 +505,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="f31">
-    <header class="ex-h"><span class="ex-no">Folie 31</span><h3>Reales vs. nominales BIP</h3><span class="stamp">Kam in der Klausur dran (A 1 c, d)</span></header>
+    <header class="ex-h"><span class="ex-no">Folie 31</span><h3>Reales vs. nominales BIP</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 1 c, d</span></header>
     <section class="task"><h4>Aufgabe</h4><p>Klausur: „Fall 1, Folie 31“ erklären und zwei Definitionen geben. Vermutlich gemeint: nominales BIP, reales BIP und Deflator. Möglich ist auch Fall 1 im Keynes-Kreuz (Skript II, Folie 39).</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Das nominale BIP kann steigen, weil die Preise steigen, die Mengen steigen oder beides. Deshalb braucht man das reale BIP als Maß für die Güterversorgung.</p></section>
     <div class="sol">
@@ -374,7 +521,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u1-6">
-    <header class="ex-h"><span class="ex-no">Ü 1-6</span><h3>Nominales und reales BIP, Deflator, Preisindex</h3><span class="stamp">Kam in der Klausur dran (A 2)</span></header>
+    <header class="ex-h"><span class="ex-no">Ü 1-6</span><h3>Nominales und reales BIP, Deflator, Preisindex</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 2</span></header>
     <section class="task"><h4>Aufgabe</h4><p>Berechnen Sie das nominale BIP und das reale BIP (Basisjahr 2010) für die Jahre 2010 bis 2012, den BIP-Deflator und einen Preisindex mit dem Basisjahr 2010. Klausur A2 fragte zusätzlich nach der Inflationsrate.</p>
       <div class="tw"><table>
         <thead><tr><th>Jahr</th><th class="n">Äpfel Menge</th><th class="n">Äpfel Preis</th><th class="n">Birnen Menge</th><th class="n">Birnen Preis</th></tr></thead>
@@ -426,7 +573,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
       </div>
       <p class="note">Deflator und VPI sind hier zufällig gleich.</p>
       <h4>VPI vs. Deflator (Skript I, Folie 36)</h4>
-      <div class="tw"><table>
+      <div class="tw cmp"><table>
         <thead><tr><th></th><th>VPI</th><th>BIP-Deflator</th></tr></thead>
         <tbody>
           <tr><th>Importgüter (z. B. Rohstoffe)</th><td>enthalten</td><td>nicht enthalten</td></tr>
@@ -454,7 +601,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
     <section class="theory"><h4>Was das Skript sagt</h4><p>Die entscheidende Annahme ist, ob die Preise sich anpassen können. Daraus folgt alles Weitere, bis hin zur Denkschule.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
-      <div class="tw"><table>
+      <div class="tw cmp"><table>
         <thead><tr><th></th><th>Kurze Frist</th><th>Mittlere bis lange Frist</th></tr></thead>
         <tbody>
           <tr><th>Preise</th><td>starr</td><td>flexibel</td></tr>
@@ -469,9 +616,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 </section>
 
 <!-- ===================== KAPITEL 2 ===================== -->
-<section class="chap" id="kap2">
+<section class="page" id="kap2" data-s="I·2 Klassik" data-k="Teil I · Kapitel 2" data-t="Klassisch-neoklassische Theorie">
   <h2><small>Teil I · Kapitel 2</small>Klassisch-neoklassische Theorie</h2>
-  <nav class="exnav" aria-label="Übungen in Kapitel 2"></nav>
 
   <div class="base" id="k2-grund">
     <header class="ex-h"><span class="ex-no">Grundlage</span><h3>Geschlossene Volkswirtschaft, lange Frist</h3></header>
@@ -487,7 +633,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 
   <article class="ex" id="u2-1">
     <header class="ex-h"><span class="ex-no">Ü 2-1</span><h3>Steuererhöhung um 100</h3></header>
-    <section class="task"><h4>Aufgabe</h4><p>Der Staat erhöht die Steuern um 100 Einheiten, die marginale Konsumneigung ist 0,6. Welche Folgen ergeben sich für</p><ul><li>a) die öffentliche Ersparnis</li><li>b) die private Ersparnis</li><li>c) das gesamtwirtschaftliche Sparen</li><li>d) die Investitionen</li></ul></section>
+    <section class="task"><h4>Aufgabe</h4><p>Der Staat erhöht die Steuern um 100 Einheiten, die marginale Konsumneigung ist 0,6. Welche Folgen ergeben sich für</p><ul class="parts"><li><b class="q">a</b><span>die öffentliche Ersparnis</span></li><li><b class="q">b</b><span>die private Ersparnis</span></li><li><b class="q">c</b><span>das gesamtwirtschaftliche Sparen</span></li><li><b class="q">d</b><span>die Investitionen</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Klassisch bleibt Y fest. Höhere Steuern senken das verfügbare Einkommen, der Konsum sinkt um MPC · ΔT. Mehr Ersparnis verschiebt die S-Linie nach rechts.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -521,7 +667,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 
   <article class="ex" id="u2-3">
     <header class="ex-h"><span class="ex-no">Ü 2-3</span><h3>Kapitalmarkt rechnen</h3></header>
-    <section class="task"><h4>Aufgabe</h4><p>Gegeben ist eine geschlossene Volkswirtschaft mit</p><p class="given">Y = 5000 · G = 1000 · T = 1000<br>C = 250 + 0,75(Y − T) · I = 1000 − 50r</p><ul><li>a) Ermitteln Sie die private, öffentliche und gesamtwirtschaftliche Ersparnis sowie den gleichgewichtigen Zins.</li><li>b) Die Staatsausgaben steigen auf 1250. Ermitteln Sie die private, öffentliche und gesamtwirtschaftliche Ersparnis sowie den gleichgewichtigen Zins.</li></ul></section>
+    <section class="task"><h4>Aufgabe</h4><p>Gegeben ist eine geschlossene Volkswirtschaft mit</p><p class="given">Y = 5000 · G = 1000 · T = 1000<br>C = 250 + 0,75(Y − T) · I = 1000 − 50r</p><ul class="parts"><li><b class="q">a</b><span>Ermitteln Sie die private, öffentliche und gesamtwirtschaftliche Ersparnis sowie den gleichgewichtigen Zins.</span></li><li><b class="q">b</b><span>Die Staatsausgaben steigen auf 1250. Ermitteln Sie die private, öffentliche und gesamtwirtschaftliche Ersparnis sowie den gleichgewichtigen Zins.</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Erst C aus dem verfügbaren Einkommen, dann die Ersparnisse, dann <span class="m">S = I(r)</span> nach r auflösen.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -547,8 +693,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u2-4">
-    <header class="ex-h"><span class="ex-no">Ü 2-4</span><h3>Wirtschaftskreislauf</h3><span class="stamp">Kam in der Klausur dran (A 4 = a–c)</span></header>
-    <section class="task"><h4>Aufgabe</h4><p>In einer geschlossenen Volkswirtschaft fließen folgende Ströme von den Unternehmen an die Haushalte: Löhne 620, Kapitaleinkommen 180. Die Haushalte konsumieren für 560 und entrichten Steuern im Umfang von 100. Die Investitionsausgaben der Unternehmen betragen 110 und die Staatsausgaben 130.</p><ul><li>a) Bestimmen Sie das Bruttoinlandsprodukt mit zwei verschiedenen Ansätzen.</li><li>b) Wie hoch sind die gesamtwirtschaftliche, die öffentliche und die private Ersparnis?</li><li>c) Der Konsum hängt linear vom verfügbaren Einkommen ab. Der autonome Konsum ist null. Wie hoch ist die marginale Konsumneigung?</li><li>d) Wie ändern sich Konsum und gesamtwirtschaftliche Ersparnis, wenn die Löhne um 60 und die Kapitaleinkommen um 40 steigen?</li></ul></section>
+    <header class="ex-h"><span class="ex-no">Ü 2-4</span><h3>Wirtschaftskreislauf</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 4 (Teil a–c)</span></header>
+    <section class="task"><h4>Aufgabe</h4><p>In einer geschlossenen Volkswirtschaft fließen folgende Ströme von den Unternehmen an die Haushalte: Löhne 620, Kapitaleinkommen 180. Die Haushalte konsumieren für 560 und entrichten Steuern im Umfang von 100. Die Investitionsausgaben der Unternehmen betragen 110 und die Staatsausgaben 130.</p><ul class="parts"><li><b class="q">a</b><span>Bestimmen Sie das Bruttoinlandsprodukt mit zwei verschiedenen Ansätzen.</span></li><li><b class="q">b</b><span>Wie hoch sind die gesamtwirtschaftliche, die öffentliche und die private Ersparnis?</span></li><li><b class="q">c</b><span>Der Konsum hängt linear vom verfügbaren Einkommen ab. Der autonome Konsum ist null. Wie hoch ist die marginale Konsumneigung?</span></li><li><b class="q">d</b><span>Wie ändern sich Konsum und gesamtwirtschaftliche Ersparnis, wenn die Löhne um 60 und die Kapitaleinkommen um 40 steigen?</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Einkommen = Ausgaben: Die Summe der Faktoreinkommen (Verteilungsseite) muss der Summe C + I + G (Verwendungsseite) entsprechen. In der geschlossenen Volkswirtschaft gilt außerdem S = I.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -580,7 +726,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 
   <article class="ex" id="u2-5">
     <header class="ex-h"><span class="ex-no">Ü 2-5</span><h3>Änderung der Ersparnis</h3></header>
-    <section class="task"><h4>Aufgabe</h4><p>Gegeben seien MPC = 0,9 und MPL = 10. Bestimmen Sie ΔS für</p><ul><li>a) ΔG = −50</li><li>b) ΔT = −20</li><li>c) ΔY = −40</li><li>d) ΔL = −20</li></ul></section>
+    <section class="task"><h4>Aufgabe</h4><p>Gegeben seien MPC = 0,9 und MPL = 10. Bestimmen Sie ΔS für</p><ul class="parts"><li><b class="q">a</b><span>ΔG = −50</span></li><li><b class="q">b</b><span>ΔT = −20</span></li><li><b class="q">c</b><span>ΔY = −40</span></li><li><b class="q">d</b><span>ΔL = −20</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>In Änderungen: <span class="m">ΔS = ΔY − ΔC − ΔG</span>. Der Konsum reagiert mit MPC auf das verfügbare Einkommen. Eine Änderung der Arbeit wirkt über das Grenzprodukt: <span class="m">ΔY = MPL · ΔL</span>.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -610,7 +756,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u2-7">
-    <header class="ex-h"><span class="ex-no">Ü 2-7</span><h3>Funktionen des Geldes</h3><span class="stamp">Kam in der Klausur dran (A 9)</span></header>
+    <header class="ex-h"><span class="ex-no">Ü 2-7</span><h3>Funktionen des Geldes</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 9</span></header>
     <section class="task"><h4>Aufgabe</h4><p>Was sind die Funktionen des Geldes?</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Geldformen: Nominalgeld (Fiat money, kein innerer Wert) und Warengeld (innerer Wert, z. B. Gold).</p></section>
     <div class="sol">
@@ -625,7 +771,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u2-8">
-    <header class="ex-h"><span class="ex-no">Ü 2-8</span><h3>Realzins über Quantitätsgleichung und Fisher</h3><span class="stamp">Kam in der Klausur dran (A 3)</span></header>
+    <header class="ex-h"><span class="ex-no">Ü 2-8</span><h3>Realzins über Quantitätsgleichung und Fisher</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 3</span></header>
     <section class="task"><h4>Aufgabe</h4><p>Die Umlaufgeschwindigkeit des Geldes ist konstant, das reale BIP-Wachstum ist 0,05, die nominale Geldmenge wächst mit 0,14 und der Nominalzins liegt bei 0,11.</p><p>Bestimmen Sie den Realzins.</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4>
       <p>Quantitätsgleichung <span class="m">M·V = P·Y</span>, in Wachstumsraten <span class="m">g<sub>M</sub> + g<sub>V</sub> = π + g<sub>Y</sub></span>. Fisher-Gleichung: <span class="m">i = r + π</span>. Friedman: „Inflation ist immer und überall ein monetäres Phänomen.“</p></section>
@@ -647,8 +793,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u2-9">
-    <header class="ex-h"><span class="ex-no">Ü 2-9</span><h3>Dichotomie, Neutralität, Messung</h3><span class="stamp">Kam in der Klausur dran (A 9)</span></header>
-    <section class="task"><h4>Aufgabe</h4><ul><li>a) Was ist die klassische Dichotomie?</li><li>b) Was ist die Neutralität des Geldes?</li><li>c) Wie werden nominale und reale Variablen gemessen?</li></ul></section>
+    <header class="ex-h"><span class="ex-no">Ü 2-9</span><h3>Dichotomie, Neutralität, Messung</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 9</span></header>
+    <section class="task"><h4>Aufgabe</h4><ul class="parts"><li><b class="q">a</b><span>Was ist die klassische Dichotomie?</span></li><li><b class="q">b</b><span>Was ist die Neutralität des Geldes?</span></li><li><b class="q">c</b><span>Wie werden nominale und reale Variablen gemessen?</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Die Klassik trennt die Welt der Güter (real) von der Welt des Geldes (nominal). Geld bestimmt langfristig nur das Preisniveau.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -666,8 +812,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u2-10">
-    <header class="ex-h"><span class="ex-no">Ü 2-10</span><h3>Kleine offene Volkswirtschaft: Fiskalpolitik</h3><span class="stamp">Kam in der Klausur dran (A 7 = Teil b)</span></header>
-    <section class="task"><h4>Aufgabe</h4><p>Betrachten Sie das Finanzmarktmodell für eine kleine, offene Volkswirtschaft. Annahmen: Die Ersparnis ist unabhängig vom Realzins und die Netto-Exporte sind anfänglich positiv. Was passiert mit S, I, NX und r, wenn</p><ul><li>a) die Fiskalpolitik zuhause entweder G senkt oder T erhöht?</li><li>b) die Fiskalpolitik im Rest der Welt entweder G senkt oder T erhöht?</li></ul><p>Zeichnen und erklären Sie die Zusammenhänge.</p><p class="note">Klausur A7 fragte Teil b.</p></section>
+    <header class="ex-h"><span class="ex-no">Ü 2-10</span><h3>Kleine offene Volkswirtschaft: Fiskalpolitik</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 7 (Teil b)</span></header>
+    <section class="task"><h4>Aufgabe</h4><p>Betrachten Sie das Finanzmarktmodell für eine kleine, offene Volkswirtschaft. Annahmen: Die Ersparnis ist unabhängig vom Realzins und die Netto-Exporte sind anfänglich positiv. Was passiert mit S, I, NX und r, wenn</p><ul class="parts"><li><b class="q">a</b><span>die Fiskalpolitik zuhause entweder G senkt oder T erhöht?</span></li><li><b class="q">b</b><span>die Fiskalpolitik im Rest der Welt entweder G senkt oder T erhöht?</span></li></ul><p>Zeichnen und erklären Sie die Zusammenhänge.</p><p class="note">Klausur A7 fragte Teil b.</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4>
       <div class="eq">
         <div>NX = S − I(r*)</div>
@@ -707,7 +853,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 
   <article class="ex" id="u2-11">
     <header class="ex-h"><span class="ex-no">Ü 2-11</span><h3>Kleine offene Volkswirtschaft rechnen</h3></header>
-    <section class="task"><h4>Aufgabe</h4><p>Gegeben ist folgende kleine, offene Volkswirtschaft:</p><p class="given">Y = C + I + G + NX · Y = 5000 · G = 1000 · T = 1000<br>C = 250 + 0,75(Y − T) · I = 1000 − 50r<br>NX = 500 − 500ε · r = r* = 5</p><ul><li>a) Bestimmen Sie die gleichgewichtigen Werte für das gesamtwirtschaftliche Sparen, Investitionen, Leistungsbilanzsaldo und Wechselkurs.</li><li>b) Die Staatsausgaben steigen auf 1250. Wie groß sind nun gesamtwirtschaftliches Sparen, Investitionen, Leistungsbilanzsaldo und gleichgewichtiger Wechselkurs?</li><li>c) Der Welt-Realzins steigt auf 10, die Staatsausgaben liegen nun wieder bei 1000. Ermitteln Sie die Gleichgewichtswerte von gesamtwirtschaftlichem Sparen, Investitionen, Leistungsbilanzsaldo und Wechselkurs.</li></ul></section>
+    <section class="task"><h4>Aufgabe</h4><p>Gegeben ist folgende kleine, offene Volkswirtschaft:</p><p class="given">Y = C + I + G + NX · Y = 5000 · G = 1000 · T = 1000<br>C = 250 + 0,75(Y − T) · I = 1000 − 50r<br>NX = 500 − 500ε · r = r* = 5</p><ul class="parts"><li><b class="q">a</b><span>Bestimmen Sie die gleichgewichtigen Werte für das gesamtwirtschaftliche Sparen, Investitionen, Leistungsbilanzsaldo und Wechselkurs.</span></li><li><b class="q">b</b><span>Die Staatsausgaben steigen auf 1250. Wie groß sind nun gesamtwirtschaftliches Sparen, Investitionen, Leistungsbilanzsaldo und gleichgewichtiger Wechselkurs?</span></li><li><b class="q">c</b><span>Der Welt-Realzins steigt auf 10, die Staatsausgaben liegen nun wieder bei 1000. Ermitteln Sie die Gleichgewichtswerte von gesamtwirtschaftlichem Sparen, Investitionen, Leistungsbilanzsaldo und Wechselkurs.</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Erst <span class="m">S − I(r*)</span> ausrechnen, das ergibt NX. Dann <span class="m">NX = NX(ε)</span> nach ε auflösen. Im ε-NX-Diagramm ist S − I eine senkrechte Linie, NX(ε) fällt.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -748,7 +894,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 
   <article class="ex" id="u2-12">
     <header class="ex-h"><span class="ex-no">Ü 2-12</span><h3>Arbeitsmarkt-Kennzahlen</h3></header>
-    <section class="task"><h4>Aufgabe</h4><p>Gegeben ist folgende Bevölkerungsstruktur: 150 Mio. Erwachsene (zwischen 15 und 65 Jahren), 76,8 Mio. Erwerbstätige und 24,5 Mio. Erwerbslose. Berechnen Sie</p><ul><li>a) die Anzahl der Erwerbspersonen</li><li>b) die Anzahl der Nicht-Erwerbspersonen</li><li>c) die Arbeitslosenrate</li></ul></section>
+    <section class="task"><h4>Aufgabe</h4><p>Gegeben ist folgende Bevölkerungsstruktur: 150 Mio. Erwachsene (zwischen 15 und 65 Jahren), 76,8 Mio. Erwerbstätige und 24,5 Mio. Erwerbslose. Berechnen Sie</p><ul class="parts"><li><b class="q">a</b><span>die Anzahl der Erwerbspersonen</span></li><li><b class="q">b</b><span>die Anzahl der Nicht-Erwerbspersonen</span></li><li><b class="q">c</b><span>die Arbeitslosenrate</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Erwerbspersonen <span class="m">L = E + U</span>. Die Arbeitslosenquote bezieht sich auf die Erwerbspersonen, nicht auf alle Erwachsenen. Natürliche Arbeitslosenquote: <span class="m">U/L = s/(s + f)</span> mit s = Trennungsrate und f = Findungsrate.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -781,9 +927,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 </section>
 
 <!-- ===================== KAPITEL 3 ===================== -->
-<section class="chap" id="kap3">
+<section class="page" id="kap3" data-s="I·3 Solow" data-k="Teil I · Kapitel 3" data-t="Wachstum im Solow-Modell">
   <h2><small>Teil I · Kapitel 3</small>Wachstum im Solow-Modell</h2>
-  <nav class="exnav" aria-label="Übungen in Kapitel 3"></nav>
 
   <div class="base" id="k3-grund">
     <header class="ex-h"><span class="ex-no">Grundlage</span><h3>Pro-Kopf-Größen und Steady state</h3></header>
@@ -817,8 +962,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="u3-2">
-    <header class="ex-h"><span class="ex-no">Ü 3-2</span><h3>Solow-Modell: zwei Länder</h3><span class="stamp">Kam in der Klausur dran (A 5)</span></header>
-    <section class="task"><h4>Aufgabe</h4><p>Zwei Länder A und B sind durch folgende Produktionsfunktion gekennzeichnet:</p><p class="given">Y = F(K, L) = K<sup>0,5</sup> · L<sup>0,5</sup></p><ul><li>a) Weist diese Produktionsfunktion konstante Skalenerträge auf?</li><li>b) Wie sieht die Pro-Kopf-Produktionsfunktion aus?</li><li>c) Nehmen Sie an, dass keines der beiden Länder Bevölkerungswachstum oder technologischen Fortschritt zu verzeichnen hat und dass 5 % des Kapitals in jedem Jahr verschleißen. Land A spart 10 %, Land B 20 % seines jährlichen Outputs. Ermitteln Sie für beide Länder die Steady-state-Niveaus für das Pro-Kopf-Kapital, das Einkommen, den Pro-Kopf-Konsum und die Pro-Kopf-Investitionen.</li></ul></section>
+    <header class="ex-h"><span class="ex-no">Ü 3-2</span><h3>Solow-Modell: zwei Länder</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 5</span></header>
+    <section class="task"><h4>Aufgabe</h4><p>Zwei Länder A und B sind durch folgende Produktionsfunktion gekennzeichnet:</p><p class="given">Y = F(K, L) = K<sup>0,5</sup> · L<sup>0,5</sup></p><ul class="parts"><li><b class="q">a</b><span>Weist diese Produktionsfunktion konstante Skalenerträge auf?</span></li><li><b class="q">b</b><span>Wie sieht die Pro-Kopf-Produktionsfunktion aus?</span></li><li><b class="q">c</b><span>Nehmen Sie an, dass keines der beiden Länder Bevölkerungswachstum oder technologischen Fortschritt zu verzeichnen hat und dass 5 % des Kapitals in jedem Jahr verschleißen. Land A spart 10 %, Land B 20 % seines jährlichen Outputs. Ermitteln Sie für beide Länder die Steady-state-Niveaus für das Pro-Kopf-Kapital, das Einkommen, den Pro-Kopf-Konsum und die Pro-Kopf-Investitionen.</span></li></ul></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Konstante Skalenerträge: Verdoppelt man alle Inputs, verdoppelt sich der Output. Im Steady state gilt <span class="m">s·f(k*) = δk*</span>.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -855,14 +1000,12 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 </section>
 
-<div class="part">Teil II</div>
-
 <!-- ===================== TEIL II KAP 1 ===================== -->
-<section class="chap" id="adas">
+<section class="page" id="adas" data-s="II·1 AD/AS" data-k="Teil II · Kapitel 1" data-t="Konjunkturtheorie: AD und AS">
   <h2><small>Teil II · Kapitel 1</small>Konjunkturtheorie: AD und AS</h2>
 
   <article class="ex" id="adas-modell">
-    <header class="ex-h"><span class="ex-no">AD/AS</span><h3>Kurze und lange Frist im AD/AS-Modell</h3><span class="stamp">Kam in der Klausur dran (A 9)</span></header>
+    <header class="ex-h"><span class="ex-no">AD/AS</span><h3>Kurze und lange Frist im AD/AS-Modell</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 9</span></header>
     <section class="task"><h4>Aufgabe</h4><p>Keine eigene Übung im Skript, aber Stoff des Lückentexts: Wie verlaufen LRAS und SRAS? Was passiert nach einem Nachfrageschock mit Output und Preisniveau, kurzfristig und langfristig?</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4>
       <ul>
@@ -887,9 +1030,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 </section>
 
 <!-- ===================== TEIL II KAP 2 ===================== -->
-<section class="chap" id="kap5">
+<section class="page" id="kap5" data-s="II·2 IS/LM" data-k="Teil II · Kapitel 2" data-t="Grundlagen des IS/LM-Modells">
   <h2><small>Teil II · Kapitel 2</small>Grundlagen des IS/LM-Modells</h2>
-  <nav class="exnav" aria-label="Übungen in Teil II, Kapitel 2"></nav>
 
   <div class="base" id="t2-grund">
     <header class="ex-h"><span class="ex-no">Grundlage</span><h3>Keynes-Kreuz, IS-Kurve, LM-Kurve</h3></header>
@@ -977,13 +1119,12 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 </section>
 
 <!-- ===================== TEIL II KAP 3 ===================== -->
-<section class="chap" id="kap6">
+<section class="page" id="kap6" data-s="II·3 Anwendung" data-k="Teil II · Kapitel 3" data-t="Anwendung des IS/LM-Modells">
   <h2><small>Teil II · Kapitel 3</small>Anwendung des IS/LM-Modells</h2>
-  <nav class="exnav" aria-label="Übungen in Teil II, Kapitel 3"></nav>
 
   <article class="ex" id="t2-u3">
     <header class="ex-h"><span class="ex-no">II · Ü 3</span><h3>Politikmaßnahmen im IS/LM-Modell</h3></header>
-    <section class="task"><h4>Aufgabe</h4><p>Was geschieht im IS/LM-Modell mit Zinssatz, Einkommen, Konsum und Investitionen, wenn</p><ul><li>a) die Zentralbank das Geldangebot erhöht</li><li>b) die Regierung die Staatsausgaben erhöht</li><li>c) die Regierung die Steuern erhöht</li></ul><p>Zeichnen Sie Graphen und erklären Sie die Mechanismen! Wie sieht der Gesamteffekt auf Y, r, I und C aus? Erörtern Sie jeweils zwei Anpassungsrunden auf dem Geld- und Gütermarkt.</p></section>
+    <section class="task"><h4>Aufgabe</h4><p>Was geschieht im IS/LM-Modell mit Zinssatz, Einkommen, Konsum und Investitionen, wenn</p><ul class="parts"><li><b class="q">a</b><span>die Zentralbank das Geldangebot erhöht</span></li><li><b class="q">b</b><span>die Regierung die Staatsausgaben erhöht</span></li><li><b class="q">c</b><span>die Regierung die Steuern erhöht</span></li></ul><p>Zeichnen Sie Graphen und erklären Sie die Mechanismen! Wie sieht der Gesamteffekt auf Y, r, I und C aus? Erörtern Sie jeweils zwei Anpassungsrunden auf dem Geld- und Gütermarkt.</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>Der Schnittpunkt von IS und LM bestimmt kurzfristig das BIP. Fiskalpolitik verschiebt die IS-Kurve, Geldpolitik die LM-Kurve. Die Wirkung läuft in Runden zwischen Geldmarkt und Gütermarkt hin und her.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -1027,8 +1168,8 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </article>
 
   <article class="ex" id="t2-u4">
-    <header class="ex-h"><span class="ex-no">II · Ü 4</span><h3>IS/LM rechnen</h3><span class="stamp">Kam in der Klausur dran (A 6 = b–d)</span></header>
-    <section class="task"><h4>Aufgabe</h4><p>Folgende Volkswirtschaft ist gegeben:</p><p class="given">C = 200 + 0,75(Y − T) · I = 200 − 25r<br>G = 100 · T = 100<br>(M/P)<sup>d</sup> = Y − 100r · M = 1000 · P = 2</p><ul><li>a) Zeichnen Sie die IS-Kurve und die LM-Kurve, wobei r im Bereich zwischen 0 und 8 liegt.</li><li>b) Bestimmen Sie den gleichgewichtigen Zinssatz r und das Gleichgewichtseinkommen Y.</li><li>c) Nehmen Sie an, dass die Staatsausgaben von 100 auf 150 erhöht werden. Um welchen Betrag verschiebt sich die IS-Kurve? Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</li><li>d) Jetzt zurück zum Ausgangspunkt der Aufgabe (G = 100). Angenommen sei jetzt eine Erhöhung des Geldangebots von 1000 auf 1200. Wie verschiebt sich die LM-Kurve? Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</li><li>e) Zurück zum Ausgangspunkt (G = 100, M = 1000). Angenommen sei eine Erhöhung des Preisniveaus von 2 auf 4. Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</li></ul><p class="note">Klausur A6 fragte b) bis d).</p></section>
+    <header class="ex-h"><span class="ex-no">II · Ü 4</span><h3>IS/LM rechnen</h3><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 6 (Teil b–d)</span></header>
+    <section class="task"><h4>Aufgabe</h4><p>Folgende Volkswirtschaft ist gegeben:</p><p class="given">C = 200 + 0,75(Y − T) · I = 200 − 25r<br>G = 100 · T = 100<br>(M/P)<sup>d</sup> = Y − 100r · M = 1000 · P = 2</p><ul class="parts"><li><b class="q">a</b><span>Zeichnen Sie die IS-Kurve und die LM-Kurve, wobei r im Bereich zwischen 0 und 8 liegt.</span></li><li><b class="q">b</b><span>Bestimmen Sie den gleichgewichtigen Zinssatz r und das Gleichgewichtseinkommen Y.</span></li><li><b class="q">c</b><span>Nehmen Sie an, dass die Staatsausgaben von 100 auf 150 erhöht werden. Um welchen Betrag verschiebt sich die IS-Kurve? Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</span></li><li><b class="q">d</b><span>Jetzt zurück zum Ausgangspunkt der Aufgabe (G = 100). Angenommen sei jetzt eine Erhöhung des Geldangebots von 1000 auf 1200. Wie verschiebt sich die LM-Kurve? Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</span></li><li><b class="q">e</b><span>Zurück zum Ausgangspunkt (G = 100, M = 1000). Angenommen sei eine Erhöhung des Preisniveaus von 2 auf 4. Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</span></li></ul><p class="note">Klausur A6 fragte b) bis d).</p></section>
     <section class="theory"><h4>Was das Skript sagt</h4><p>IS: Gütermarkt nach Y auflösen. LM: Geldmarkt nach Y auflösen. Gleichsetzen ergibt r, einsetzen ergibt Y. Eine Änderung von G verschiebt IS um <span class="m">ΔG/(1 − MPC)</span>, eine Änderung von M/P verschiebt LM.</p></section>
     <div class="sol">
       <h4>Lösungsweg</h4>
@@ -1099,11 +1240,11 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 </section>
 
 <!-- ===================== ABSCHLUSS ===================== -->
-<section class="sec chap" id="tabelle">
+<section class="page" id="tabelle" data-s="Klassik vs. Keynes" data-k="Wiederholen" data-t="Klassik/Neoklassik vs. Keynes">
   <h2><small>Klausuraufgabe 8</small>Klassik/Neoklassik vs. Keynes</h2>
-  <p><span class="stamp">Kam in der Klausur dran (A 8)</span></p>
+  <p><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 8</span></p>
   <p>In der Klausur war eine Spalte gegeben, die andere musste ergänzt werden. Lerne die Tabelle zeilenweise als Gegensatzpaare.</p>
-  <div class="tw"><table>
+  <div class="tw cmp"><table>
     <thead><tr><th>Kriterium</th><th>Klassik/Neoklassik</th><th>Keynes</th></tr></thead>
     <tbody>
       <tr><th>Zeithorizont</th><td>mittlere bis lange Frist</td><td>kurze Frist</td></tr>
@@ -1122,9 +1263,9 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </table></div>
 </section>
 
-<section class="sec chap" id="luecken">
+<section class="page" id="luecken" data-s="Lückentext" data-k="Wiederholen" data-t="Lückentext-Kurzfassung">
   <h2><small>Klausuraufgabe 9</small>Lückentext-Kurzfassung</h2>
-  <p><span class="stamp">Kam in der Klausur dran (A 9)</span></p>
+  <p><span class="stamp" title="Kam in der letzten Klausur dran">In der Klausur: A 9</span></p>
   <p>Die grün markierten Wörter sind die typischen Lücken.</p>
   <ul class="gaps">
     <li>Die LRAS verläuft <span class="gap">vertikal</span> (bei Ȳ), die SRAS <span class="gap">horizontal</span> (bei P̄).</li>
@@ -1136,7 +1277,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
   </ul>
 </section>
 
-<section class="sec chap" id="formeln">
+<section class="page" id="formeln" data-s="Formeln" data-k="Wiederholen" data-t="Formelsammlung">
   <h2><small>Zum Auswendiglernen</small>Formelsammlung</h2>
   <dl class="fs">
     <div><dt>Verwendung des BIP</dt><dd>Y = C + I + G + NX</dd></div>
@@ -1158,6 +1299,7 @@ footer{border-top:1.5px solid var(--fg);margin-top:50px;padding-top:12px;font-si
 
 <footer>Makro Klausurtraining · Übungen aus Vorlesung Teil I und Teil II. Viel Erfolg am Mittwoch.</footer>
 </main>
+</div>
 
 <script>
 (function(){
@@ -1390,16 +1532,6 @@ function islm4(k){
 Object.keys(SC).forEach(function(n){var b=document.getElementById("sc-"+n); if(b) b.addEventListener("click",function(){islm4(n)})});
 islm4("base");
 
-/* Übungs-Sprungmarken je Kapitel */
-Array.prototype.forEach.call(document.querySelectorAll(".chap"),function(ch){
-  var nav=ch.querySelector(".exnav"); if(!nav) return;
-  Array.prototype.forEach.call(ch.querySelectorAll("article.ex"),function(ex){
-    var a=document.createElement("a"); a.href="#"+ex.id; a.textContent=ex.querySelector(".ex-no").textContent;
-    if(ex.querySelector(".stamp")){a.className="k"; a.title="Kam in der Klausur dran"}
-    nav.appendChild(a);
-  });
-});
-
 /* Selbsttest */
 var root=document.documentElement,tg=document.getElementById("selftest-toggle"),KEY="makro-selftest";
 var sols=Array.prototype.slice.call(document.querySelectorAll(".sol"));
@@ -1416,5 +1548,100 @@ function apply(on){root.classList.toggle("selftest",on); tg.checked=on; if(on) s
 var saved=false; try{saved=localStorage.getItem(KEY)==="1"}catch(e){}
 apply(saved);
 tg.addEventListener("change",function(){apply(tg.checked); try{localStorage.setItem(KEY,tg.checked?"1":"0")}catch(e){}});
+
+/* Seiten, Inhaltsverzeichnis, Position */
+var Q=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+var mk=function(t,c,x){var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e};
+var pages=Q("main > .page"),side=document.querySelector(".side"),toc=document.getElementById("toc"),loc=document.getElementById("loc"),chaps=document.getElementById("chaps");
+var mb=document.getElementById("menu-btn"),scrim=document.getElementById("scrim"),wide=window.matchMedia("(min-width:1000px)");
+var info={},cur=null,curEx,tick=false;
+var no=function(it){return it.querySelector(".ex-no").textContent};
+var dot=function(){var d=mk("span","dot"); d.setAttribute("role","img"); d.setAttribute("aria-label","kam in der letzten Klausur dran"); d.title="Kam in der letzten Klausur dran"; return d};
+
+pages.forEach(function(pg,i){
+  var items=Q(".ex,.base",pg),n=Q("article.ex",pg).length,k=Q(".ex .stamp",pg).length;
+  var a=toc.querySelector('a[href="#'+pg.id+'"]'),sub=null,links=[];
+  var meta=n?n+(n===1?" Aufgabe":" Aufgaben")+(k?(n===1?" · kam in der letzten Klausur dran":" · "+k+" davon in der letzten Klausur"):""):"";
+  if(meta) pg.querySelector("h2").insertAdjacentElement("afterend",mk("p","chap-meta",meta));
+  if(a&&n){var c=mk("span","tc",n); c.title=meta; a.appendChild(c)}
+  if(a&&items.length>1){
+    sub=mk("ul","sub"); sub.hidden=true;
+    items.forEach(function(it){
+      var li=mk("li"),l=mk("a"),t=mk("span","st");
+      l.href="#"+it.id; t.appendChild(mk("span","sn",no(it))); t.appendChild(document.createTextNode(it.querySelector("h3").textContent));
+      l.appendChild(t); if(it.querySelector(".stamp")) l.appendChild(dot());
+      li.appendChild(l); sub.appendChild(li); links.push(l);
+    });
+    a.parentNode.appendChild(sub);
+  }
+  if(chaps&&i>0){
+    var li=mk("li"),l=mk("a"); l.href="#"+pg.id;
+    l.appendChild(mk("small",null,pg.getAttribute("data-k"))); l.appendChild(mk("b",null,pg.getAttribute("data-t")));
+    if(meta) l.appendChild(mk("span",null,meta));
+    li.appendChild(l); chaps.appendChild(li);
+  }
+  var nav=mk("nav","pager"); nav.setAttribute("aria-label","Blättern");
+  [[pages[i-1],"prev","Zurück"],[pages[i+1],"next","Weiter"]].forEach(function(d){
+    if(!d[0]) return;
+    var l=mk("a",d[1]); l.href="#"+d[0].id;
+    l.appendChild(mk("small",null,d[2]+" · "+d[0].getAttribute("data-k"))); l.appendChild(mk("b",null,d[0].getAttribute("data-t")));
+    nav.appendChild(l);
+  });
+  pg.appendChild(nav);
+  info[pg.id]={a:a,sub:sub,items:items,links:links};
+});
+
+function menu(open){
+  root.classList.toggle("menu-open",open); mb.setAttribute("aria-expanded",open?"true":"false"); scrim.hidden=!open;
+  if(open){var f=toc.querySelector("a.on")||toc.querySelector("a"); if(f) f.focus()}
+}
+mb.addEventListener("click",function(){menu(!root.classList.contains("menu-open"))});
+scrim.addEventListener("click",function(){menu(false)});
+document.getElementById("menu-close").addEventListener("click",function(){menu(false); mb.focus()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&root.classList.contains("menu-open")){menu(false); mb.focus()}});
+toc.addEventListener("click",function(e){if(e.target.closest("a")) menu(false)});
+var onWide=function(){menu(false)};
+if(wide.addEventListener) wide.addEventListener("change",onWide); else if(wide.addListener) wide.addListener(onWide);
+
+/* Markiert im Inhaltsverzeichnis die Aufgabe, die gerade oben im Fenster steht */
+function spy(){
+  if(!cur) return;
+  var o=info[cur.id],y=(wide.matches?0:54)+110,best=null,i;
+  for(i=0;i<o.items.length;i++){if(o.items[i].getBoundingClientRect().top<=y) best=i; else break}
+  if(best===curEx) return;
+  curEx=best;
+  o.links.forEach(function(l,j){l.classList.toggle("on",j===best)});
+  var here=best!=null&&o.links.length?o.items[best]:null;
+  loc.firstChild.textContent=cur.getAttribute("data-s"); loc.lastChild.textContent=here?no(here)+" · "+here.querySelector("h3").textContent:""; loc.classList.toggle("has-ex",!!here);
+  var l=best!=null?o.links[best]:null;
+  if(l&&wide.matches){
+    var s=side.getBoundingClientRect(),r=l.getBoundingClientRect();
+    if(r.top<s.top+12) side.scrollTop-=s.top+12-r.top; else if(r.bottom>s.bottom-12) side.scrollTop+=r.bottom-s.bottom+12;
+  }
+}
+window.addEventListener("scroll",function(){if(tick) return; tick=true; requestAnimationFrame(function(){tick=false; spy()})},{passive:true});
+
+function activate(pg){
+  if(cur===pg) return;
+  pages.forEach(function(p){
+    var o=info[p.id],on=p===pg; p.classList.toggle("on",on);
+    if(o.a){o.a.classList.toggle("on",on); if(on) o.a.setAttribute("aria-current","page"); else o.a.removeAttribute("aria-current")}
+    if(o.sub) o.sub.hidden=!on;
+  });
+  cur=pg; curEx=undefined;
+}
+function route(first){
+  var id=""; try{id=decodeURIComponent(location.hash.replace(/^#/,""))}catch(e){}
+  var el=id?document.getElementById(id):null,pg=el?el.closest(".page"):null,to;
+  if(!pg){pg=pages[0]; el=null}
+  activate(pg); menu(false);
+  if(el&&el!==pg){to=el; el.scrollIntoView()}
+  else{to=pg.querySelector("h1,h2"); if(!first||id) window.scrollTo(0,0)}
+  if(!first&&to){to.setAttribute("tabindex","-1"); to.focus({preventScroll:true})}
+  spy();
+  if(first&&to===el&&el&&document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){if(cur===pg) el.scrollIntoView()});
+}
+window.addEventListener("hashchange",function(){route(false)});
+route(true);
 })();
 </script>
