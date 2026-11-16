@@ -146,7 +146,7 @@ h2 small{display:block;color:var(--c1);margin-bottom:9px}
 .task ul:not(.parts){display:grid;gap:.4em;margin:.5em 0 .8em}
 .task ul:not(.parts) li{margin:0}
 .parts{list-style:none;display:grid;gap:9px;margin:12px 0 14px;padding:0}
-.parts li{display:grid;grid-template-columns:1.65rem minmax(0,1fr);gap:11px;margin:0}
+.parts>li{display:grid;grid-template-columns:1.65rem minmax(0,1fr);gap:11px;margin:0}
 .q,.step .l{display:grid;place-items:center;width:1.65rem;height:1.65rem;border-radius:50%;font:700 .8rem/1 var(--mono)}
 .q{color:var(--fg);background:var(--panel);border:1.5px solid var(--mute)}
 .given{font-family:var(--mono);font-size:.86rem;line-height:1.7;font-variant-numeric:tabular-nums;background:var(--block);border:1px solid var(--line);border-radius:var(--r-s);padding:10px 14px;margin:10px 0 14px;max-width:none;overflow-wrap:anywhere}
@@ -180,6 +180,22 @@ h4+.step{margin-top:4px;padding-top:0;border-top:0}
 .reveal:hover{border-color:var(--c1)}
 .selftest .reveal{display:inline-block}
 .selftest .sol:not(.open){display:none}
+
+/* Probeklausur: Lösungen bleiben zu, bis man sie aufdeckt */
+.exam .reveal{display:inline-block}
+.exam .sol:not(.open){display:none}
+.task+.reveal{margin-top:20px}
+.exam-intro{margin:14px 0 0}
+.exam-end{margin-top:36px;padding-top:22px;border-top:1px solid var(--line)}
+.exam-end .reveal{margin:4px 0 0}
+.blank{display:inline-block;min-width:5.5em;border-bottom:1.5px solid var(--fg);text-align:center;font:500 .78em/1.5 var(--mono);color:var(--mute)}
+td.ask{font-family:var(--mono);color:var(--mute);background:var(--soft)}
+.parts ol{margin:.5em 0 0}
+.cloze{display:grid;gap:.7em;margin:.6em 0 0;padding-left:1.4em;line-height:1.8}
+.cloze li{margin:0}
+.res+.note,.sol>.tw+.note,.sol>.cloze+.note{margin:16px 0 0}
+.map-next{margin:16px 0 0;max-width:none}
+ol>li::marker{font-variant-numeric:normal}
 
 /* Diagramme */
 figure{margin:20px 0 18px;max-width:480px}
@@ -358,6 +374,10 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
       <li><a href="#luecken"><span class="tn"></span>Lückentext</a></li>
       <li><a href="#formeln"><span class="tn"></span>Formelsammlung</a></li>
     </ul>
+    <p class="toc-g">Testen</p>
+    <ul class="toc-l">
+      <li><a href="#probe"><span class="tn"></span>Probeklausur</a></li>
+    </ul>
     <p class="toc-key"><span class="dot"></span>kam in der letzten Klausur dran</p>
   </nav>
 </aside>
@@ -393,6 +413,7 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
     <li><span class="a">A8</span><span class="t">Tabelle Klassik/Neoklassik vs. Keynes: eine Spalte gegeben, die andere ergänzen</span><span class="go"><a href="#tabelle">Tabelle</a></span></li>
     <li><span class="a">A9</span><span class="t">Lückentext: LRAS/SRAS, Output und Preisniveau kurz/lang, Neutralität, real/nominal, drei Geldfunktionen</span><span class="go"><a href="#luecken">Lückentext</a><a href="#adas">AD/AS</a><a href="#u2-7">Ü 2-7</a><a href="#u2-9">Ü 2-9</a></span></li>
   </ul>
+  <p class="note map-next">Sicher in allen Aufgaben? Dann teste dich mit der <a href="#probe">Probeklausur</a>: dieselben Aufgabentypen, neue Zahlen.</p>
 </div>
   <div class="block only-narrow">
     <h2><small>Alle Aufgaben nach Skript</small>Kapitel</h2>
@@ -1306,6 +1327,394 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
   </dl>
 </section>
 
+<!-- ===================== PROBEKLAUSUR ===================== -->
+<section class="page exam" id="probe" data-s="Probeklausur" data-k="Testen" data-t="Probeklausur">
+  <h2><small>Wie die letzte Klausur, mit neuen Zahlen</small>Probeklausur</h2>
+  <p class="exam-intro">Dieselben neun Aufgabentypen wie in der letzten Klausur, aber mit anderen Zahlen und Sätzen. Rechne alles mit Stift, Papier und Taschenrechner durch. Die Lösungen bleiben verdeckt, bis du sie aufdeckst.</p>
+
+  <article class="ex" id="p1">
+    <header class="ex-h"><span class="ex-no">A 1</span><h3>BIP und Grundbegriffe</h3></header>
+    <section class="task"><h4>Aufgabe</h4>
+      <ul class="parts">
+        <li><b class="q">a</b><span>Ergänzen Sie die beiden Lücken: „Das BIP ist der <span class="blank">(1)</span> aller <span class="blank">(2)</span> einer Volkswirtschaft, die in einem bestimmten, abgeschlossenen Zeitraum erzeugt werden.“</span></li>
+        <li><b class="q">b</b><div>Ordnen Sie jeder der folgenden Transaktionen die entsprechende Ausgabenkategorie zu:
+          <ol>
+            <li>MAN verkauft einen Lkw an die Feuerwehr der Stadt Kaiserslautern.</li>
+            <li>MAN verkauft einen Lkw an eine Spedition in Mannheim.</li>
+            <li>MAN verkauft einen Lkw an eine Spedition in Polen.</li>
+            <li>Opel verkauft einen Neuwagen an Frau Schneider.</li>
+            <li>MAN produziert einen Lkw, um ihn nächstes Jahr zu verkaufen.</li>
+            <li>Familie Wagner lässt ein neues Einfamilienhaus bauen.</li>
+          </ol></div></li>
+        <li><b class="q">c</b><span>Das Skript (Teil I, Folie 91) unterscheidet bei der Leistungsbilanz drei Fälle. Erläutern Sie Fall 3, das Leistungsbilanzdefizit.</span></li>
+        <li><b class="q">d</b><span>Definieren Sie: reales BIP und BIP-Deflator.</span></li>
+      </ul>
+      <p class="note">In der letzten Klausur waren es bei a) dieselben zwei Lücken, bei b) andere Sätze, bei c) Fall 1 und bei d) zwei Definitionen.</p>
+    </section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <p class="step"><span class="l">a</span>Lücken</p>
+      <p>(1) <span class="gap">Wert</span>, (2) <span class="gap">Endprodukte</span>. Bewertet wird zu Marktpreisen. Zwischenprodukte zählen nicht mit, sonst würde doppelt gezählt.</p>
+      <p class="step"><span class="l">b</span>Ausgabenkategorien</p>
+      <div class="tw"><table>
+        <thead><tr><th class="n">Nr.</th><th>Wer kauft?</th><th>Kat.</th><th>Begründung</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td>Feuerwehr der Stadt</td><td class="c">G</td><td>Käufer ist der Staat</td></tr>
+          <tr><td class="n">2</td><td>Spedition in Mannheim</td><td class="c">I</td><td>Unternehmen kauft Ausrüstung</td></tr>
+          <tr><td class="n">3</td><td>Spedition in Polen</td><td class="c">NX</td><td>Käufer im Ausland → Export</td></tr>
+          <tr><td class="n">4</td><td>Frau Schneider</td><td class="c">C</td><td>Privathaushalt</td></tr>
+          <tr><td class="n">5</td><td>niemand, Lkw geht aufs Lager</td><td class="c">I</td><td>Lagerinvestition</td></tr>
+          <tr><td class="n">6</td><td>Familie Wagner, Neubau</td><td class="c">I</td><td>Es entsteht neues Kapital</td></tr>
+        </tbody>
+      </table></div>
+      <p class="step"><span class="l">c</span>Fall 3: Leistungsbilanzdefizit</p>
+      <div class="eq">
+        <div>NX &lt; 0 <span class="n">· Leistungsbilanzdefizit</span></div>
+        <div>EX &lt; IM</div>
+        <div>Y &lt; C + I + G <span class="n">· es wird mehr ausgegeben als produziert</span></div>
+        <div>S &lt; I <span class="n">· Netto-Kapitalimporte</span></div>
+        <div>Die Netto-Auslandsposition verschlechtert sich.</div>
+      </div>
+      <p>Alle drei Fälle der Folie im Überblick:</p>
+      <div class="tw cmp"><table>
+        <thead><tr><th>Fall</th><th>Es gilt</th><th>Folge</th></tr></thead>
+        <tbody>
+          <tr><th>Fall 1: Überschuss, NX &gt; 0</th><td>EX &gt; IM, Y &gt; C + I + G, S &gt; I</td><td>Netto-Kapitalexporte, die Netto-Auslandsposition verbessert sich</td></tr>
+          <tr><th>Fall 2: ausgeglichen, NX = 0</th><td>EX = IM, Y = C + I + G, S = I</td><td>Netto-Kapitalexporte gleich null, die Netto-Auslandsposition bleibt unverändert</td></tr>
+          <tr><th>Fall 3: Defizit, NX &lt; 0</th><td>EX &lt; IM, Y &lt; C + I + G, S &lt; I</td><td>Netto-Kapitalimporte, die Netto-Auslandsposition verschlechtert sich</td></tr>
+        </tbody>
+      </table></div>
+      <p class="step"><span class="l">d</span>Definitionen</p>
+      <ul>
+        <li><strong>Reales BIP:</strong> die Mengen des aktuellen Jahres, bewertet mit den Preisen eines Basisjahres. Es steigt nur, wenn die Mengen steigen.</li>
+        <li><strong>BIP-Deflator:</strong> nominales BIP / reales BIP (impliziter Preisindex). Er gibt den Preis einer typischen produzierten Einheit relativ zum Basisjahr an.</li>
+      </ul>
+      <div class="res"><h4>Ergebnis</h4><p>a) <b>Wert</b>, <b>Endprodukte</b>. b) <b>G, I, NX, C, I, I</b>. c) <span class="m">NX &lt; 0, EX &lt; IM, Y &lt; C + I + G, S &lt; I</span>, Netto-Kapitalimporte. d) Real = Basispreise × aktuelle Mengen, <span class="m">Deflator = BIP<sub>nom</sub> / BIP<sub>real</sub></span>.</p></div>
+      <p class="note">Zum Üben: <a href="#u1-3">Ü 1-3</a>, <a href="#u1-5">Ü 1-5</a>, <a href="#f31">Folie 31</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p2">
+    <header class="ex-h"><span class="ex-no">A 2</span><h3>BIP-Deflator, VPI und Inflationsrate</h3></header>
+    <section class="task"><h4>Aufgabe</h4>
+      <p>Eine Volkswirtschaft stellt nur Äpfel und Birnen her. Basisjahr ist 2020.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Jahr</th><th class="n">Äpfel Menge</th><th class="n">Äpfel Preis</th><th class="n">Birnen Menge</th><th class="n">Birnen Preis</th></tr></thead>
+        <tbody>
+          <tr><th>2020</th><td class="n">20</td><td class="n">2</td><td class="n">10</td><td class="n">4</td></tr>
+          <tr><th>2021</th><td class="n">20</td><td class="n">3</td><td class="n">15</td><td class="n">4</td></tr>
+          <tr><th>2022</th><td class="n">30</td><td class="n">3</td><td class="n">15</td><td class="n">6</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="parts">
+        <li><b class="q">a</b><span>Berechnen Sie für alle drei Jahre das nominale BIP, das reale BIP und den BIP-Deflator.</span></li>
+        <li><b class="q">b</b><span>Berechnen Sie für alle drei Jahre den VPI (Warenkorb des Basisjahres) und die Inflationsrate für 2021 und 2022.</span></li>
+      </ul>
+    </section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <p class="step"><span class="l">a</span>Nominales BIP, reales BIP, Deflator</p>
+      <div class="eq">
+        <div class="n">Nominal = aktuelle Mengen · aktuelle Preise</div>
+        <div>2020: 20·2 + 10·4 = <b>80</b></div>
+        <div>2021: 20·3 + 15·4 = <b>120</b></div>
+        <div>2022: 30·3 + 15·6 = <b>180</b></div>
+      </div>
+      <div class="eq">
+        <div class="n">Real = aktuelle Mengen · Preise von 2020</div>
+        <div>2020: <b>80</b></div>
+        <div>2021: 20·2 + 15·4 = <b>100</b></div>
+        <div>2022: 30·2 + 15·4 = <b>120</b></div>
+      </div>
+      <div class="eq">
+        <div class="n">Deflator = nominal / real · 100</div>
+        <div>2020: 80/80·100 = <b>100</b></div>
+        <div>2021: 120/100·100 = <b>120</b></div>
+        <div>2022: 180/120·100 = <b>150</b></div>
+      </div>
+      <p class="step"><span class="l">b</span>VPI und Inflationsrate</p>
+      <div class="eq">
+        <div class="n">Fester Warenkorb 2020 = 20 Äpfel + 10 Birnen, Kosten 2020 = 80</div>
+        <div>2020: 80/80·100 = <b>100</b></div>
+        <div>2021: (20·3 + 10·4)/80·100 = <b>125</b></div>
+        <div>2022: (20·3 + 10·6)/80·100 = <b>150</b></div>
+      </div>
+      <div class="eq">
+        <div class="n">Inflationsrate = (VPI<sub>t</sub> − VPI<sub>t−1</sub>) / VPI<sub>t−1</sub></div>
+        <div>2021: (125 − 100)/100 = <b>+25 %</b></div>
+        <div>2022: (150 − 125)/125 = <b>+20 %</b></div>
+      </div>
+      <p class="note">2021 liegt der VPI (125) über dem Deflator (120), weil er am alten Warenkorb festhält. Die zusätzlichen Birnen, deren Preis gleich geblieben ist, zählt nur der Deflator mit. Mit dem Deflator gerechnet wäre die Inflation +20 % (2021) und +25 % (2022).</p>
+      <div class="res"><h4>Ergebnis</h4>
+        <div class="tw"><table>
+          <thead><tr><th>Jahr</th><th class="n">nominal</th><th class="n">real</th><th class="n">Deflator</th><th class="n">VPI</th><th class="n">Inflation</th></tr></thead>
+          <tbody>
+            <tr><th>2020</th><td class="n">80</td><td class="n">80</td><td class="n">100</td><td class="n">100</td><td class="n">–</td></tr>
+            <tr><th>2021</th><td class="n">120</td><td class="n">100</td><td class="n">120</td><td class="n">125</td><td class="n">+25 %</td></tr>
+            <tr><th>2022</th><td class="n">180</td><td class="n">120</td><td class="n">150</td><td class="n">150</td><td class="n">+20 %</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <p class="note">Zum Üben: <a href="#u1-6">Ü 1-6</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p3">
+    <header class="ex-h"><span class="ex-no">A 3</span><h3>Quantitätsgleichung und Fisher-Gleichung</h3></header>
+    <section class="task"><h4>Aufgabe</h4><p>Die Umlaufgeschwindigkeit des Geldes ist konstant, das reale BIP-Wachstum ist 0,02, die nominale Geldmenge wächst mit 0,10 und der Nominalzins liegt bei 0,12.</p><p>Bestimmen Sie die Inflationsrate und den Realzins.</p></section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <p class="step"><span class="l">1</span>Inflation aus der Quantitätsgleichung</p>
+      <div class="eq">
+        <div>M·V = P·Y <span class="n">· in Wachstumsraten:</span></div>
+        <div>g<sub>M</sub> + g<sub>V</sub> = π + g<sub>Y</sub></div>
+        <div>V konstant → g<sub>V</sub> = 0</div>
+        <div>π = 0,10 − 0,02 = <b>0,08</b></div>
+      </div>
+      <p class="step"><span class="l">2</span>Realzins aus der Fisher-Gleichung</p>
+      <div class="eq">
+        <div>i = r + π</div>
+        <div>r = 0,12 − 0,08 = 0,04 = <b>4 %</b></div>
+      </div>
+      <div class="res"><h4>Ergebnis</h4><p>Inflation <span class="m">π = <b>8 %</b></span>, Realzins <span class="m">r = <b>4 %</b></span>.</p></div>
+      <p class="note">Zum Üben: <a href="#u2-8">Ü 2-8</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p4">
+    <header class="ex-h"><span class="ex-no">A 4</span><h3>Wirtschaftskreislauf</h3></header>
+    <section class="task"><h4>Aufgabe</h4><p>In einer geschlossenen Volkswirtschaft fließen folgende Ströme von den Unternehmen an die Haushalte: Löhne 700, Kapitaleinkommen 300. Die Haushalte konsumieren für 600 und entrichten Steuern im Umfang von 200. Die Investitionsausgaben der Unternehmen betragen 150 und die Staatsausgaben 250.</p>
+      <ul class="parts">
+        <li><b class="q">a</b><span>Bestimmen Sie das Bruttoinlandsprodukt mit zwei verschiedenen Ansätzen.</span></li>
+        <li><b class="q">b</b><span>Wie hoch sind die gesamtwirtschaftliche, die öffentliche und die private Ersparnis?</span></li>
+        <li><b class="q">c</b><span>Der Konsum hängt linear vom verfügbaren Einkommen ab. Der autonome Konsum ist null. Wie hoch ist die marginale Konsumneigung?</span></li>
+      </ul>
+    </section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <p class="step"><span class="l">a</span>Zwei Ansätze</p>
+      <div class="eq">
+        <div>Einkommensansatz: 700 + 300 = <b>1000</b></div>
+        <div>Verwendungsansatz: 600 + 150 + 250 = <b>1000</b></div>
+      </div>
+      <p class="step"><span class="l">b</span>Ersparnis</p>
+      <div class="eq">
+        <div>S<sub>priv</sub> = Y − T − C = 1000 − 200 − 600 = <b>200</b></div>
+        <div>S<sub>öff</sub> = T − G = 200 − 250 = <b>−50</b></div>
+        <div>S = 200 − 50 = <b>150</b> <span class="n">(= I ✓)</span></div>
+      </div>
+      <p class="step"><span class="l">c</span>Marginale Konsumneigung</p>
+      <div class="eq">
+        <div>C = c·(Y − T)</div>
+        <div>600 = c·800 → MPC = <b>0,75</b></div>
+      </div>
+      <div class="res"><h4>Ergebnis</h4><p><span class="m">Y = <b>1000</b></span> in beiden Ansätzen. <span class="m">S<sub>priv</sub> = <b>200</b>, S<sub>öff</sub> = <b>−50</b>, S = <b>150</b> = I</span>. <span class="m">MPC = <b>0,75</b></span>.</p></div>
+      <p class="note">Zum Üben: <a href="#u2-4">Ü 2-4</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p5">
+    <header class="ex-h"><span class="ex-no">A 5</span><h3>Solow-Modell: zwei Länder</h3></header>
+    <section class="task"><h4>Aufgabe</h4><p>Zwei Länder A und B sind durch folgende Produktionsfunktion gekennzeichnet:</p><p class="given">Y = F(K, L) = K<sup>0,5</sup> · L<sup>0,5</sup></p>
+      <ul class="parts">
+        <li><b class="q">a</b><span>Weist diese Produktionsfunktion konstante Skalenerträge auf?</span></li>
+        <li><b class="q">b</b><span>Wie sieht die Pro-Kopf-Produktionsfunktion aus?</span></li>
+        <li><b class="q">c</b><span>Keines der beiden Länder hat Bevölkerungswachstum oder technologischen Fortschritt, und in jedem Jahr verschleißen 4 % des Kapitals. Land A spart 12 %, Land B 20 % seines jährlichen Outputs. Ermitteln Sie für beide Länder die Steady-state-Niveaus für das Pro-Kopf-Kapital, das Einkommen, den Pro-Kopf-Konsum und die Pro-Kopf-Investitionen.</span></li>
+      </ul>
+    </section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <p class="step"><span class="l">a</span>Skalenerträge</p>
+      <div class="eq">
+        <div>F(zK, zL) = (zK)<sup>0,5</sup>(zL)<sup>0,5</sup> = z·K<sup>0,5</sup>L<sup>0,5</sup> = z·Y</div>
+        <div>→ <b>ja</b> <span class="n">(Exponenten summieren sich zu 1)</span></div>
+      </div>
+      <p class="step"><span class="l">b</span>Pro-Kopf-Funktion</p>
+      <div class="eq"><div>y = Y/L = (K/L)<sup>0,5</sup> = k<sup>0,5</sup> = <b>√k</b></div></div>
+      <p class="step"><span class="l">c</span>Steady state</p>
+      <div class="eq">
+        <div>s·√k = δ·k</div>
+        <div>√k = s/δ</div>
+        <div>k* = <b>(s/δ)²</b></div>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th></th><th>Land A (s = 0,12)</th><th>Land B (s = 0,2)</th></tr></thead>
+        <tbody>
+          <tr><th>k*</th><td class="n">(0,12/0,04)² = 9</td><td class="n">(0,2/0,04)² = 25</td></tr>
+          <tr><th>y* = √k*</th><td class="n">3</td><td class="n">5</td></tr>
+          <tr><th>i* = s·y*</th><td class="n">0,36</td><td class="n">1</td></tr>
+          <tr><th>c* = (1−s)·y*</th><td class="n">2,64</td><td class="n">4</td></tr>
+        </tbody>
+      </table></div>
+      <div class="eq"><div>Probe: δk* = 0,04·9 = 0,36 ✓</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0,04·25 = 1 ✓</div></div>
+      <figure><div class="fig" id="g-p-solow"></div><figcaption>Maßstabsgetreu: Die Sparkurve s·√k schneidet die Abschreibungsgerade δk im Steady state. Land A bei k* = 9, Land B bei k* = 25.</figcaption></figure>
+      <div class="res"><h4>Ergebnis</h4>
+        <p>Konstante Skalenerträge: <b>ja</b>. <span class="m">y = √k</span>.</p>
+        <p><span class="m">A: k* = <b>9</b>, y* = <b>3</b>, i* = <b>0,36</b>, c* = <b>2,64</b></span><br><span class="m">B: k* = <b>25</b>, y* = <b>5</b>, i* = <b>1</b>, c* = <b>4</b></span></p>
+      </div>
+      <p class="note">Zum Üben: <a href="#u3-2">Ü 3-2</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p6">
+    <header class="ex-h"><span class="ex-no">A 6</span><h3>IS/LM rechnen</h3></header>
+    <section class="task"><h4>Aufgabe</h4><p>Folgende Volkswirtschaft ist gegeben:</p><p class="given">C = 100 + 0,8(Y − T) · I = 300 − 20r<br>G = 200 · T = 200<br>(M/P)<sup>d</sup> = Y − 50r · M = 2000 · P = 2</p>
+      <ul class="parts">
+        <li><b class="q">a</b><span>Bestimmen Sie den gleichgewichtigen Zinssatz r und das Gleichgewichtseinkommen Y.</span></li>
+        <li><b class="q">b</b><span>Nehmen Sie an, dass die Staatsausgaben von 200 auf 230 erhöht werden. Um welchen Betrag verschiebt sich die IS-Kurve? Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</span></li>
+        <li><b class="q">c</b><span>Jetzt zurück zum Ausgangspunkt der Aufgabe (G = 200). Angenommen sei jetzt eine Erhöhung des Geldangebots von 2000 auf 2300. Wie verschiebt sich die LM-Kurve? Welche Höhe haben im neuen Gleichgewicht Zinssatz und Einkommen?</span></li>
+      </ul>
+    </section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <p class="step"><span class="l">a</span>IS und LM herleiten, Gleichgewicht</p>
+      <div class="eq">
+        <div>IS: Y = 100 + 0,8(Y − 200) + 300 − 20r + 200</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;Y = 440 + 0,8Y − 20r</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;0,2Y = 440 − 20r</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<b>Y = 2200 − 100r</b></div>
+        <div>LM: M/P = 2000/2 = 1000</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;1000 = Y − 50r</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<b>Y = 1000 + 50r</b></div>
+      </div>
+      <div class="eq">
+        <div>2200 − 100r = 1000 + 50r</div>
+        <div>150r = 1200 → r = <b>8</b></div>
+        <div>Y = 1000 + 50·8 = <b>1400</b></div>
+        <div class="n">Probe: C = 100 + 0,8·1200 = 1060; I = 300 − 160 = 140; 1060 + 140 + 200 = 1400 ✓</div>
+      </div>
+      <p class="step"><span class="l">b</span>G = 230</p>
+      <div class="eq">
+        <div>IS verschiebt sich um ΔG/(1 − MPC) = 30/0,2 = <b>150 nach rechts</b></div>
+        <div>IS₂: Y = 2350 − 100r</div>
+        <div>2350 − 100r = 1000 + 50r → r = <b>9</b>, Y = <b>1450</b></div>
+        <div class="n">Y steigt nur um 50 statt 150 → Crowding-out, I sinkt von 140 auf 120</div>
+      </div>
+      <p class="step"><span class="l">c</span>M = 2300</p>
+      <div class="eq">
+        <div>M/P = 2300/2 = 1150 → LM₂: Y = 1150 + 50r <span class="n">· um 150 nach rechts</span></div>
+        <div>2200 − 100r = 1150 + 50r → r = <b>7</b>, Y = <b>1500</b></div>
+      </div>
+      <div class="duo">
+        <figure><div class="fig" id="g-p-islm-g"></div><figcaption><strong>b) G = 230:</strong> IS nach rechts, Zins und Einkommen steigen.</figcaption></figure>
+        <figure><div class="fig" id="g-p-islm-m"></div><figcaption><strong>c) M = 2300:</strong> LM nach rechts, der Zins sinkt, das Einkommen steigt.</figcaption></figure>
+      </div>
+      <div class="res"><h4>Ergebnis</h4>
+        <div class="tw"><table>
+          <thead><tr><th>Fall</th><th>Kurve</th><th class="n">r</th><th class="n">Y</th></tr></thead>
+          <tbody>
+            <tr><th>a) Ausgang</th><td>IS₁: Y = 2200 − 100r, LM₁: Y = 1000 + 50r</td><td class="n">8</td><td class="n">1400</td></tr>
+            <tr><th>b) G = 230</th><td>IS₂: Y = 2350 − 100r</td><td class="n">9</td><td class="n">1450</td></tr>
+            <tr><th>c) M = 2300</th><td>LM₂: Y = 1150 + 50r</td><td class="n">7</td><td class="n">1500</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <p class="note">Zum Üben: <a href="#t2-u4">Teil II Ü 4</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p7">
+    <header class="ex-h"><span class="ex-no">A 7</span><h3>Kleine offene Volkswirtschaft</h3></header>
+    <section class="task"><h4>Aufgabe</h4><p>Betrachten Sie das Finanzmarktmodell für eine kleine, offene Volkswirtschaft. Annahmen: Die Ersparnis ist unabhängig vom Realzins und die Netto-Exporte sind anfänglich positiv.</p><p>Der Rest der Welt <strong>erhöht</strong> die Staatsausgaben. Was passiert im Inland mit S, I, NX, r und dem realen Wechselkurs? Zeichnen und erklären Sie die Zusammenhänge.</p><p class="note">In der letzten Klausur hat der Rest der Welt die Staatsausgaben gesenkt. Hier ist es die Gegenrichtung.</p></section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <div class="eq">
+        <div class="n">Grundgleichung: NX = S − I(r*), r = r*</div>
+        <div>Welt: G↑ → Weltersparnis sinkt → Weltzins steigt: r₁* → r₂*</div>
+        <div>S unverändert <span class="n">· im Inland ändert sich keine Politik</span></div>
+        <div>I sinkt: I(r₂*) &lt; I(r₁*)</div>
+        <div>NX = S − I steigt: NX₂ &gt; NX₁ &gt; 0</div>
+        <div>ε sinkt (reale Abwertung), damit NX steigen kann</div>
+      </div>
+      <figure><div class="fig" id="g-p-open"></div><figcaption>Der Weltzins steigt auf r₂*. Die Investitionen gehen zurück, der Abstand zwischen S und I(r) wächst von NX₁ auf NX₂.</figcaption></figure>
+      <div class="tw"><table>
+        <thead><tr><th>Rest der Welt</th><th>r*</th><th>S</th><th>I</th><th>NX</th><th>ε</th></tr></thead>
+        <tbody>
+          <tr><th>erhöht G (diese Aufgabe)</th><td class="up">↑</td><td>=</td><td class="dn">↓</td><td class="up">↑</td><td class="dn">↓</td></tr>
+          <tr><th>senkt G (letzte Klausur)</th><td class="dn">↓</td><td>=</td><td class="up">↑</td><td class="dn">↓</td><td class="up">↑</td></tr>
+        </tbody>
+      </table></div>
+      <div class="res"><h4>Ergebnis</h4><p>r* <b>steigt</b>, S <b>unverändert</b>, I <b>sinkt</b>, NX <b>steigt</b>, ε <b>sinkt</b> (reale Abwertung).</p></div>
+      <p class="note">Zum Üben: <a href="#u2-10">Ü 2-10</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p8">
+    <header class="ex-h"><span class="ex-no">A 8</span><h3>Klassik/Neoklassik vs. Keynes</h3></header>
+    <section class="task"><h4>Aufgabe</h4><p>Ergänzen Sie in jeder Zeile die fehlende Seite.</p>
+      <div class="tw cmp"><table>
+        <thead><tr><th>Kriterium</th><th>Klassik/Neoklassik</th><th>Keynes</th></tr></thead>
+        <tbody>
+          <tr><th>Zeithorizont</th><td>mittlere bis lange Frist</td><td class="ask">?</td></tr>
+          <tr><th>Preise/Löhne</th><td>flexibel</td><td class="ask">?</td></tr>
+          <tr><th>Märkte</th><td>Markträumung</td><td class="ask">?</td></tr>
+          <tr><th>Thema</th><td>Wachstum</td><td class="ask">?</td></tr>
+          <tr><th>Was bestimmt Y?</th><td>Angebot: K, L, Technologie (Y = Ȳ)</td><td class="ask">?</td></tr>
+          <tr><th>AS-Kurve</th><td>vertikal (LRAS)</td><td class="ask">?</td></tr>
+          <tr><th>Nachfrageschock wirkt auf</th><td class="ask">?</td><td>nur Y</td></tr>
+          <tr><th>3. Gleichung im IS/LM</th><td class="ask">?</td><td>P = P̄ → r und Y passen sich an</td></tr>
+          <tr><th>Geld</th><td class="ask">?</td><td>nicht neutral, wirkt über r auf Y</td></tr>
+          <tr><th>Zinsbestimmung</th><td class="ask">?</td><td>Geldmarkt (Liquiditätspräferenz)</td></tr>
+          <tr><th>Arbeitslosigkeit</th><td class="ask">?</td><td>zu schwache Güternachfrage</td></tr>
+          <tr><th>Wirtschaftspolitik</th><td class="ask">?</td><td>aktive Stabilisierungspolitik</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <div class="tw cmp"><table>
+        <thead><tr><th>Kriterium</th><th>Klassik/Neoklassik</th><th>Keynes</th></tr></thead>
+        <tbody>
+          <tr><th>Zeithorizont</th><td>mittlere bis lange Frist</td><td><span class="gap">kurze Frist</span></td></tr>
+          <tr><th>Preise/Löhne</th><td>flexibel</td><td><span class="gap">starr</span></td></tr>
+          <tr><th>Märkte</th><td>Markträumung</td><td><span class="gap">evtl. keine Markträumung</span></td></tr>
+          <tr><th>Thema</th><td>Wachstum</td><td><span class="gap">Konjunktur</span></td></tr>
+          <tr><th>Was bestimmt Y?</th><td>Angebot: K, L, Technologie (Y = Ȳ)</td><td><span class="gap">Nachfrage: Ausgabenpläne C + I + G</span></td></tr>
+          <tr><th>AS-Kurve</th><td>vertikal (LRAS)</td><td><span class="gap">horizontal (SRAS)</span></td></tr>
+          <tr><th>Nachfrageschock wirkt auf</th><td><span class="gap">nur P</span></td><td>nur Y</td></tr>
+          <tr><th>3. Gleichung im IS/LM</th><td><span class="gap">Y = Ȳ → r und P passen sich an</span></td><td>P = P̄ → r und Y passen sich an</td></tr>
+          <tr><th>Geld</th><td><span class="gap">neutral (klassische Dichotomie)</span></td><td>nicht neutral, wirkt über r auf Y</td></tr>
+          <tr><th>Zinsbestimmung</th><td><span class="gap">Kapitalmarkt S = I(r)</span></td><td>Geldmarkt (Liquiditätspräferenz)</td></tr>
+          <tr><th>Arbeitslosigkeit</th><td><span class="gap">Grund: zu hoher Reallohn</span></td><td>zu schwache Güternachfrage</td></tr>
+          <tr><th>Wirtschaftspolitik</th><td><span class="gap">keine Nachfragesteuerung</span></td><td>aktive Stabilisierungspolitik</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Zum Üben: <a href="#tabelle">Tabelle Klassik vs. Keynes</a></p>
+    </div>
+  </article>
+
+  <article class="ex" id="p9">
+    <header class="ex-h"><span class="ex-no">A 9</span><h3>Lückentext</h3></header>
+    <section class="task"><h4>Aufgabe</h4><p>Füllen Sie die Lücken.</p>
+      <ol class="cloze">
+        <li>Die langfristige aggregierte Angebotskurve (LRAS) verläuft <span class="blank">(1)</span>, die kurzfristige (SRAS) verläuft <span class="blank">(2)</span>.</li>
+        <li>Sinkt die aggregierte Nachfrage, dann sinkt in der kurzen Frist <span class="blank">(3)</span>, während <span class="blank">(4)</span> konstant bleibt.</li>
+        <li>In der langen Frist kehrt <span class="blank">(5)</span> auf das natürliche Niveau zurück. Dauerhaft verändert hat sich nur <span class="blank">(6)</span>.</li>
+        <li>Geld ist in der <span class="blank">(7)</span> Frist neutral.</li>
+        <li>Nominale Variablen werden in <span class="blank">(8)</span> gemessen, reale Variablen in <span class="blank">(9)</span>.</li>
+        <li>Die drei Funktionen des Geldes sind <span class="blank">(10)</span>, <span class="blank">(11)</span> und <span class="blank">(12)</span>.</li>
+      </ol>
+    </section>
+    <div class="sol">
+      <h4>Lösung</h4>
+      <ol class="cloze">
+        <li>Die LRAS verläuft <span class="gap">vertikal</span> (bei Ȳ), die SRAS verläuft <span class="gap">horizontal</span> (bei P̄).</li>
+        <li>Kurze Frist: Es sinkt <span class="gap">der Output</span>, während <span class="gap">das Preisniveau</span> konstant bleibt.</li>
+        <li>Lange Frist: <span class="gap">Der Output</span> kehrt zu Ȳ zurück. Dauerhaft verändert hat sich nur <span class="gap">das Preisniveau</span>.</li>
+        <li>Geld ist in der <span class="gap">langen</span> Frist neutral.</li>
+        <li>Nominale Variablen: <span class="gap">Geldeinheiten</span>. Reale Variablen: <span class="gap">Mengen-/Gütereinheiten</span>.</li>
+        <li><span class="gap">Tauschmittel</span>, <span class="gap">Recheneinheit</span>, <span class="gap">Wertaufbewahrungsmittel</span>.</li>
+      </ol>
+      <p class="note">Zum Üben: <a href="#luecken">Lückentext</a>, <a href="#adas-modell">AD/AS</a>, <a href="#u2-7">Ü 2-7</a>, <a href="#u2-9">Ü 2-9</a></p>
+    </div>
+  </article>
+
+  <div class="exam-end">
+    <p>Fertig? Dann vergleiche deine Ergebnisse mit den Lösungen.</p>
+    <button type="button" class="reveal" id="probe-all" aria-pressed="false">Alle Lösungen zeigen</button>
+  </div>
+</section>
+
 <footer>Makro Klausurtraining · Übungen aus Vorlesung Teil I und Teil II. Viel Erfolg am Mittwoch.</footer>
 </main>
 </div>
@@ -1541,6 +1950,36 @@ function islm4(k){
 Object.keys(SC).forEach(function(n){var b=document.getElementById("sc-"+n); if(b) b.addEventListener("click",function(){islm4(n)})});
 islm4("base");
 
+/* Probeklausur */
+(function(){var p=plot("g-p-solow",{h:320,x:[0,30],y:[0,1.2],xt:[0,5,10,15,20,25,30],yt:[0,.2,.4,.6,.8,1,1.2],grid:1,xl:"k",yl:"s·f(k), δk",alt:"Solow-Diagramm maßstabsgetreu: Abschreibungsgerade 0,04 k, Sparkurven 0,12 Wurzel k und 0,2 Wurzel k, Steady states bei k gleich 9 und k gleich 25"});if(!p)return;
+  p.seg(0,0,30,1.2,"k0").txt(30,1.2,"δk = 0,04k",{a:"end",dx:-14,dy:2,b:1});
+  p.fn(function(k){return .12*Math.sqrt(k)},0,30,"k1").txt(30,.657,"A: 0,12·√k",{a:"end",dy:-9,c:"k1",b:1});
+  p.fn(function(k){return .2*Math.sqrt(k)},0,30,"k2").txt(1.5,.78,"B: 0,2·√k",{c:"k2",b:1});
+  p.guide(9,.36,null,null).guide(25,1,null,null);
+  p.pt(9,.36,"k1").txt(9,.36,"(9; 0,36)",{dx:8,dy:16,c:"k1",b:1});
+  p.pt(25,1,"k2").txt(25,1,"(25; 1)",{a:"end",dx:-9,dy:-9,c:"k2",b:1}).done();})();
+function pislm(id,c,alt){var p=plot(id,{h:330,x:[1000,2400],y:[0,12],xt:[1000,1400,1800,2200],yt:[0,2,4,6,8,10,12],grid:1,xl:"Y",yl:"r",alt:alt});if(!p)return;
+  var IS=function(a,cl,n,q){q.c=cl==="ko"?"kg":cl;q.b=1;p.seg(a,0,a-1200,12,cl).txt(a,0,n,q)};
+  var LM=function(b,cl,n,q){q.c=cl==="ko"?"kg":cl;q.b=1;p.seg(b,0,b+600,12,cl).txt(b+600,12,n,q)};
+  if(c.is){IS(2200,"ko","IS₁",{a:"end",dx:-14,dy:-6});IS(c.is,"k2","IS₂",{dx:4,dy:-9})} else IS(2200,"k1","IS",{dx:4,dy:-9});
+  if(c.lm){LM(1000,"ko","LM₁",{a:"end",dx:-11,dy:11});LM(c.lm,"k2","LM₂",{dx:5,dy:11})} else LM(1000,"k3","LM",{dx:5,dy:11});
+  p.arr(c.ar[0],c.ar[1],c.ar[2],c.ar[3],"k2");
+  p.guide(c.pt[0],c.pt[1],null,null);
+  p.pt(1400,8,"ko",1).pt(c.pt[0],c.pt[1],"k2").txt(c.pt[0],c.pt[1],"("+f(c.pt[0])+"; "+f(c.pt[1])+")",{dx:11,dy:4,c:"k2",b:1});
+  p.done();}
+pislm("g-p-islm-g",{is:2350,pt:[1450,9],ar:[2112,1,2238,1]},"IS/LM-Diagramm maßstabsgetreu: IS verschiebt sich von Y gleich 2200 minus 100 r auf 2350 minus 100 r, Gleichgewicht wandert von 1400 und 8 auf 1450 und 9");
+pislm("g-p-islm-m",{lm:1150,pt:[1500,7],ar:[1112,2,1238,2]},"IS/LM-Diagramm maßstabsgetreu: LM verschiebt sich von Y gleich 1000 plus 50 r auf 1150 plus 50 r, Gleichgewicht wandert von 1400 und 8 auf 1500 und 7");
+(function(){var p=plot("g-p-open",{xl:"S, I",yl:"r",alt:"Kleine offene Volkswirtschaft: Weltzins steigt, Investitionen sinken, Nettoexporte steigen"});if(!p)return;
+  var i2=(9-7)/.8;
+  p.seg(1,8.2,9.6,1.32,"k1").txt(9.6,1.32,"I(r)",{a:"end",dx:6,dy:-9,c:"k1",b:1});
+  p.seg(6.3,0,6.3,9.2,"k0").txt(6.3,9.2,"S",{a:"middle",dy:-6,b:1});
+  p.seg(0,5,9.8,5,"ko","thin").txt(0,5,"r₁*",{a:"end",dx:-7,dy:4,c:"kg",b:1});
+  p.seg(0,7,9.8,7,"k2","thin").txt(0,7,"r₂*",{a:"end",dx:-7,dy:4,c:"k2",b:1});
+  p.arr(8.4,5.3,8.4,6.7,"k2");
+  p.arr(5,5.55,6.3,5.55,"kg",1).txt(5.65,5.55,"NX₁",{a:"middle",dy:-7,c:"kg",b:1});
+  p.arr(i2,7.55,6.3,7.55,"k2",1).txt((6.3+i2)/2,7.55,"NX₂",{a:"middle",dy:-7,c:"k2",b:1});
+  p.pt(5,5,"ko",1).pt(i2,7,"k2").done();})();
+
 /* Selbsttest */
 var root=document.documentElement,tg=document.getElementById("selftest-toggle"),KEY="makro-selftest";
 var sols=Array.prototype.slice.call(document.querySelectorAll(".sol"));
@@ -1650,6 +2089,12 @@ function route(first){
   spy();
   if(first&&to===el&&el&&document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){if(cur===pg) el.scrollIntoView()});
 }
+var allB=document.getElementById("probe-all");
+if(allB) allB.addEventListener("click",function(){
+  var open=allB.getAttribute("aria-pressed")!=="true";
+  Q(".exam .sol").forEach(function(s){s._set(open)});
+  allB.setAttribute("aria-pressed",open?"true":"false"); allB.textContent=open?"Alle Lösungen verbergen":"Alle Lösungen zeigen";
+});
 window.addEventListener("hashchange",function(){route(false)});
 route(true);
 })();
