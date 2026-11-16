@@ -14,7 +14,7 @@ const arg = (n, d) => { const i = process.argv.indexOf(n); return i < 0 ? d : pr
 const sb = {}; vm.runInNewContext(fs.readFileSync('stage/timing.js', 'utf8').replace('window.TIMING', 'TIMING'), sb);
 const { fps, total } = sb.TIMING;
 const from = parseFloat(arg('--from', '0')), to = Math.min(total, parseFloat(arg('--to', String(total))));
-const workers = parseInt(arg('--workers', '4')), crf = arg('--crf', '21');
+const workers = parseInt(arg('--workers', '4')), crf = arg('--crf', '22');
 const out = arg('--out', from === 0 && to === total ? 'out/Makro_Altklausur_Erklaervideo.mp4' : `out/ausschnitt_${from}-${to}.mp4`);
 const f0 = Math.round(from * fps), f1 = Math.round(to * fps), n = f1 - f0;
 fs.mkdirSync('out', { recursive: true }); fs.mkdirSync('build/chunks', { recursive: true });
@@ -41,6 +41,9 @@ async function work(k) {
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-g', String(fps * 10), '-r', String(fps), chunk], { stdio: ['pipe', 'inherit', 'inherit'] });
   const closed = new Promise((res, rej) => ff.on('close', c => (c === 0 ? res() : rej(new Error('ffmpeg ' + c)))));
   const cdp = await page.context().newCDPSession(page);
+  // Anlauf: vom Beginn der laufenden Szene bis zum ersten Bild durchspielen, damit ein Teilstück genauso aussieht wie im Durchlauf
+  const sc = sb.TIMING.scenes.filter(s => s.start <= a / fps).pop();
+  for (let x = sc.start; x < a / fps; x += 0.1) await page.evaluate(t => window.seek(t), x);
   for (let f = a; f < b; f++) {
     await page.evaluate(t => window.seek(t), f / fps);
     const { data } = await cdp.send('Page.captureScreenshot', { format: 'jpeg', quality: 96, optimizeForSpeed: true });

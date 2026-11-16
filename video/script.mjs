@@ -83,7 +83,7 @@ export const SCENES = [
     ),
   },
   {
-    id: 'a4', task: 4, label: 'Aufgabe 4 · Übung 2-4 · Kreislauf',
+    id: 'a4', task: 4, label: 'Aufgabe 4 · Übung 2-4 · Kreislauf', tail: 3.4,
     text: p(
       `Aufgabe vier ist Übung zwei vier, Teile a bis c. Eine geschlossene Volkswirtschaft: Die Unternehmen zahlen den Haushalten sechshundertzwanzig an Löhnen und hundertachtzig an Kapitaleinkommen. Die Haushalte konsumieren für fünfhundertsechzig und zahlen hundert an Steuern. Die Unternehmen investieren hundertzehn, der Staat gibt hundertdreißig aus.`,
       `Teil a: das BIP auf zwei Wegen. Über die Einkommen: Löhne plus Kapitaleinkommen, das sind achthundert. Über die Verwendung: Konsum plus Investitionen plus Staatsausgaben, ebenfalls achthundert. Beide Wege müssen dasselbe ergeben.`,

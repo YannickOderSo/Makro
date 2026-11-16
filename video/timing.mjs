@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 
 const LEAD = 0.55;   // Stille vor dem ersten Wort einer Szene
-const TAIL = 0.95;   // Stille nach dem letzten Wort (Zeit für den Szenenwechsel)
+const TAIL = 1.5;    // Stille nach dem letzten Wort (Zeit für den Szenenwechsel)
 const FPS = 30;
 
 let t = 0;
