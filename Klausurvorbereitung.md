@@ -26,8 +26,13 @@ Laut Skript misst das BIP gleichzeitig die **Gesamtheit der Einkommen** und die 
 
 In der Klausur kommen andere Sätze, aber die Logik bleibt gleich: Wer kauft? Ein Haushalt ist C, ein Unternehmen I, der Staat G und das Ausland NX. Was auf Lager produziert wird, ist I.
 
-### c) Folie 31 (Teil I): reales vs. nominales BIP
-Auf Folie 31 geht es um nominales und reales BIP. Unter „Fall 1“ ist vermutlich der erste Punkt der Folie gemeint: **Das nominale BIP kann steigen, weil die Preise und/oder die Mengen steigen.**
+### c) „Fall 1“ einer Folie
+Die Notiz liest sich am ehesten als **Folie 91 (Teil I)**. Dort steht wörtlich „Fall 1“, und zwar zur Leistungsbilanz der offenen Volkswirtschaft (S − I = NX):
+- **Fall 1: Leistungsbilanzüberschuss, NX > 0.** Es gilt EX > IM, Y > C + I + G und S > I. Das Land exportiert netto Kapital, die Netto-Auslandsposition verbessert sich.
+- Fall 2: ausgeglichene Leistungsbilanz, NX = 0. EX = IM, Y = C + I + G, S = I. Die Netto-Kapitalexporte sind null, die Netto-Auslandsposition bleibt unverändert.
+- Fall 3: Leistungsbilanzdefizit, NX < 0. EX < IM, Y < C + I + G, S < I. Das Land importiert netto Kapital, die Netto-Auslandsposition verschlechtert sich.
+
+Falls doch **Folie 31 (Teil I)** gemeint war, geht es um nominales und reales BIP: **Das nominale BIP kann steigen, weil die Preise und/oder die Mengen steigen.**
 - Das nominale BIP ist deshalb **kein gutes Maß**, um die Güterversorgung in verschiedenen Zeiträumen zu vergleichen.
 - Darum gibt es das **reale BIP**: Man nimmt die Mengen des aktuellen Jahres und bewertet sie mit den Preisen des Basisjahres.
 - Formel: BIP_real(2017) = Preis_Äpfel(2015) · Menge_Äpfel(2017) + Preis_Computer(2015) · Menge_Computer(2017)
