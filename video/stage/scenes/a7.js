@@ -21,10 +21,10 @@ V.scene('a7', ctx => {
     #sc-a7 .bs .nm{font-size:38px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
     #sc-a7 .bs .ds{font-size:29px;font-weight:500;color:var(--mute);line-height:1.25;margin-top:4px}
     #sc-a7 .bs .chip{font-size:26px;margin-left:14px;vertical-align:middle}
-    #sc-a7 .ev{width:738px;height:150px;padding:0 26px;display:flex;align-items:center;gap:20px;box-shadow:6px 6px 0 var(--c2bg)}
+    #sc-a7 .ev{width:738px;height:150px;padding:0 22px;display:flex;align-items:center;gap:16px;box-shadow:6px 6px 0 var(--c2bg)}
     #sc-a7 .ev .nm{font-size:40px;font-weight:800;letter-spacing:-.01em;line-height:1.1}
-    #sc-a7 .ev .sb{font-size:28px;color:var(--mute);font-weight:500}
-    #sc-a7 .ev .gdn{margin-left:auto;font-size:40px;box-shadow:none}
+    #sc-a7 .ev .sb{font-size:26px;color:var(--mute);font-weight:500;white-space:nowrap}
+    #sc-a7 .ev .gdn{margin-left:auto;font-size:38px;box-shadow:none;white-space:nowrap;padding:4px 16px;flex:none}
     #sc-a7 .lk{width:738px;height:78px;display:flex;align-items:center;gap:18px;padding:0 22px 0 14px;background:var(--panel);border:3px solid var(--ink);border-left-width:14px;font-size:33px;font-weight:700;white-space:nowrap}
     #sc-a7 .lk .no{flex:none;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center}
     #sc-a7 .lk .vl{margin-left:auto;font-family:var(--mono);font-weight:800;font-size:34px}
@@ -32,12 +32,12 @@ V.scene('a7', ctx => {
     #sc-a7 .lk.c2{border-color:var(--c2)} #sc-a7 .lk.c2 .vl{color:var(--c2)} #sc-a7 .lk.c2 .no{background:var(--c2)}
     #sc-a7 .lk.c3{border-color:var(--c3)} #sc-a7 .lk.c3 .vl{color:var(--c3)} #sc-a7 .lk.c3 .no{background:var(--c3)}
     #sc-a7 .lk.c4{border-color:var(--c4)} #sc-a7 .lk.c4 .vl{color:var(--c4)} #sc-a7 .lk.c4 .no{background:var(--c4)}
-    #sc-a7 .lk .ex{font-family:var(--mono);font-size:27px;font-weight:700;color:var(--c2);margin-left:4px}
+    #sc-a7 .lk .ex{font-family:var(--mono);font-size:27px;font-weight:700;color:var(--c2);margin-left:16px}
     #sc-a7 .tagc{font-size:27px}
-    #sc-a7 .tbl{width:738px;font-size:30px;box-shadow:6px 6px 0 var(--line)}
-    #sc-a7 .tbl th{padding:8px 14px;font-size:26px;text-align:center;text-transform:none;letter-spacing:0;color:var(--ink)}
+    #sc-a7 .tbl{width:738px;font-size:30px;box-shadow:6px 6px 0 var(--line);table-layout:fixed}
+    #sc-a7 .tbl th{padding:8px 6px;font-size:26px;text-align:center;text-transform:none;letter-spacing:0;color:var(--ink)}
     #sc-a7 .tbl th:first-child{text-align:left;font-size:22px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-    #sc-a7 .tbl td{padding:12px 14px;text-align:center;font-weight:700;white-space:nowrap}
+    #sc-a7 .tbl td{padding:15px 6px;text-align:center;font-weight:700;white-space:nowrap}
     #sc-a7 .tbl td:first-child{text-align:left;padding-left:18px}
     #sc-a7 .tbl tr:last-child td{border-bottom:0}
     #sc-a7 .tbl .up{font-family:var(--mono);font-weight:800;font-size:36px;color:var(--c3)}
@@ -56,8 +56,8 @@ V.scene('a7', ctx => {
     <div class="abs card land" id="inl" style="left:60px">${V.icon('house', 130, { tone: 1 })}<div class="nm">Inland</div><div class="sb">kleine offene Volkswirtschaft</div></div>
     <div class="abs card land" id="row" style="left:1068px">${V.icon('globe', 130, { tone: 4 })}<div class="nm">Rest der Welt</div><div class="sb">bestimmt den Weltzins r*</div></div>
     <svg class="abs" id="isvg" style="left:0;top:0" width="1728" height="770"></svg>
-    <div class="abs chip c1" id="lgu" style="left:792px;top:112px;font-size:30px">Güter</div>
-    <div class="abs chip c3" id="lka" style="left:780px;top:252px;font-size:30px">Kapital</div>
+    <div class="abs chip c1" id="lgu" style="left:776px;top:112px;font-size:30px">Exporte</div>
+    <div class="abs chip c3" id="lka" style="left:776px;top:252px;font-size:30px">Importe</div>
     <div class="abs gdn" id="gdn" style="left:1420px;top:6px">G ↓</div>
     <div class="abs ask" id="ask"><span>Was passiert mit</span><span class="chip c1">S</span><span class="chip c3">I</span><span class="chip c4">NX</span><span>und</span><span class="chip c2">r</span><span>?</span></div>
   </div>
@@ -75,8 +75,8 @@ V.scene('a7', ctx => {
 
   <!-- Ereignis und Wirkungskette -->
   <div class="abs col" id="pe">
-    <div class="card c2 ev" id="ev" style="top:0">${V.icon('globe', 92, { tone: 4 })}${V.icon('staat', 80, { tone: 2 })}<div><div class="nm">Rest der Welt</div><div class="sb">senkt die Staatsausgaben</div></div><div class="gdn">G ↓</div></div>
-    ${[row(1, '', 'Ersparnis der Welt', '↑'), row(2, 'c2', 'Weltzins r*', '↓'), row(3, 'c1', 'Ersparnis S im Inland', 'unverändert'), row(4, 'c3', 'Investitionen I', '↑'), row(5, 'c4', 'Nettoexporte NX<span class="ex" id="k5x">&lt; 0 möglich</span>', '↓'), row(6, '', 'ε ↑ · reale Aufwertung', '')].join('')}
+    <div class="card c2 ev" id="ev" style="top:0">${V.icon('globe', 76, { tone: 4 })}${V.icon('staat', 66, { tone: 2 })}<div><div class="nm">Rest der Welt</div><div class="sb">senkt die Staatsausgaben</div></div><div class="gdn">G ↓</div></div>
+    ${[row(1, '', 'Ersparnis der Welt', '↑'), row(2, 'c2', 'Weltzins r*', '↓'), row(3, 'c1', 'Ersparnis S im Inland', 'unverändert'), row(4, 'c3', 'Investitionen I', '↑'), row(5, 'c4', 'Nettoexporte NX<span class="ex" id="k5x">&lt; 0 möglich</span>', '↓'), row(6, '', 'Währung: reale Aufwertung', 'ε ↑')].join('')}
   </div>
 
   <!-- Vergleich mit Fall a) und Ergebnis -->
@@ -84,7 +84,7 @@ V.scene('a7', ctx => {
     <div class="chip ink tagc" id="vTag" style="top:0">Zum Vergleich · a) das Inland senkt G</div>
     <div id="minibox" style="top:56px"></div>
     <table class="tbl" id="vTbl" style="top:504px">
-      <tr><th>Wirkung auf</th><th class="t-c1">S</th><th class="t-c3">I</th><th class="t-c4">NX</th><th class="t-c2">r</th></tr>
+      <tr><th style="width:300px;padding-left:18px">Wirkung auf</th><th class="t-c1">S</th><th class="t-c3">I</th><th class="t-c4">NX</th><th class="t-c2">r</th></tr>
       <tr id="rb" style="background:var(--c4bg)"><td>b) Welt: G ↓<span class="kl">KLAUSUR</span></td><td><span class="eqv">gleich</span></td><td><span class="up">↑</span></td><td><span class="dn">↓</span></td><td><span class="dn">↓</span></td></tr>
       <tr id="ra"><td>a) Inland: G ↓</td><td><span class="up">↑</span></td><td><span class="eqv">gleich</span></td><td><span class="up">↑</span></td><td><span class="eqv">gleich</span></td></tr>
     </table>
@@ -128,8 +128,8 @@ V.scene('a7', ctx => {
   // bewegliche Teile
   const gd = P.add('line', { x1: X(I1), y1: Y(R1), x2: X(I1), y2: y0, class: 'dash c3' });
   const iAx = P.add('text', { x: X(I1), y: y0 + 46, class: 'lbl c3', 'text-anchor': 'middle' }, 'I₁');
-  const iArr = P.add('line', { x1: X(I1) + 6, y1: y0 + 68, x2: X(I1) + 6, y2: y0 + 68, class: 'arrow c3', 'marker-end': 'url(#ah-c3)' });
-  const iUp = P.add('text', { x: X(I1), y: y0 + 78, class: 'lbl c3 sm', 'text-anchor': 'end' }, 'I ↑');
+  const iArr = P.add('line', { x1: X(I1) + 6, y1: y0 + 68, x2: X(I1) + 6, y2: y0 + 68, class: 'arrow c3', 'marker-end': 'url(#ah-c3)', style: 'stroke-width:5' });
+  const iUp = P.add('text', { x: X(I1) - 10, y: y0 + 78, class: 'lbl c3 sm', 'text-anchor': 'end' }, 'I ↑');
   const brk = P.add('path', { d: '', class: 'brk' });
   const nxLab = P.add('text', { x: 0, y: 0, class: 'lbl c4 mid' }, 'NX > 0');
   const dot = P.add('circle', { cx: X(I1), cy: Y(R1), r: 13, class: 'pt c3' });
@@ -164,13 +164,17 @@ V.scene('a7', ctx => {
   ctx.hide('#intro', tM - 0.35, { dur: 0.3 });
   fade(axes, tM, 1, 0.6);
   const tS = T('Die Ersparnis hängt nicht');
-  ctx.show('#b1', tS, { x: 40, y: 0 });
+  const bs3 = ['#b1', '#b2', '#b3'].map($);
+  gsap.set(bs3, { autoAlpha: 0, x: 40 });
+  ctx.to(bs3, { autoAlpha: 0.28, x: 0, duration: 0.45, stagger: 0.12, ease: 'power2.out' }, tM + 0.3);
+  const lightB = (i, t) => { ctx.to(bs3[i], { autoAlpha: 1, duration: 0.3 }, t); ctx.pulse(bs3[i], t, { scale: 1.03 }); };
+  lightB(0, tS);
   gsap.set(sL, { autoAlpha: 1 }); ctx.draw(sL, T('sie ist eine senkrechte Linie'), 0.9); fade(sLab, T('sie ist eine senkrechte Linie') + 0.7);
   const tI = T('Die Investitionen fallen');
-  ctx.show('#b2', tI, { x: 40, y: 0 });
+  lightB(1, tI);
   ctx.draw(iL, tI + 0.4, 1.1); fade(iLab, tI + 1.3);
   const tR = T('Und der Zins selbst');
-  ctx.show('#b3', tR, { x: 40, y: 0 });
+  lightB(2, tR);
   const tW = T('den Weltzins hinnehmen');
   ctx.draw(rL, tW - 0.4, 1.0); fade(rLab, tW + 0.4);
   ctx.tl.fromTo(dot, { autoAlpha: 0, scale: 0.2, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(2.2)', immediateRender: false }, tW + 0.9);
@@ -200,17 +204,18 @@ V.scene('a7', ctx => {
   const tDrop = T('und der Weltzins sinkt');
   light(1, tDrop);
   fade([oldLine, oldLab, oldDot, oldBrk, oldNx, oldI, oldTick], tDrop + 0.2, 1, 0.5);
-  move(5.95, tDrop + 0.1, 1.9);
+  move(5.6, tDrop + 0.1, 2.0);
   const tU = T('Im Inland ändert sich');
   light(2, tU);
   ctx.to(sL, { strokeWidth: 13, duration: 0.25, yoyo: true, repeat: 3, ease: 'sine.inOut' }, T('an der Ersparnis nichts'));
   ctx.pulse(sLab, T('an der Ersparnis nichts'), { scale: 1.4 });
   const tL = T('Aber beim niedrigeren Zins');
-  move(5.3, tL, 3.6);
+  move(5.1, tL, 3.6);
   light(3, T('lohnen sich mehr Investitionen'));
   const tI2 = T('Die Investitionen steigen');
   move(4.55, tI2, 2.9);
   ctx.pulse(ks[3], tI2, { scale: 1.04 });
+  fade([iArr, iUp], tI2 - 0.2, 1, 0.3);
   ctx.to(dot, { attr: { r: 19 }, duration: 0.25, yoyo: true, repeat: 1 }, tI2 + 0.1);
   light(4, T('Die Nettoexporte sinken'));
   const tNeg = T('und können sogar negativ');
@@ -232,7 +237,7 @@ V.scene('a7', ctx => {
   const mSL = M.add('line', { x1: M.X(S0), y1: M.Y(0), x2: M.X(S0), y2: M.Y(9.4), class: 'curve c1' });
   const mSLab = M.add('text', { x: M.X(S0), y: M.Y(9.4) - 10, class: 'lbl c1 mid', 'text-anchor': 'middle' }, 'S');
   const mBrk = M.add('path', { d: '', class: 'brk' });
-  const mNx = M.add('text', { x: 0, y: my - 44, class: 'lbl c4 mid', 'text-anchor': 'middle' }, 'NX');
+  const mNx = M.add('text', { x: mxi + 16, y: my - 44, class: 'lbl c4 mid', 'text-anchor': 'start' }, 'NX');
   const mDot = M.add('circle', { cx: mxi, cy: my, r: 12, class: 'pt c3' });
   gsap.set([mOld, mOldLab], { autoAlpha: 0 });
   const ms = { s: S0 };
@@ -241,7 +246,6 @@ V.scene('a7', ctx => {
     mSL.setAttribute('x1', xs); mSL.setAttribute('x2', xs); mSLab.setAttribute('x', xs);
     mSLab.textContent = ms.s > S0 + 0.05 ? 'S₂' : 'S';
     mBrk.setAttribute('d', `M${mxi} ${my - 34}v20M${mxi} ${my - 24}H${xs}M${xs} ${my - 34}v20`);
-    mNx.setAttribute('x', (mxi + xs) / 2);
     mNx.textContent = ms.s > mS2 - 0.05 ? 'NX ↑' : 'NX';
   };
   mupd();
