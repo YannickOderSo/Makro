@@ -56,9 +56,11 @@ V.scene('a6a', ctx => {
   <div class="abs" id="plotbox" style="left:900px;top:104px"></div>`);
 
   /* ---------- Diagramm ---------- */
-  const P = V.plot({ w: 828, h: 666, x: [0, 2000], y: [0, 9], pad: { l: 90, r: 64, t: 46, b: 92 } });
+  const P = V.plot({ w: 828, h: 666, x: [0, 1900], y: [0, 9], pad: { l: 90, r: 64, t: 46, b: 92 } });
   $('#plotbox').appendChild(P.el);
-  const axes = P.axes({ xl: 'Y', yl: 'r', yt: [[2, '2'], [4, '4'], [6, '6'], [8, '8']] });
+  const axes = P.axes({ xl: 'Y', yl: 'r', yt: [[2, '2'], [4, '4'], [8, '8']] });
+  P.add('line', { x1: P.X(0) - 12, y1: P.Y(6), x2: P.X(0), y2: P.Y(6), class: 'tick' }, null, axes);
+  const m6 = P.add('text', { x: P.X(0) - 22, y: P.Y(6) + 10, class: 'tickl', 'text-anchor': 'end' }, '6', axes);
   const xtick = (v, cls) => {
     const g = P.g();
     P.add('line', { x1: P.X(v), y1: P.Y(0), x2: P.X(v), y2: P.Y(0) + 12, class: 'tick' }, null, g);
@@ -75,8 +77,6 @@ V.scene('a6a', ctx => {
   gd._lines.forEach(l => l.classList.add('c3'));
   const t1100 = xtick(1100, 'c3');
   const t6 = P.add('text', { x: P.X(0) - 22, y: P.Y(6) + 11, class: 'lbl c3', 'text-anchor': 'end' }, '6');
-  const hide6 = P.add('rect', { x: P.X(0) - 60, y: P.Y(6) - 18, width: 44, height: 36, fill: C.bg });
-  P.el.insertBefore(hide6, t6);
   const dot = P.dot(1100, 6, { cls: 'c3', r: 14 });
   const eLab = P.text(1100, 6, 'Gleichgewicht', { cls: 'c3', dx: 26, dy: 10, anchor: 'start' });
 
@@ -131,9 +131,9 @@ V.scene('a6a', ctx => {
   ctx.show('#b2', T('Zweihundert mal r'), { x: -24, y: 0 });
   const tr = T('der Zins ist also sechs');
   ctx.show('#b3', tr, { x: -24, y: 0 });
-  gsap.set([dot, eLab, t6, hide6, t1100], { autoAlpha: 0 });
+  gsap.set([dot, eLab, t6, t1100], { autoAlpha: 0 });
   ctx.tl.fromTo(dot, { autoAlpha: 0, scale: 0.2, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'back.out(2.2)' }, tr + 0.5);
-  ctx.extend(gd._lines[1], tr + 0.7, 0.6).to([t6, hide6], { autoAlpha: 1, duration: 0.3 }, tr + 1.2);
+  ctx.extend(gd._lines[1], tr + 0.7, 0.6).to(t6, { autoAlpha: 1, duration: 0.3 }, tr + 1.2).to(m6, { autoAlpha: 0, duration: 0.2 }, tr + 1.2);
   const tY = T('Eingesetzt ergibt sich');
   ctx.show('#b4', tY, { x: -24, y: 0 });
   ctx.extend(gd._lines[0], T('ein Einkommen von elfhundert'), 0.6).to(t1100, { autoAlpha: 1, duration: 0.3 }, T('ein Einkommen von elfhundert') + 0.5);

@@ -41,7 +41,7 @@ V.scene('a2a', ctx => {
     #sc-a2a .ln .eq.r .eqs{font-weight:500}
     #sc-a2a .ln .nt{font-size:27px;font-weight:700;font-family:var(--sans);padding:4px 14px}
     #sc-a2a .road{left:0;top:400px;width:1728px;display:flex;gap:36px}
-    #sc-a2a .road .rc{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:18px;font-size:46px;font-weight:800;letter-spacing:-.02em;padding:30px 32px 36px;line-height:1.1}
+    #sc-a2a .road .rc{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:18px;font-size:42px;font-weight:800;letter-spacing:-.02em;padding:30px 32px 36px;line-height:1.1}
     #sc-a2a .road .rc .chip{font-size:30px}
     #sc-a2a .chart{left:1080px;top:322px;width:648px;height:448px;padding:0}
     #sc-a2a .chart text{font-size:27px;font-weight:700}
@@ -143,7 +143,8 @@ V.scene('a2a', ctx => {
     const d = S('g', {}); d.innerHTML = `<rect x="${gx - 86}" y="62" width="172" height="44" fill="${C.c4bg}" stroke="${C.c4}" stroke-width="3"/><text x="${gx}" y="94" text-anchor="middle" class="tg" style="fill:${C.c4}">${DEF[i]}</text>`;
     gsap.set(d, { autoAlpha: 0 }); defs.push(d);
   });
-  gsap.set(lgR, { autoAlpha: 0 });
+  const lgD = [S('rect', { x: 366, y: 24, width: 26, height: 26, fill: C.c4bg, stroke: C.c4, 'stroke-width': 3 }), S('text', { x: 402, y: 46, class: 'lg' }, 'Deflator')];
+  gsap.set(lgR, { autoAlpha: 0 }); gsap.set(lgD, { autoAlpha: 0 });
   const grow = (k, i, t) => {
     const r = bars[k][i];
     tl.set(r, { autoAlpha: 1 }, t);
@@ -225,6 +226,7 @@ V.scene('a2a', ctx => {
   ctx.dim(cells(YEARS, DATA), t3, { to: 0.4 });
   stage('#p3', t3); gsap.set($('#p3f'), { autoAlpha: 0 });
   colOn('def', T('der Deflator'));
+  ctx.to(lgD, { autoAlpha: 1, duration: 0.3 }, T('der Deflator'));
   ctx.show('#p3f', T('nominal geteilt durch real'), { x: -20, y: 0 });
   hl(cells(YEARS, ['nom']), T('nominal geteilt'), C.c1bg); ctx.pulse($('th[data-h="nom"] span'), T('nominal geteilt'), { scale: 1.1 });
   hl(cells(YEARS, ['real']), T('durch real'), C.c3bg); ctx.pulse($('th[data-h="real"] span'), T('durch real'), { scale: 1.1 });
