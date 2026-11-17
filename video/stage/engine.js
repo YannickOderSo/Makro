@@ -284,9 +284,12 @@
       // leeres Tween, damit die Szenen-Timeline exakt die Szenenlänge hat
       tl.to({}, { duration: 0.001 }, sc.dur - 0.001);
       gsap.set(root, { autoAlpha: 0 });
-      master.to(root, { autoAlpha: 1, duration: sc.start === 0 ? 0.01 : 0.4, ease: 'power1.out' }, sc.start);
+      // Überblendung: Die neue Szene blendet über der alten ein, erst danach verschwindet die alte.
+      // So bleibt ein Diagramm, das in der nächsten Szene deckungsgleich weiterläuft, ohne Flackern stehen.
+      master.to(root, { autoAlpha: 1, duration: sc.start === 0 ? 0.01 : 0.35, ease: 'power1.out' }, sc.start);
       const last = sc === TIMING.scenes[TIMING.scenes.length - 1];
-      master.to(root, { autoAlpha: 0, duration: last ? 0.8 : 0.35, ease: 'power1.in' }, sc.start + sc.dur - (last ? 0.8 : 0.35));
+      if (last) master.to(root, { autoAlpha: 0, duration: 0.8, ease: 'power1.in' }, sc.start + sc.dur - 0.8);
+      else master.to(root, { autoAlpha: 0, duration: 0.35, ease: 'power1.in' }, sc.start + sc.dur + 0.12);
       master.add(tl, sc.start);
     }
     buildChrome(stage);
