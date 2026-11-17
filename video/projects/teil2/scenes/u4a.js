@@ -88,8 +88,8 @@ V.t2u4 = {
     B.g = D.guide(1100, 6, 'c3');
     B.IS = D.line(1700, 0, 900, 8, 'c1'); B.LM = D.line(500, 0, 1300, 8, 'c2');
     B.pts = [[1700, 0, 'c1'], [900, 8, 'c1'], [500, 0, 'c2'], [1300, 8, 'c2']].map(([a, b, c]) => D.dot(a, b, c));
-    B.coords = [D.coord(1700, 0, { anchor: 'start', dx: 14, dy: -16, cls: 'c1' }), D.coord(900, 8, { anchor: 'end', dx: 8, dy: -20, cls: 'c1' }),
-      D.coord(500, 0, { anchor: 'end', dx: -14, dy: -16, cls: 'c2' }), D.coord(1300, 8, { anchor: 'start', dx: -8, dy: -20, cls: 'c2' })];
+    B.coords = [D.coord(1700, 0, { anchor: 'start', dx: 14, dy: -16, cls: 'c1' }), D.coord(900, 8, { anchor: 'end', dx: -2, dy: -24, cls: 'c1' }),
+      D.coord(500, 0, { anchor: 'end', dx: -14, dy: -16, cls: 'c2' }), D.coord(1300, 8, { anchor: 'start', dx: 2, dy: -24, cls: 'c2' })];
     B.nIS = D.name('IS', '1', 1570, 1.3, 'l', 'c1'); B.nLM = D.name('LM', '1', 630, 1.3, 'l', 'c2');
     B.eq = D.dot(1100, 6, 'c3', 13);
     B.y6 = D.yval(6, '6', 'c3'); B.x11 = D.xval(1100, 2, '1100', 'c3');
@@ -141,14 +141,14 @@ V.scene('u4a', ctx => {
     #sc-u4a .given{left:0;top:0;width:1728px;padding:16px 26px 20px}
     #sc-u4a .given .row{display:flex;gap:14px;flex-wrap:nowrap}
     #sc-u4a .given .chip{font-size:28px;padding:4px 14px}
-    #sc-u4a .task{left:0;top:140px;font-size:36px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:18px}
+    #sc-u4a .task{left:0;top:152px;font-size:36px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:18px}
     #sc-u4a .task .chip{font-size:32px}
-    #sc-u4a .ebox{top:226px;width:846px;height:412px;padding:24px 32px}
+    #sc-u4a .ebox{top:244px;width:846px;height:440px;padding:28px 34px}
     #sc-u4a .ebox .lab{font-size:25px}
     #sc-u4a .ebox .big{display:flex;align-items:center;gap:22px;margin-top:14px}
     #sc-u4a .ebox .tg{font-family:var(--mono);font-weight:800;font-size:46px;color:#fff;padding:2px 16px}
     #sc-u4a .ebox .eq.xl{font-size:58px;font-weight:800}
-    #sc-u4a .ebox .how{margin-top:26px;font-size:28px;color:var(--mute);font-weight:600}
+    #sc-u4a .ebox .how{margin-top:34px;font-size:28px;color:var(--mute);font-weight:600}
     #sc-u4a .ebox .eq.sm{font-size:33px;font-weight:600;margin-top:4px}
     #sc-u4a .ebox .mini{position:absolute;right:28px;bottom:22px}
     #sc-u4a .ebox .shape{position:absolute;right:196px;bottom:42px;font-size:30px;font-weight:700}
