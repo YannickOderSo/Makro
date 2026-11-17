@@ -1,0 +1,261 @@
+<title>Makro Klausur-Checkliste</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: eine Spalte auf Karopapier wie die Lernseite; Fortschritt und Filter kleben oben, darunter fünf Blöcke zum Abhaken. */
+:root{
+  --bg:#f1f5f4; --panel:#fafcfb; --hdr:#f1f5f4; --grid:#d9e6e2;
+  --fg:#15223a; --mute:#566779; --line:#c3d0d0; --soft:#e6eeec;
+  --c1:#1c4bcf; --c2:#c5263f; --c3:#0a765d; --done-bg:#e2f1ea; --track:#d5dfdd;
+  --sans:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1521; --panel:#131c2b; --hdr:#0e1521; --grid:#1b2739;
+    --fg:#e3e9f2; --mute:#94a3b6; --line:#2b394e; --soft:#182233;
+    --c1:#84aaff; --c2:#ff8195; --c3:#5bd0a8; --done-bg:#11302b; --track:#243247;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1521; --panel:#131c2b; --hdr:#0e1521; --grid:#1b2739;
+  --fg:#e3e9f2; --mute:#94a3b6; --line:#2b394e; --soft:#182233;
+  --c1:#84aaff; --c2:#ff8195; --c3:#5bd0a8; --done-bg:#11302b; --track:#243247;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hdr)}
+:focus-visible{outline:2px solid var(--c1);outline-offset:2px;border-radius:2px}
+.wrap{max-width:46rem;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.top{background-color:var(--panel);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:14px 14px;border-bottom:1.5px solid var(--fg)}
+.top .wrap{padding-block:26px 20px}
+.kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:0 0 8px}
+h1{font-size:clamp(2rem,8vw,3rem);line-height:1.02;letter-spacing:-.025em;font-weight:800;margin:0 0 12px;text-wrap:balance}
+h1 span{color:var(--c1)}
+.lead{margin:0;max-width:60ch}
+.lead b{color:var(--c2)}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hdr);border-bottom:1px solid var(--line)}
+.bar .wrap{padding-block:9px 9px;display:grid;gap:8px}
+.prog{display:flex;align-items:center;gap:12px;min-width:0}
+.prog-n{font-family:var(--mono);font-weight:700;font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.track{flex:1;height:10px;background:var(--track);min-width:0}
+.fill{height:100%;width:0;background:var(--c3)}
+@media (prefers-reduced-motion:no-preference){.fill{transition:width .25s}}
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.filters button{font-family:var(--mono);font-size:12.5px;color:var(--fg);border:1px solid var(--line);background:var(--panel);padding:5px 10px;border-radius:3px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.sync{font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-left:auto;white-space:nowrap}
+
+main.wrap{padding-block:8px 56px}
+.sec{margin-top:30px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:3px double var(--fg);padding-top:10px}
+.sec-h h2{font-size:1.45rem;line-height:1.15;letter-spacing:-.015em;margin:0;min-width:0;text-wrap:balance}
+.sec-n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+.sec-n.all{color:var(--c3)}
+.sec-p{margin:4px 0 0;color:var(--mute);font-size:15px;max-width:62ch}
+ul.items{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.it{background:var(--panel);border:1.5px solid var(--line);padding:10px 12px 10px 10px;display:grid;grid-template-columns:auto 1fr;gap:2px 12px;align-items:start}
+.it.done{background:var(--done-bg);border-color:var(--c3)}
+.it input{appearance:none;-webkit-appearance:none;width:26px;height:26px;margin:1px 0 0;border:2px solid var(--fg);background:var(--panel);cursor:pointer;display:grid;place-content:center;flex:none}
+.it input::after{content:"";width:13px;height:7px;border-left:3px solid var(--panel);border-bottom:3px solid var(--panel);transform:rotate(-45deg) translate(1px,-2px);opacity:0}
+.it input:checked{background:var(--c3);border-color:var(--c3)}
+.it input:checked::after{opacity:1}
+.it label{font-weight:500;cursor:pointer;min-width:0}
+.it.done label{color:var(--mute)}
+.meta{grid-column:2;display:flex;flex-wrap:wrap;gap:5px 6px;align-items:center;margin-top:4px;min-width:0}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);padding:1px 6px;white-space:nowrap}
+.tag.ak{color:var(--c2);border-color:var(--c2);font-weight:700}
+.tag.vid{color:var(--c1);border-color:var(--c1)}
+details{grid-column:2;min-width:0;margin-top:4px}
+summary{font-family:var(--mono);font-size:12.5px;color:var(--c1);cursor:pointer;width:fit-content}
+.chk{font-family:var(--mono);font-size:13.5px;line-height:1.55;font-variant-numeric:tabular-nums;background:var(--soft);padding:8px 10px;margin-top:6px;overflow-wrap:anywhere}
+.chk div+div{margin-top:3px}
+.empty{color:var(--mute);font-style:italic;margin:10px 0 0}
+.reset{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:14.5px;color:var(--mute)}
+.reset button{font-family:var(--mono);font-size:12.5px;color:var(--fg);border:1px solid var(--line);background:var(--panel);padding:6px 10px;border-radius:3px;cursor:pointer}
+.reset button.danger{border-color:var(--c2);color:var(--c2)}
+sub,sup{font-size:.72em;line-height:0}
+</style>
+
+<header class="top"><div class="wrap">
+  <p class="kicker">Makroökonomie · Klausur morgen</p>
+  <h1>Checkliste: <span>Was du können musst</span></h1>
+  <p class="lead">Hak ab, was sitzt. Wenig Zeit? Fang mit dem Filter <b>Altklausur</b> an: Das sind die Themen, die letztes Mal drankamen. Unter „Zur Kontrolle“ stehen die Ergebnisse zum Gegenprüfen.</p>
+</div></header>
+
+<div class="bar"><div class="wrap">
+  <div class="prog"><span class="prog-n" id="prog-n">0 von 0</span><div class="track" role="progressbar" aria-label="Fortschritt" aria-valuemin="0" id="track"><div class="fill" id="fill"></div></div></div>
+  <div class="filters">
+    <button type="button" id="f-all" data-f="all" aria-pressed="true">Alle</button>
+    <button type="button" id="f-ak" data-f="ak" aria-pressed="false">Altklausur</button>
+    <button type="button" id="f-open" data-f="open" aria-pressed="false">Nur Offenes</button>
+    <span class="sync" id="sync" aria-live="polite"></span>
+  </div>
+</div></div>
+
+<main class="wrap" id="main"></main>
+
+<script>
+// t = Text, ak = Aufgabe der Altklausur, ref = Übung/Folie, vid = passendes Video, chk = Kontrollzeilen
+const SECTIONS = [
+  { id: 'def', title: 'Definieren und erklären', note: 'Bei Definitionen zählt der Wortlaut des Skripts.', items: [
+    { id: 'bip-def', t: 'BIP-Definition wörtlich aufschreiben, mit den Lückenwörtern „Wert“ und „Endprodukte“', ak: 'A 1 a', ref: 'Ü 1-3', vid: 'Theorie', chk: ['Das BIP ist der Wert aller Endprodukte einer Volkswirtschaft, die in einem bestimmten, abgeschlossenen Zeitraum erzeugt werden.'] },
+    { id: 'bip-zaehlt', t: 'Sagen, was zum BIP zählt und was nicht', ref: 'Ü 1-3', vid: 'Theorie', chk: ['Zählt: Produktion auf Lager (Lagerinvestition), fiktive Miete für selbst genutzten Wohnraum, Staatsleistungen zu Kosten', 'Zählt nicht: gebrauchte Güter, unbezahlte Hausarbeit, Schattenwirtschaft', 'Drei Seiten: Entstehung = Verwendung = Verteilung'] },
+    { id: 'kategorien', t: 'Transaktionen den Kategorien C, I, G, NX zuordnen, auch bei neuen Sätzen', ak: 'A 1 b', ref: 'Ü 1-4, 1-5', vid: 'Altklausur', chk: ['Haushalt → C · Unternehmen → I · Staat → G · Ausland → NX · auf Lager produziert → I', 'Alte Villa oder Aktienkauf: keine Investition, nur Umverteilung'] },
+    { id: 'lb-faelle', t: 'Fall 1 bis 3 der Leistungsbilanz erklären', ak: 'A 1 c', ref: 'Skript I, F. 91', vid: 'Altklausur', chk: ['Fall 1 Überschuss: NX > 0, EX > IM, Y > C + I + G, S > I, Netto-Kapitalexporte, Auslandsposition verbessert sich', 'Fall 2 ausgeglichen: NX = 0, S = I, Auslandsposition unverändert', 'Fall 3 Defizit: NX < 0, S < I, Netto-Kapitalimporte, Auslandsposition verschlechtert sich', 'Andere Lesarten der Notiz: Folie 31 (nominal/real) und Fall 1 im Keynes-Kreuz'] },
+    { id: 'vier-def', t: 'Nominales BIP, reales BIP, BIP-Deflator und Investition definieren', ak: 'A 1 d', ref: 'Skript I, F. 31–34', vid: 'Altklausur', chk: ['Nominal: Mengen · aktuelle Preise (steigt durch Preise und/oder Mengen)', 'Real: aktuelle Mengen · Preise des Basisjahres (steigt nur mit den Mengen)', 'Deflator: nominales BIP / reales BIP', 'Investition: nur Schaffung von neuem Kapital'] },
+    { id: 'kreuz-faelle', t: 'Fall 1 und Fall 2 im keynesianischen Kreuz erklären', ref: 'Skript II, F. 39–40', vid: 'Teil II', chk: ['Fall 1, Y > E: Lager füllen sich → Entlassungen, Produktion sinkt, bis Y = E', 'Fall 2, Y < E: Lager leeren sich → Einstellungen, Produktion steigt, bis Y = E'] },
+    { id: 'modelle', t: 'Modelle, exogene und endogene Variablen erklären', ref: 'Ü 1-1', vid: 'Theorie', chk: ['Modelle: vereinfachte Theorien, zeigen die wesentlichen Beziehungen zwischen Variablen', 'Exogen: außerhalb des Modells bestimmt · endogen: durch das Modell erklärt'] },
+    { id: 'zeithorizonte', t: 'Die beiden Zeithorizonte mit je vier Merkmalen nennen', ref: 'Ü 1-7', vid: 'Theorie', chk: ['Kurze Frist: starre Preise, evtl. keine Markträumung, Konjunktur, Keynes', 'Mittlere bis lange Frist: flexible Preise, Markträumung, Wachstum, Klassik-Neoklassik'] },
+    { id: 'preis', t: 'Preis, Preisniveau und Inflation definieren', ref: 'Ü 2-6', vid: 'Theorie', chk: ['Preis: Menge von Geld für eine Ware oder Dienstleistung', 'Preisniveau: Menge von Geld für einen Warenkorb', 'Inflation: prozentuale Veränderung eines durchschnittlichen Preisniveaus'] },
+    { id: 'geldfunktionen', t: 'Die drei Funktionen des Geldes nennen und erklären', ak: 'A 9', ref: 'Ü 2-7', vid: 'Theorie', chk: ['Tauschmittel (keine doppelte Koinzidenz der Bedürfnisse nötig, gesetzliches Zahlungsmittel)', 'Recheneinheit (Preise und Schulden vergleichbar)', 'Wertaufbewahrungsmittel (Nominalwert sicher, Realwert nicht)'] },
+    { id: 'dichotomie', t: 'Klassische Dichotomie und Neutralität des Geldes erklären; sagen, wie nominale und reale Variablen gemessen werden', ak: 'A 9', ref: 'Ü 2-9', vid: 'Theorie', chk: ['Dichotomie: Unterscheidung realer und nominaler Variablen; nominale Größen beeinflussen reale nicht', 'Neutralität: Änderungen der Geldmenge haben keinen Einfluss auf reale Größen (langfristig)', 'Nominal: in Geldeinheiten · real: in Mengen- bzw. Gütereinheiten'] },
+    { id: 'vpi-deflator', t: 'Drei Unterschiede zwischen VPI und BIP-Deflator nennen und sagen, warum der VPI die Inflation überzeichnet', ref: 'Skript I, F. 36–37', vid: 'Altklausur', chk: ['Importgüter: nur im VPI · Kapitalgüter: nur im Deflator · Warenkorb: beim VPI fest, beim Deflator variabel', 'Überzeichnung: Substitutionsverzerrung, neue Güter, Qualitätsänderungen'] },
+    { id: 'klassik-keynes', t: 'Die Tabelle Klassik/Neoklassik gegen Keynes aus einer Spalte ergänzen', ak: 'A 8', ref: 'Skript II, F. 5, 19, 73', vid: 'Altklausur', chk: ['Frist: mittel bis lang | kurz', 'Preise: flexibel | starr', 'Märkte: Markträumung | evtl. keine', 'Thema: Wachstum | Konjunktur', 'Einkommen bestimmt durch: Angebot (K, L, Technologie) | Nachfrage', 'Angebotskurve: senkrecht | waagerecht', '3. Gleichung: Y liegt fest, r und P passen sich an | P liegt fest, r und Y passen sich an'] },
+    { id: 'lueckentext', t: 'Den Lückentext zu AD/AS ausfüllen', ak: 'A 9', ref: 'Skript II, F. 15–22', vid: 'Altklausur', chk: ['LRAS: senkrecht beim natürlichen Output · SRAS: waagerecht beim gegebenen Preisniveau', 'Kurze Frist: Output reagiert, Preisniveau bleibt · lange Frist: nur das Preisniveau reagiert', 'Geld ist in der langen Frist neutral'] },
+    { id: 'arbeitslosigkeit', t: 'Arbeitslosigkeit aus Sicht der Klassik erklären, mit den vier Gründen für einen zu hohen Reallohn', ref: 'Skript I, F. 115–120', chk: ['Einziger Grund: zu hoher Reallohn (Reallohnstarrheit)', 'Mindestlöhne · Sozialleistungen · Macht der Gewerkschaften (Insider/Outsider) · Effizienzlöhne'] },
+  ] },
+  { id: 'rech', title: 'Rechnen', note: 'Einmal ohne Vorlage durchrechnen, dann mit den Kontrollwerten vergleichen.', items: [
+    { id: 'u16', t: 'Nominales und reales BIP, Deflator, Preisindex und Inflationsrate berechnen', ak: 'A 2', ref: 'Ü 1-6', vid: 'Altklausur', chk: ['Nominal: 15 · 25 · 25 · real: 15 · 15 · 25', 'Deflator und VPI: 100 · 166,7 · 100', 'Inflation: +66,7 % · −40 %'] },
+    { id: 'u28', t: 'Den Realzins über Quantitätsgleichung und Fisher-Gleichung bestimmen', ak: 'A 3', ref: 'Ü 2-8', vid: 'Altklausur', chk: ['π = 0,14 − 0,05 = 0,09', 'r = 0,11 − 0,09 = 0,02'] },
+    { id: 'u24', t: 'BIP auf zwei Wegen, die drei Ersparnisse und die marginale Konsumneigung berechnen', ak: 'A 4', ref: 'Ü 2-4', vid: 'Altklausur', chk: ['Y = 620 + 180 = 560 + 110 + 130 = 800', 'S privat 140 · S öffentlich −30 · S gesamt 110 = I', 'c = 560 / 700 = 0,8', 'd) ΔY = 100 → ΔC = 80, ΔS = 20'] },
+    { id: 'u32', t: 'Solow: Skalenerträge prüfen, Pro-Kopf-Funktion bilden, Steady State für zwei Länder berechnen', ak: 'A 5', ref: 'Ü 3-2', vid: 'Altklausur', chk: ['Konstante Skalenerträge: ja · y = √k · k* = (s/δ)²', 'Land A: k* = 4, y* = 2, i* = 0,2, c* = 1,8', 'Land B: k* = 16, y* = 4, i* = 0,8, c* = 3,2'] },
+    { id: 'islm', t: 'IS/LM: beide Gleichungen herleiten, Gleichgewicht berechnen, dann G, M und P ändern', ak: 'A 6', ref: 'Teil II, Ü 4', vid: 'Altklausur · Teil II', chk: ['IS: Y = 1700 − 100 r · LM: Y = 500 + 100 r', 'b) r = 6, Y = 1100', 'c) G = 150: IS um 200 nach rechts → r = 7, Y = 1200', 'd) M = 1200: LM um 100 nach rechts → r = 5,5, Y = 1150', 'e) P = 4: LM nach links → r = 7,25, Y = 975'] },
+    { id: 'u21', t: 'Folgen einer Steuererhöhung für die Ersparnisse und die Investitionen berechnen', ref: 'Ü 2-1', chk: ['T + 100, MPC 0,6: öffentliche Ersparnis +100', 'Private Ersparnis −40 (Konsum sinkt um 60)', 'Gesamtwirtschaftlich +60 → Investitionen +60'] },
+    { id: 'u23', t: 'Kapitalmarkt: Ersparnisse und Gleichgewichtszins berechnen, dann G erhöhen', ref: 'Ü 2-3', chk: ['a) C = 3250, S privat 750, S öffentlich 0, S = 750, r = 5', 'b) G = 1250: S privat 750, S öffentlich −250, S = 500, r = 10'] },
+    { id: 'u25', t: 'Die Änderung der Ersparnis für vier Fälle bestimmen', ref: 'Ü 2-5', chk: ['a) ΔG = −50 → ΔS = +50', 'b) ΔT = −20 → ΔS = −18', 'c) ΔY = −40 → ΔS = −4', 'd) ΔL = −20 → ΔY = −200 → ΔS = −20'] },
+    { id: 'u211', t: 'Kleine offene Volkswirtschaft rechnen: S, I, NX und Wechselkurs', ref: 'Ü 2-11', chk: ['a) S = 750, I = 750, NX = 0, ε = 1', 'b) G = 1250: S = 500, I = 750, NX = −250, ε = 1,5', 'c) r* = 10: S = 750, I = 500, NX = 250, ε = 0,5'] },
+    { id: 'u212', t: 'Erwerbspersonen, Nicht-Erwerbspersonen und Arbeitslosenrate berechnen', ref: 'Ü 2-12', chk: ['Erwerbspersonen: 76,8 + 24,5 = 101,3 Mio.', 'Nicht-Erwerbspersonen: 150 − 101,3 = 48,7 Mio.', 'Arbeitslosenrate: 24,5 / 101,3 = 24,2 %'] },
+    { id: 'u31', t: 'Solow allgemein: Steady State als Funktion von Sparquote und Abschreibungsrate', ref: 'Ü 3-1', chk: ['y = k^0,3', 'k* = (s/δ)^(1/0,7) · y* = (s/δ)^(0,3/0,7) · c* = (1 − s) · y*'] },
+    { id: 't2u1', t: 'Keynesianisches Kreuz rechnen: Ausgabenfunktion, Gleichgewicht, Multiplikator', ref: 'Teil II, Ü 1', vid: 'Teil II', chk: ['E = 325 + 0,75 Y · Y = 1300', 'G = 125: Multiplikator 4 → Y = 1400', 'Für Y = 1600: G = 175'] },
+    { id: 't2u2', t: 'Geldmarkt rechnen: Gleichgewichtszins und nötiges Geldangebot', ref: 'Teil II, Ü 2', vid: 'Teil II', chk: ['M/P = 500 → r = 5 %', 'M = 1200 → r = 4 %', 'Für r = 7 %: M/P = 300 → M = 600'] },
+  ] },
+  { id: 'zeich', title: 'Zeichnen', note: 'Immer gleich: Achsen beschriften, Kurven benennen, alte Kurve stehen lassen, Pfeil für die Richtung.', items: [
+    { id: 'z-offen', t: 'Kleine offene Volkswirtschaft zeichnen: Ausland senkt G (Teil b) und Inland senkt G (Teil a)', ak: 'A 7', ref: 'Ü 2-10', vid: 'Teil I', chk: ['Grundbild: S senkrecht, I(r) fallend, Weltzins r* waagerecht, NX = Abstand zwischen I und S', 'b) Welt spart mehr: r* sinkt, S unverändert, I steigt, NX sinkt (bis unter 0)', 'a) Inland spart mehr: S nach rechts, r* und I unverändert, NX steigt'] },
+    { id: 'z-finanz', t: 'Finanzmarkt der geschlossenen Volkswirtschaft zeichnen und „mehr Konsum“ einzeichnen', ref: 'Ü 2-2', vid: 'Teil I', chk: ['S senkrecht, I(r) fallend, Schnittpunkt = Realzins', 'C steigt → S nach links → r steigt, I sinkt'] },
+    { id: 'z-arbeit', t: 'Arbeitsmarkt zeichnen: Produktivität sinkt, mit flexiblem und mit starrem Reallohn', ref: 'Ü 2-13', vid: 'Theorie', chk: ['Lˢ senkrecht, Lᵈ fallend (= MPL); Lᵈ verschiebt sich nach unten/links', 'Flexibel: Reallohn sinkt, Beschäftigung gleich, keine Arbeitslosigkeit', 'Starr: Reallohn über dem Gleichgewicht → Arbeitslosigkeit = Lˢ − Lᵈ'] },
+    { id: 'z-markt', t: 'Angebot und Nachfrage zeichnen (Markt für Stühle) und „Holzpreis sinkt“ einzeichnen', ref: 'Ü 1-2', chk: ['Endogen: Preis und Menge · exogen: Einkommen Y und Holzpreis', 'Holzpreis sinkt → Angebot nach rechts → Preis sinkt, Menge steigt'] },
+    { id: 'z-solow', t: 'Solow-Diagramm zeichnen: Sparkurve, Abschreibungsgerade, Steady State', ref: 'Ü 3-2', vid: 'Altklausur', chk: ['Sparkurve s · √k (gekrümmt), Abschreibung δ · k (Gerade durch den Ursprung)', 'Schnittpunkt = k*; höhere Sparquote → höheres k*'] },
+    { id: 'z-kreuz', t: 'Keynesianisches Kreuz zeichnen und die Ausgabengerade verschieben', ref: 'Teil II, Ü 1', vid: 'Teil II', chk: ['45°-Linie durch (0|0) und (2000|2000)', 'Ausgabengerade durch (0|325) und (2000|1825), Schnittpunkt bei 1300', 'G + 25: Gerade um 25 nach oben, neuer Schnittpunkt bei 1400'] },
+    { id: 'z-geld', t: 'Geldmarkt zeichnen und das Geldangebot verschieben', ref: 'Teil II, Ü 2', vid: 'Teil II', chk: ['Angebot senkrecht bei 500, Nachfrage durch (1000|0) und (0|10), r = 5 %', 'M = 1200: Angebot bei 600 → r = 4 %'] },
+    { id: 'z-islm-politik', t: 'IS/LM für M ↑, G ↑ und T ↑ zeichnen, je zwei Anpassungsrunden erklären', ref: 'Teil II, Ü 3', vid: 'Teil II', chk: ['M ↑: LM nach rechts → Y ↑, r ↓, C ↑, I ↑', 'G ↑: IS nach rechts um ΔG / (1 − MPC) → Y ↑, r ↑, C ↑, I ↓ (Crowding-out)', 'T ↑: IS nach links um MPC · ΔT / (1 − MPC) → Y ↓, r ↓, C ↓, I ↑'] },
+    { id: 'z-islm-zahlen', t: 'IS und LM maßstabsgetreu für r von 0 bis 8 zeichnen', ref: 'Teil II, Ü 4 a', vid: 'Teil II', chk: ['IS durch (1700|0) und (900|8) · LM durch (500|0) und (1300|8)', 'Schnittpunkt bei r = 6, Y = 1100'] },
+    { id: 'z-adas', t: 'AD/AS zeichnen: Nachfrage geht zurück, kurze und lange Frist', ref: 'Skript II, F. 22', vid: 'Altklausur', chk: ['Kurz: von A nach B entlang der SRAS (Y sinkt, P bleibt)', 'Lang: Preise sinken, zurück auf die LRAS bei niedrigerem P'] },
+  ] },
+  { id: 'form', title: 'Formeln auswendig', note: 'Abdecken, aufschreiben, vergleichen.', items: [
+    { id: 'f-y', t: 'Y = C + I + G + NX', ref: 'Verwendung' },
+    { id: 'f-s', t: 'S = Y − C − G · S privat = Y − T − C · S öffentlich = T − G · geschlossen: S = I', ref: 'Ersparnis' },
+    { id: 'f-real', t: 'Reales BIP = Preise des Basisjahres · aktuelle Mengen · Deflator = nominal / real · 100', ref: 'Deflator' },
+    { id: 'f-vpi', t: 'VPI = Korb zu heutigen Preisen / Korb zu Basispreisen · 100 · Inflationsrate = (Index heute − Index vorher) / Index vorher', ref: 'VPI' },
+    { id: 'f-quant', t: 'M · V = P · Y, in Wachstumsraten: Geldmengenwachstum + 0 = Inflation + reales Wachstum', ref: 'Quantitätsgleichung' },
+    { id: 'f-fisher', t: 'i = r + π', ref: 'Fisher' },
+    { id: 'f-nx', t: 'NX = S − I(r*) · realer Wechselkurs ε = e · P / P*', ref: 'offene VW' },
+    { id: 'f-solow', t: 'Steady State: s · f(k*) = δ · k* · c* = (1 − s) · y*', ref: 'Solow' },
+    { id: 'f-mult', t: 'Staatsausgabenmultiplikator 1 / (1 − MPC) · Steuermultiplikator −MPC / (1 − MPC)', ref: 'Multiplikatoren' },
+    { id: 'f-islm', t: 'IS: Y = C(Y − T) + I(r) + G · LM: M / P = L(r, Y)', ref: 'IS/LM' },
+    { id: 'f-mpl', t: 'Arbeitsnachfrage: MPL = W / P · Arbeitslosenrate = Erwerbslose / Erwerbspersonen', ref: 'Arbeitsmarkt' },
+  ] },
+  { id: 'klausur', title: 'In der Klausur', note: '', items: [
+    { id: 'k-achsen', t: 'Bei jeder Zeichnung: Achsen beschriften, Kurven benennen, Schnittpunkt mit Hilfslinien' },
+    { id: 'k-probe', t: 'Rechenweg hinschreiben und eine Probe machen (z. B. C + I + G = Y oder S = I)' },
+    { id: 'k-wortlaut', t: 'Bei Definitionen zuerst den Satz aus dem Skript, dann ein Beispiel' },
+    { id: 'k-material', t: 'Lineal und zwei Farbstifte einpacken; Taschenrechner, falls erlaubt' },
+  ] },
+];
+
+const ALL = SECTIONS.flatMap(s => s.items);
+const KEY = 'makro-checkliste-v1';
+let done = {};          // {itemId: true}
+let filter = 'all';
+try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+try { filter = localStorage.getItem(KEY + '-filter') || 'all'; } catch (e) {}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+function render() {
+  const main = document.getElementById('main');
+  const open = new Set([...main.querySelectorAll('details[open]')].map(d => d.dataset.id));
+  let html = '';
+  for (const s of SECTIONS) {
+    const n = s.items.filter(i => done[i.id]).length;
+    const vis = s.items.filter(i => filter === 'all' || (filter === 'ak' && i.ak) || (filter === 'open' && !done[i.id]));
+    html += '<section class="sec" id="sec-' + s.id + '"><div class="sec-h"><h2>' + s.title + '</h2><span class="sec-n' + (n === s.items.length ? ' all' : '') + '">' + n + ' / ' + s.items.length + '</span></div>';
+    if (s.note) html += '<p class="sec-p">' + s.note + '</p>';
+    if (!vis.length) html += '<p class="empty">' + (filter === 'open' ? 'Alles abgehakt.' : 'Kein Thema aus der Altklausur in diesem Block.') + '</p>';
+    else {
+      html += '<ul class="items">';
+      for (const i of vis) {
+        html += '<li class="it' + (done[i.id] ? ' done' : '') + '"><input type="checkbox" id="cb-' + i.id + '" data-id="' + i.id + '"' + (done[i.id] ? ' checked' : '') + '><label for="cb-' + i.id + '">' + esc(i.t) + '</label>';
+        if (i.ak || i.ref || i.vid) html += '<div class="meta">' + (i.ak ? '<span class="tag ak">Altklausur ' + i.ak + '</span>' : '') + (i.ref ? '<span class="tag">' + esc(i.ref) + '</span>' : '') + (i.vid ? '<span class="tag vid">Video ' + esc(i.vid) + '</span>' : '') + '</div>';
+        if (i.chk) html += '<details data-id="' + i.id + '"' + (open.has(i.id) ? ' open' : '') + '><summary>Zur Kontrolle</summary><div class="chk">' + i.chk.map(c => '<div>' + esc(c) + '</div>').join('') + '</div></details>';
+        html += '</li>';
+      }
+      html += '</ul>';
+    }
+    html += '</section>';
+  }
+  html += '<div class="reset" id="reset"><span>' + ALL.filter(i => i.ak).length + ' der ' + ALL.length + ' Punkte kamen in der letzten Klausur dran.</span><button type="button" id="reset-btn">Alle Haken entfernen</button></div>';
+  main.innerHTML = html;
+  const n = ALL.filter(i => done[i.id]).length;
+  document.getElementById('prog-n').textContent = n + ' von ' + ALL.length;
+  document.getElementById('fill').style.width = (100 * n / ALL.length).toFixed(1) + '%';
+  const tr = document.getElementById('track'); tr.setAttribute('aria-valuemax', ALL.length); tr.setAttribute('aria-valuenow', n);
+  for (const b of document.querySelectorAll('.filters button')) b.setAttribute('aria-pressed', String(b.dataset.f === filter));
+}
+
+/* ---------- Speichern: sofort im Browser, zusätzlich im Konto (db), damit die Haken auf jedem Gerät da sind ---------- */
+let ref = null, writing = Promise.resolve(), timer = null, dirty = false;
+const sync = t => { document.getElementById('sync').textContent = t; };
+function saveLocal() { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} }
+function saveRemote() {
+  if (!ref) return;
+  dirty = true;
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    const snapshot = JSON.parse(JSON.stringify(done));
+    writing = writing.then(() => ref.set({ done: snapshot, updatedAt: Date.now() }))
+      .then(() => { dirty = false; sync('gespeichert'); })
+      .catch(() => { sync('nur auf diesem Gerät gespeichert'); });
+  }, 500);
+}
+function setDone(id, v) { if (v) done[id] = true; else delete done[id]; saveLocal(); saveRemote(); render(); }
+
+document.addEventListener('change', e => { const id = e.target && e.target.dataset && e.target.dataset.id; if (id && e.target.type === 'checkbox') setDone(id, e.target.checked); });
+document.addEventListener('click', e => {
+  const f = e.target.closest && e.target.closest('.filters button');
+  if (f) { filter = f.dataset.f; try { localStorage.setItem(KEY + '-filter', filter); } catch (er) {} render(); return; }
+  if (e.target.id === 'reset-btn') {
+    const box = document.getElementById('reset');
+    box.innerHTML = '<span>Wirklich alle ' + ALL.filter(i => done[i.id]).length + ' Haken entfernen?</span><button type="button" class="danger" id="reset-yes">Ja, entfernen</button><button type="button" id="reset-no">Abbrechen</button>';
+    return;
+  }
+  if (e.target.id === 'reset-yes') { done = {}; saveLocal(); saveRemote(); render(); return; }
+  if (e.target.id === 'reset-no') render();
+});
+
+render();
+sync('auf diesem Gerät gespeichert');
+
+(async () => {
+  if (!window.claude || !window.claude.use) return;
+  const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+  if (!db || !user) return;
+  const uid = await user.id();
+  if (!uid) return;
+  ref = db.collection('data/users/' + uid).doc('checkliste');
+  let first = true;
+  ref.onSnapshot(snap => {
+    if (snap.metadata && snap.metadata.hasPendingWrites) return;
+    const remote = snap.exists ? (snap.data() || {}).done : null;
+    if (first) {
+      first = false;
+      if (!remote) { if (Object.keys(done).length) saveRemote(); else sync('gespeichert'); return; }
+    }
+    if (remote && !dirty) { done = Object.assign({}, remote); saveLocal(); render(); sync('gespeichert'); }
+  }, () => { sync('nur auf diesem Gerät gespeichert'); });
+})();
+</script>
