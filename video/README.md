@@ -1,15 +1,25 @@
-# Erklärvideo zur Altklausur
+# Erklärvideos
 
-Quellcode des Videos `Erklaervideo_Altklausur.mp4` (im Hauptordner des Repos): 18 Szenen, 1920 × 1080, 30 Bilder/s.
+Quellcode der Erklärvideos im Hauptordner des Repos (1920 × 1080, 30 Bilder/s). Jedes Video ist ein Projekt unter `projects/`:
+
+| Projekt | Video | Inhalt |
+|---|---|---|
+| `altklausur` | `Erklaervideo_Altklausur.mp4` | alle 9 Aufgaben der Altklausur |
+| `teil1` | `Erklaervideo_Teil1_Uebung_2-2_und_2-10.mp4` | Teil I, Übung 2-2 und 2-10, Schritt für Schritt gezeichnet |
+| `teil2` | `Erklaervideo_Teil2_Uebungen_1-4_zeichnen.mp4` | Teil II, Übungen 1 bis 4, Schritt für Schritt gezeichnet |
 
 ## Aufbau
 
 | Datei | Zweck |
 |---|---|
-| `script.mjs` | Sprechertext je Szene und Stimme (ElevenLabs) |
-| `tts.mjs` | erzeugt `audio/<szene>.mp3` plus Zeitmarken je Zeichen (`audio/<szene>.json`) |
-| `timing.mjs` | baut daraus den Zeitplan `stage/timing.js` und die Tonspur `build/narration.m4a` |
-| `stage/` | die Bühne: `engine.js` (Zeitsteuerung, Helfer), `style.css`, `icons.js`, `scenes/*.js` (eine Datei je Szene) |
+| `projects/<projekt>/script.mjs` | Sprechertext je Szene, Titel und Abschnitte der Fortschrittsleiste |
+| `projects/<projekt>/audio/` | Sprachaufnahmen (`<szene>.mp3`) plus Zeitmarken je Zeichen (`<szene>.json`) |
+| `projects/<projekt>/scenes/*.js` | eine Datei je Szene |
+| `projects/<projekt>/timing.js` | Zeitplan (wird von `timing.mjs` erzeugt) |
+| `voice.mjs` | Stimme (ElevenLabs) für alle Videos |
+| `stage/` | die Bühne: `engine.js` (Zeitsteuerung, Helfer, Zeichenstift), `style.css`, `icons.js` |
+| `tts.mjs` | erzeugt die Sprachaufnahmen |
+| `timing.mjs` | baut den Zeitplan und die Tonspur `build/<projekt>/narration.m4a` |
 | `shot.mjs` | Einzelbilder und Kontaktbögen zur Kontrolle |
 | `render.mjs` | rendert alle Bilder mit headless Chromium und mischt den Ton dazu |
 
@@ -17,16 +27,16 @@ Die Animationen hängen am gesprochenen Text: `T('Textstelle')` liefert in einer
 
 ## Neu rendern
 
-Voraussetzungen: Node, Playwright mit Chromium, ffmpeg.
+Voraussetzungen: Node, Playwright mit Chromium, ffmpeg. Beispiel für das Projekt `teil2`:
 
 ```bash
-node timing.mjs
+node timing.mjs teil2
 ```
 
 ```bash
-node render.mjs
+node render.mjs -p teil2
 ```
 
-Das Ergebnis liegt in `out/`. Die Sprachaufnahmen in `audio/` sind eingecheckt; `node tts.mjs` ruft ElevenLabs nur für Szenen auf, deren Text sich geändert hat (kostet Zeichenkontingent).
+Das Ergebnis liegt in `out/`. Die Sprachaufnahmen sind eingecheckt; `node tts.mjs <projekt>` ruft ElevenLabs nur für Szenen auf, deren Text sich geändert hat (kostet Zeichenkontingent).
 
-Vorschau im Browser: `stage/index.html?play=1` (ohne Ton), mit `&t=120` ab Sekunde 120.
+Vorschau im Browser: `stage/index.html?p=teil2&play=1` (ohne Ton), mit `&t=120` ab Sekunde 120.
