@@ -87,11 +87,11 @@ V.t2u1 = {
     const e2 = P.line(lo, E2(lo), 1700, E2(1700), { cls: 'c2' });
     const lE2 = P.text(1700, E2(1700), 'E₂', { cls: 'c2', dy: -22 });
     // ΔG als Klammer zwischen den Geraden, ΔY als Pfeil an der Y-Achse
-    const xg = 1200, dG = P.g({ class: 'dG' });
+    const xg = 1160, dG = P.g({ class: 'dG' });
     P.add('line', { x1: X(xg), y1: Y(E1(xg)), x2: X(xg), y2: Y(E2(xg)), stroke: V.C.c2, 'stroke-width': 7 }, null, dG);
     P.add('line', { x1: X(xg) - 11, y1: Y(E1(xg)), x2: X(xg) + 11, y2: Y(E1(xg)), stroke: V.C.c2, 'stroke-width': 4 }, null, dG);
     P.add('line', { x1: X(xg) - 11, y1: Y(E2(xg)), x2: X(xg) + 11, y2: Y(E2(xg)), stroke: V.C.c2, 'stroke-width': 4 }, null, dG);
-    const ldG = P.add('text', { x: X(xg) - 8, y: Y(E2(xg)) - 30, class: 'lbl c2', 'text-anchor': 'end', style: 'font-size:32px' }, '+25');
+    const ldG = P.add('text', { x: X(xg) + 6, y: Y(E2(xg)) - 16, class: 'lbl c2', 'text-anchor': 'end', style: 'font-size:32px' }, '+25');
     const dY = P.add('line', { x1: X(1300) + 10, y1: Y(1135), x2: X(1400) - 12, y2: Y(1135), stroke: V.C.c3, 'stroke-width': 6, 'marker-end': 'url(#ah-c3)' });
     const ldY = P.add('text', { x: X(1350), y: Y(1135) - 14, class: 'lbl c3', 'text-anchor': 'middle', style: 'font-size:30px' }, '+100');
     // Ziel Y = 1600: Punkt auf der 45°-Linie und die dazu nötige Gerade (gestrichelt)

@@ -17,14 +17,14 @@ V.scene('u1c', ctx => {
     #sc-u1c .calc .eq{font-size:35px;font-weight:600;line-height:1.5}
     #sc-u1c .calc .lab{margin-top:6px}
     #sc-u1c .calc .hint{font-family:var(--sans);font-size:24px;font-weight:500;color:var(--mute);margin-left:14px}
-    #sc-u1c .rev{left:1046px;top:0;width:682px;height:336px;padding:16px 26px}
+    #sc-u1c .rev{left:1046px;top:0;width:682px;height:264px;padding:16px 26px}
     #sc-u1c .rev .ttl{font-size:33px;font-weight:800;line-height:1.15;margin-bottom:8px}
     #sc-u1c .rev .eq{font-size:36px;font-weight:600;line-height:1.5}
-    #sc-u1c .all{left:1046px;top:354px;width:682px;height:416px;padding:16px 24px}
-    #sc-u1c .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:11px 0;border-top:2px solid rgba(10,118,93,.25)}
+    #sc-u1c .all{left:1046px;top:284px;width:682px;height:486px;padding:18px 24px}
+    #sc-u1c .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:19px 0;border-top:2px solid rgba(10,118,93,.25)}
     #sc-u1c .row:first-of-type{border-top:none}
-    #sc-u1c .row span{font-size:27px;font-weight:600;white-space:nowrap}
-    #sc-u1c .row .eq{font-size:35px;font-weight:800;line-height:1.2}
+    #sc-u1c .row>span:first-child{font-size:27px;font-weight:600;white-space:nowrap}
+    #sc-u1c .row .eq{font-size:32px;font-weight:800;line-height:1.2}
   </style>
 
   <div class="abs sheet" id="sheet"><span class="chip ink lupe" id="lupe">Ausschnitt · Skala ab 1100</span></div>
@@ -38,7 +38,7 @@ V.scene('u1c', ctx => {
   ])}</div>
   <div class="abs card calc" id="calc">
     <span class="lab">Neue Ausgabengerade</span>
-    <div class="eq" id="c1"><span class="t-c2">E₂ = 350 + 0,75 · Y</span><span class="hint">325 + 25 · Steigung gleich</span></div>
+    <div class="eq" id="c1"><span class="t-c2">E₂ = 350 + 0,75 · Y</span><div class="hint" style="margin:-6px 0 0;line-height:1.3">Achsenabschnitt 325 + 25 · Steigung bleibt 0,75</div></div>
     <span class="lab" id="c2l">Multiplikator</span>
     <div class="eq" id="c2">${V.frac('1', '1 − MPC')} <span id="c2b">= ${V.frac('1', '0,25')}</span> <span id="c2c">= <b>4</b></span></div>
     <div class="eq" id="c3"><span class="t-c3">ΔY</span> = 4 · <span class="t-c2">25</span> <span id="c3b">= <b class="t-c3">100</b></span></div>
