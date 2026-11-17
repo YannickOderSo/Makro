@@ -9,7 +9,7 @@ V.t2u4 = {
     #sc-${id} .side{left:1046px;top:0;width:682px}
     #sc-${id} .rc{left:1046px;width:682px}
     #sc-${id} .calc{padding:12px 22px 14px}
-    #sc-${id} .calc .eq{font-size:33px;font-weight:700;line-height:1.5}
+    #sc-${id} .calc .eq{font-size:31px;font-weight:700;line-height:1.5;white-space:nowrap}
     #sc-${id} .calc .eq small{font-family:var(--sans);font-size:26px;font-weight:500;color:var(--mute)}
     #sc-${id} .wt table{width:100%;font-size:35px;box-shadow:8px 8px 0 var(--line)}
     #sc-${id} .wt th{font-size:26px;padding:8px 20px;text-align:right;letter-spacing:.02em;text-transform:none}
@@ -18,7 +18,7 @@ V.t2u4 = {
     #sc-${id} .wt td.n span{display:inline-block}
     #sc-${id} .wt .rn{font-family:var(--mono);font-weight:800}
     #sc-${id} .lupe{left:1046px;width:330px;padding:10px 0 0}
-    #sc-${id} .lupe .lab{margin:0 0 2px 14px}
+    #sc-${id} .lupe .lab{margin:0 0 2px 14px;white-space:nowrap}
     #sc-${id} .rbox{left:1390px;width:338px;padding:14px 20px 16px}
     #sc-${id} .rbox .eq{font-size:46px;font-weight:800;line-height:1.3}
     #sc-${id} .rbox p{margin:10px 0 0;font-size:27px;line-height:1.26;font-weight:500}
@@ -109,7 +109,7 @@ V.t2u4 = {
 
   // Lupe: vergrößerter Ausschnitt um die Schnittpunkte. o: {id, w, h, x:[a,b], y:[c,d]}
   lupe(host, o) {
-    const P = V.plot({ w: o.w, h: o.h, x: o.x, y: o.y, pad: { l: 76, r: 12, t: 10, b: 46 } });
+    const P = V.plot({ w: o.w, h: o.h, x: o.x, y: o.y, pad: { l: 86, r: 10, t: 10, b: 46 } });
     host.appendChild(P.el);
     const X = P.X, Y = P.Y, [a, b] = o.x, [c, d] = o.y;
     P.add('rect', { x: X(a), y: Y(d), width: X(b) - X(a), height: Y(c) - Y(d), fill: '#fff', stroke: '#15223a', 'stroke-width': 3 });

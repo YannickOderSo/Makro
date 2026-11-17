@@ -5,9 +5,9 @@ V.scene('u4b', ctx => {
 
   ctx.html(`
   <style>${U.css('u4b')}
-    #sc-u4b .calc .eq{font-size:36px}
+    #sc-u4b .calc .eq{font-size:36px;line-height:1.34}
     #sc-u4b .resb{padding:14px 24px 16px}
-    #sc-u4b .resb .eq{font-size:52px;font-weight:800;display:flex;gap:44px}
+    #sc-u4b .resb .eq{font-size:50px;line-height:1.2;font-weight:800;display:flex;gap:44px}
     #sc-u4b .rd{font-family:var(--mono);font-weight:800;font-size:30px;padding:4px 14px;white-space:nowrap}
   </style>
   <div class="abs sheet" id="sheet"></div>
