@@ -7,6 +7,7 @@ Quellcode der Erklärvideos im Hauptordner des Repos (1920 × 1080, 30 Bilder/s)
 | `altklausur` | `Erklaervideo_Altklausur.mp4` | alle 9 Aufgaben der Altklausur |
 | `teil1` | `Erklaervideo_Teil1_Uebung_2-2_und_2-10.mp4` | Teil I, Übung 2-2 und 2-10, Schritt für Schritt gezeichnet |
 | `teil2` | `Erklaervideo_Teil2_Uebungen_1-4_zeichnen.mp4` | Teil II, Übungen 1 bis 4, Schritt für Schritt gezeichnet |
+| `theorie1` | `Erklaervideo_Teil1_Theoriefragen.mp4` | Teil I, alle Theoriefragen (Übung 1-1, 1-3, 1-4, 1-7, 2-6, 2-7, 2-9, 2-13) |
 
 ## Aufbau
 
