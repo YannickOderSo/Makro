@@ -50,6 +50,9 @@
     return g;
   };
 
+  // Liste „So zeichnest du es“: V.steps(['Achsen: r nach oben, Y nach rechts', ['Kurve', 'kleiner Zusatz'], …], {title})
+  V.steps = (items, o = {}) => `<div class="todo ${o.cls || ''}"><span class="lab">${o.title ?? 'So zeichnest du es'}</span><ol>${items.map((it, i) => { const [a, b] = Array.isArray(it) ? it : [it]; return `<li><span class="n">${i + 1}</span><span>${a}${b ? `<small>${b}</small>` : ''}</span></li>`; }).join('')}</ol></div>`;
+
   /* ---------- Diagramm-Helfer (SVG, Datenkoordinaten) ---------- */
   V.plot = o => {
     const pad = Object.assign({ l: 100, r: 60, t: 40, b: 90 }, o.pad || {});
@@ -183,6 +186,39 @@
       }
       return ctx;
     };
+    // Linie/Kurve „mit dem Bleistift“ zeichnen: der Stift fährt an der Spitze der entstehenden Linie mit.
+    // Durchgezogene Linien werden gezeichnet (draw), gestrichelte (.dash) wachsen (extend). o: {ease, hold, extend}
+    ctx.pen = (target, at, dur = 1, o = {}) => {
+      for (const e of els(target)) {
+        const L = e.getTotalLength(), N = 120, pts = [];
+        for (let i = 0; i <= N; i++) { const q = e.getPointAtLength((L * i) / N); pts.push([q.x, q.y]); }
+        const pen = V.S('g', { class: 'pen' });
+        pen.innerHTML = '<g transform="rotate(35)"><path d="M0 0L-9 -22L9 -22Z" fill="#f2d7a8" stroke="#15223a" stroke-width="3" stroke-linejoin="round"/><path d="M0 0L-3.4 -8.4L3.4 -8.4Z" fill="#15223a"/><rect x="-9" y="-92" width="18" height="70" fill="#f0b429" stroke="#15223a" stroke-width="3"/><rect x="-9" y="-106" width="18" height="14" fill="#c5263f" stroke="#15223a" stroke-width="3"/></g>';
+        e.parentNode.appendChild(pen);
+        gsap.set(pen, { autoAlpha: 0 });
+        const ease = o.ease ?? 'power1.inOut';
+        if (o.extend || e.classList.contains('dash')) ctx.extend(e, at, dur, { ease }); else ctx.draw(e, at, dur, { ease });
+        const st = { p: 0 };
+        const put = () => { const f = st.p * N, i = Math.min(N - 1, Math.floor(f)), u = f - i; gsap.set(pen, { x: pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u, y: pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u }); };
+        put();
+        tl.to(pen, { autoAlpha: 1, duration: 0.15 }, Math.max(0, at - 0.15));
+        tl.to(st, { p: 1, duration: dur, ease, onUpdate: put }, at);
+        tl.to(pen, { autoAlpha: 0, duration: 0.2 }, at + dur + (o.hold ?? 0.15));
+      }
+      return ctx;
+    };
+    // Zeichenschritte (Markup aus V.steps): zum Zeitpunkt times[i] wird Schritt i aktiv, der vorige gilt als erledigt.
+    ctx.stepsRun = (root, times, o = {}) => {
+      const li = [...(typeof root === 'string' ? ctx.$(root) : root).querySelectorAll('li')];
+      gsap.set(li, { opacity: 0.3 });
+      times.forEach((t, i) => {
+        if (t == null) return;
+        tl.to(li[i], { opacity: 1, backgroundColor: V.C.c4bg, borderColor: V.C.c4, duration: 0.3 }, t);
+        if (i > 0) { tl.to(li[i - 1], { backgroundColor: 'rgba(246,236,217,0)', borderColor: 'rgba(184,110,0,0)', duration: 0.3 }, t); tl.to(li[i - 1].querySelector('.n'), { backgroundColor: V.C.c3, duration: 0.3 }, t); }
+      });
+      if (o.end != null) { const k = times.length - 1; tl.to(li[k], { backgroundColor: 'rgba(246,236,217,0)', borderColor: 'rgba(184,110,0,0)', duration: 0.3 }, o.end); tl.to(li[k].querySelector('.n'), { backgroundColor: V.C.c3, duration: 0.3 }, o.end); }
+      return ctx;
+    };
     // Element entlang eines SVG-Pfads bewegen (x/y = Pfadkoordinaten). o: {from, to, ease, repeat, dx, dy}
     ctx.along = (target, path, at, dur, o = {}) => {
       const L = path.getTotalLength(), st = { p: o.from ?? 0 }, e = els(target);
@@ -261,12 +297,13 @@
 
   /* ---------- Fortschrittsleiste unten ---------- */
   function buildChrome(stage) {
+    // Abschnitte der Fortschrittsleiste: TIMING.sections = Beschriftungen, Szenenfeld sec = Abschnittsnummer (0 = keiner)
     const tasks = [];
-    for (let k = 1; k <= 9; k++) {
-      const ss = TIMING.scenes.filter(s => s.task === k);
-      tasks.push({ k, from: ss[0].start, to: ss[ss.length - 1].start + ss[ss.length - 1].dur });
-    }
-    chrome = V.el(`<footer class="chrome"><span class="brand">MAKRO · ALTKLAUSUR</span><div class="segs">${tasks.map(t => `<div class="seg" style="flex:${(t.to - t.from).toFixed(2)}"><i></i><b>${t.k}</b></div>`).join('')}</div><span class="clock"></span></footer>`);
+    (TIMING.sections || []).forEach((label, i) => {
+      const ss = TIMING.scenes.filter(s => s.sec === i + 1);
+      if (ss.length) tasks.push({ k: label, from: ss[0].start, to: ss[ss.length - 1].start + ss[ss.length - 1].dur });
+    });
+    chrome = V.el(`<footer class="chrome"><span class="brand">${TIMING.brand || 'MAKRO'}</span><div class="segs">${tasks.map(t => `<div class="seg" style="flex:${(t.to - t.from).toFixed(2)}"><i></i><b>${t.k}</b></div>`).join('')}</div><span class="clock"></span></footer>`);
     stage.appendChild(chrome);
     chrome._tasks = tasks;
     chrome._fills = [...chrome.querySelectorAll('.seg i')];

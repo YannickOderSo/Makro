@@ -1,7 +1,7 @@
 // Rendert das Video Bild für Bild (headless Chromium) und mischt die Tonspur dazu.
-//   node render.mjs                         -> out/Makro_Altklausur_Erklaervideo.mp4
-//   node render.mjs --from 60 --to 75       -> Ausschnitt (Sekunden), z. B. zur Vorschau
-//   node render.mjs --workers 4 --crf 20
+//   node render.mjs -p altklausur                     -> out/<Dateiname aus META.out>
+//   node render.mjs -p altklausur --from 60 --to 75   -> Ausschnitt (Sekunden), z. B. zur Vorschau
+//   node render.mjs -p altklausur --workers 4 --crf 20
 import { createRequire } from 'node:module';
 import { spawn, execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -11,16 +11,17 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i < 0 ? d : process.argv[i + 1]; };
-const sb = {}; vm.runInNewContext(fs.readFileSync('stage/timing.js', 'utf8').replace('window.TIMING', 'TIMING'), sb);
+const P = arg('-p', 'altklausur'), CH = `build/${P}/chunks`;
+const sb = {}; vm.runInNewContext(fs.readFileSync(`projects/${P}/timing.js`, 'utf8').replace('window.TIMING', 'TIMING'), sb);
 const { fps, total } = sb.TIMING;
 const from = parseFloat(arg('--from', '0')), to = Math.min(total, parseFloat(arg('--to', String(total))));
 const workers = parseInt(arg('--workers', '4')), crf = arg('--crf', '22');
-const out = arg('--out', from === 0 && to === total ? 'out/Makro_Altklausur_Erklaervideo.mp4' : `out/ausschnitt_${from}-${to}.mp4`);
+const out = arg('--out', from === 0 && to === total ? `out/${sb.TIMING.out}` : `out/${P}_ausschnitt_${from}-${to}.mp4`);
 const f0 = Math.round(from * fps), f1 = Math.round(to * fps), n = f1 - f0;
-fs.mkdirSync('out', { recursive: true }); fs.mkdirSync('build/chunks', { recursive: true });
-for (const f of fs.readdirSync('build/chunks')) fs.rmSync('build/chunks/' + f);
+fs.mkdirSync('out', { recursive: true }); fs.mkdirSync(CH, { recursive: true });
+for (const f of fs.readdirSync(CH)) fs.rmSync(`${CH}/${f}`);
 
-const url = 'file://' + path.resolve('stage/index.html');
+const url = 'file://' + path.resolve('stage/index.html') + '?p=' + P;
 const browser = await chromium.launch({ args: ['--disable-gpu', '--force-color-profile=srgb'] });
 let done = 0; const t0 = Date.now();
 const tick = setInterval(() => {
@@ -35,7 +36,7 @@ async function work(k) {
   await page.goto(url);
   await page.waitForFunction('document.documentElement.classList.contains("ready") || window.BOOT_ERROR', null, { timeout: 60000 });
   const err = await page.evaluate('window.BOOT_ERROR || null'); if (err) throw new Error(err);
-  const chunk = `build/chunks/c${String(k).padStart(2, '0')}.mp4`;
+  const chunk = `${CH}/c${String(k).padStart(2, '0')}.mp4`;
   const ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-c:v', 'mjpeg', '-framerate', String(fps), '-i', '-',
     '-vf', 'scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p', '-c:v', 'libx264', '-preset', 'medium', '-crf', crf,
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-g', String(fps * 10), '-r', String(fps), chunk], { stdio: ['pipe', 'inherit', 'inherit'] });
@@ -58,9 +59,9 @@ const chunks = await Promise.all([...Array(workers)].map((_, k) => work(k)));
 clearInterval(tick); await browser.close();
 console.log(`\n${n} Bilder in ${((Date.now() - t0) / 1000).toFixed(0)} s`);
 
-fs.writeFileSync('build/chunks/list.txt', chunks.map(c => `file '${path.resolve(c)}'`).join('\n'));
-execFileSync('ffmpeg', ['-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', 'build/chunks/list.txt',
-  '-ss', String(from), '-t', String(to - from), '-i', 'build/narration.m4a',
+fs.writeFileSync(`${CH}/list.txt`, chunks.map(c => `file '${path.resolve(c)}'`).join('\n'));
+execFileSync('ffmpeg', ['-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', `${CH}/list.txt`,
+  '-ss', String(from), '-t', String(to - from), '-i', `build/${P}/narration.m4a`,
   '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'copy', '-shortest', '-movflags', '+faststart',
-  '-metadata', 'title=Makroökonomie – Altklausur: alle 9 Aufgaben erklärt', '-metadata', 'language=deu', out], { stdio: 'inherit' });
+  '-metadata', `title=${sb.TIMING.title}`, '-metadata', 'language=deu', out], { stdio: 'inherit' });
 console.log('fertig:', out, (fs.statSync(out).size / 1e6).toFixed(1) + ' MB');

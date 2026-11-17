@@ -2,13 +2,15 @@
 // Formeln sind bewusst ausgeschrieben, damit die Stimme sie sauber spricht.
 // Die Animationen hängen sich über Textstellen an die Zeitmarken (siehe stage/engine.js: T()).
 
-export const VOICE = {
-  voice_id: 'rKiu7lQ4c5P3az3745s3', // Carla Blum – Confident and Informative (de)
-  model_id: 'eleven_multilingual_v2',
-  voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.0, use_speaker_boost: true, speed: 1.05 },
-};
+export { VOICE } from '../../voice.mjs';
+import { p } from '../../voice.mjs';
 
-const p = (...paras) => paras.map(s => s.trim().replace(/\s+/g, ' ')).join('\n\n');
+export const META = {
+  title: 'Makroökonomie – Altklausur: alle 9 Aufgaben erklärt',
+  brand: 'MAKRO · ALTKLAUSUR',
+  out: 'Makro_Altklausur_Erklaervideo.mp4',
+  sections: ['1', '2', '3', '4', '5', '6', '7', '8', '9'], // Abschnitte der Fortschrittsleiste; Szenenfeld: task
+};
 
 export const SCENES = [
   {

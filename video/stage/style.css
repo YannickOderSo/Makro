@@ -67,6 +67,20 @@ sub,sup{font-size:.62em;line-height:0}
 .tbl{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--line)}
 .swap{display:inline-grid}.swap>*{grid-area:1/1}
 
+/* Zeichenschritte */
+.todo{background:var(--panel);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--line);padding:16px 18px 18px}
+.todo .lab{color:var(--c4);margin:0 0 8px 8px}
+.todo ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.todo li{display:flex;gap:14px;align-items:flex-start;font-size:29px;line-height:1.22;font-weight:600;padding:8px 10px;border:3px solid rgba(184,110,0,0);background:rgba(246,236,217,0)}
+.todo li .n{flex:none;width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--bg);font:800 24px/1 var(--mono);display:flex;align-items:center;justify-content:center;margin-top:-3px}
+.todo li small{display:block;font-size:24px;font-weight:500;color:var(--mute);margin-top:2px}
+.todo.sm li{font-size:26px;padding:6px 8px}.todo.sm li small{font-size:22px}
+
+/* Zeichenblatt (kariert) für die Schritt-für-Schritt-Zeichnungen */
+.sheet{background-color:#fff;border:3px solid var(--ink);box-shadow:8px 8px 0 var(--line);
+  background-image:linear-gradient(#e3ecf3 1.5px,transparent 1.5px),linear-gradient(90deg,#e3ecf3 1.5px,transparent 1.5px);background-size:40px 40px;background-position:-1px -1px}
+.plot.big .lbl{font-size:36px} .plot.big .axl{font-size:40px} .plot.big .tickl{font-size:30px}
+
 /* ---------- SVG ---------- */
 svg{overflow:visible;display:block}
 svg text{font-family:var(--mono);fill:var(--ink)}
